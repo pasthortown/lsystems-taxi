@@ -1,22 +1,22 @@
 Plataforma WEB
-- Monitoreo de las unidades conectadas
-- Administración de clientes
-- Administración de conductores
+(No listo) - Monitoreo de las unidades conectadas
+(No listo) - Administración de clientes
+(No listo) - Administración de conductores
 (listo) - Administración de unidades
-- Viajes realizados por unidad
-- Viajes realizados por cliente
-- Viajes realizados por conductor
-- Estadisticas
+(No listo) - Viajes realizados por unidad
+(No listo) - Viajes realizados por cliente
+(No listo) - Viajes realizados por conductor
+(No listo) - Estadisticas
 
 App Conductor
-- Visualizacion de viajes realizados
-- Recepcion de solicitud de servicio
-- Aceptación de solicitud de servicio
-- Visualizacion en mapa de la ruta a seguir hacia el punto de encuentro y hacia el destino con tiempos
+(No listo) - Visualizacion de viajes realizados
+(No listo) - Recepcion de solicitud de servicio
+(No listo) - Aceptación de solicitud de servicio
+(No listo) - Visualizacion en mapa de la ruta a seguir hacia el punto de encuentro y hacia el destino con tiempos
 
 App Usuario
-- Visualizacion de viajes realizados
-- Emisión de solicitud de servicio
-- Recepcion de la confirmacion de aceptacion de servicio
-- Calificacion de servicio recibido
-- Visualizacion en mapa de la unidad hacia el punto de encuentro y la ruta hacia el destino con tiempos
+(No listo) - Visualizacion de viajes realizados
+(No listo) - Emisión de solicitud de servicio
+(No listo) - Recepcion de la confirmacion de aceptacion de servicio
+(No listo) - Calificacion de servicio recibido
+(No listo) - Visualizacion en mapa de la unidad hacia el punto de encuentro y la ruta hacia el destino con tiempos
