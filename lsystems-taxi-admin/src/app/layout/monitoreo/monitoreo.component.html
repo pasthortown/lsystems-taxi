@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="form-group row">
+        <div class="col-12">
+            <h2 class="text-right">Monitoreo de Unidades</h2>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-8">
+            <div class="form-group row">
+                <div #gmap class="col-12" style="height:500px;"></div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="col-12">
+                <div class="form-inline">
+                    <div class="input-group-append">
+                        <button *ngIf="minutosRefrescar == 0 || minutosRefrescar == null" type="button" class="btn btn-outline-primary" (click)="actualizarMonitoreo()"><span class="fa fa-refresh"></span></button>
+                        <button *ngIf="(!monitoreando && minutosRefrescar > 0)" type="button" class="btn btn-outline-success" (click)="iniciarMonitoreo()"><span class="fa fa-play"></span></button>
+                        <button *ngIf="(monitoreando && minutosRefrescar > 0)" type="button" class="btn btn-outline-danger" (click)="detenerMonitoreo()"><span class="fa fa-stop"></span></button>
+                    </div>
+                    <input [disabled]="monitoreando" class="form-control" type="number" step="30" min="0" placeholder="Segundos" [(ngModel)]="minutosRefrescar">
+                </div>
+                <div style="width:100%; float:left; height: 10px;"></div>
+            </div>
+            <div class="col-12" style = "overflow-y:scroll; overflow-x:hidden; height: 450px;">
+                <table class="col-12 table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>
+                                <span>
+                                    <strong></strong>
+                                </span>
+                            </th>
+                            <th>
+                                <span>
+                                    <strong>No.</strong>
+                                </span>
+                            </th>
+                            <th>
+                                <span>
+                                    <strong>Placa</strong>
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let actual of unidades" (click)="onSelectUnidad(actual)">
+                            <td>
+                                <i class="fa fa-map-o" [hidden]="!estaSeleccionadaUnidad(actual)"></i>
+                            </td>
+                            <td>
+                                {{actual.numero}}
+                            </td>
+                            <td>
+                                {{actual.placa}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
