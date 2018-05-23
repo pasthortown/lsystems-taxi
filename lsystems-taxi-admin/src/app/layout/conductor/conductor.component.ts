@@ -1,3 +1,5 @@
+import { CuentaService } from './../CRUD/cuenta/cuenta.service';
+import { Cuenta } from './../../../../../lsystems-taxi-driver/src/app/entidades/CRUD/Cuenta';
 import { EstadoCuenta } from './../../../../../lsystems-taxi-driver/src/app/entidades/CRUD/EstadoCuenta';
 import { Genero } from './../../../../../lsystems-taxi-driver/src/app/entidades/CRUD/Genero';
 import { GeneroService } from './../CRUD/genero/genero.service';
@@ -31,8 +33,9 @@ export class ConductorComponent implements OnInit {
    esVisibleVentanaEdicion: boolean;
    generos: Genero[];
    estadosCuenta: EstadoCuenta[];
+   cuentaSeleccionada: Cuenta;
 
-   constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private dataService: PersonaService, private modalService: NgbModal, private generoService: GeneroService, private estadoCuentaService: EstadoCuentaService) {
+   constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private dataService: PersonaService, private modalService: NgbModal, private generoService: GeneroService, private estadoCuentaService: EstadoCuentaService, private cuentaService: CuentaService) {
       this.toastr.setRootViewContainerRef(vcr);
    }
 
@@ -125,6 +128,9 @@ export class ConductorComponent implements OnInit {
       const nuevoConductor = new Persona();
       nuevoConductor.id = 0;
       nuevoConductor.idGenero = 0;
+      this.cuentaSeleccionada = new Cuenta();
+      this.cuentaSeleccionada.id = 0;
+      this.cuentaSeleccionada.idRol = 3;
       return nuevoConductor;
    }
 
@@ -211,5 +217,17 @@ export class ConductorComponent implements OnInit {
 
    onSelect(entidadActual: Persona): void {
       this.entidadSeleccionada = entidadActual;
+      this.getCuentaAsociada();
+   }
+
+   getCuentaAsociada() {
+       this.busy = this.cuentaService
+      .getFiltrado('idPersona', 'coincide', this.entidadSeleccionada.id.toString())
+      .then(respuesta => {
+         this.cuentaSeleccionada = respuesta[0];
+      })
+      .catch(error => {
+
+      });
    }
 }

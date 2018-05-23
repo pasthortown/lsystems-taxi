@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ConductorRoutingModule } from './conductor-routing.module';
 import { ConductorComponent } from './conductor.component';
 import { PersonaService } from '../CRUD/persona/persona.service';
+import { CuentaService } from '../CRUD/cuenta/cuenta.service';
 
 @NgModule({
    imports: [
@@ -14,7 +15,7 @@ import { PersonaService } from '../CRUD/persona/persona.service';
       FormsModule,
       ConductorRoutingModule
    ],
-   providers: [PersonaService, GeneroService, EstadoCuentaService],
+   providers: [PersonaService, GeneroService, EstadoCuentaService, CuentaService],
    declarations: [ConductorComponent],
 })
 export class ConductorModule { }

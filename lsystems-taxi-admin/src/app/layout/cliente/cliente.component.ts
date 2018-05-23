@@ -1,3 +1,5 @@
+import { CuentaService } from './../CRUD/cuenta/cuenta.service';
+import { Cuenta } from './../../../../../lsystems-taxi-driver/src/app/entidades/CRUD/Cuenta';
 import { EstadoCuentaService } from './../CRUD/estadocuenta/estadocuenta.service';
 import { EstadoCuenta } from './../../../../../lsystems-taxi-driver/src/app/entidades/CRUD/EstadoCuenta';
 import { GeneroService } from './../CRUD/genero/genero.service';
@@ -23,6 +25,7 @@ export class ClienteComponent implements OnInit {
    busy: Promise<any>;
    entidades: Persona[];
    entidadSeleccionada: Persona;
+   cuentaSeleccionada: Cuenta;
    pagina: 1;
    tamanoPagina: 20;
    paginaActual: number;
@@ -32,7 +35,7 @@ export class ClienteComponent implements OnInit {
    generos: Genero[];
    estadosCuenta: EstadoCuenta[];
 
-   constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private dataService: PersonaService, private modalService: NgbModal, private generoService: GeneroService, private estadoCuentaService: EstadoCuentaService) {
+   constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private dataService: PersonaService, private modalService: NgbModal, private generoService: GeneroService, private estadoCuentaService: EstadoCuentaService, private cuentaService: CuentaService) {
       this.toastr.setRootViewContainerRef(vcr);
    }
 
@@ -125,6 +128,9 @@ export class ClienteComponent implements OnInit {
       const nuevoCliente = new Persona();
       nuevoCliente.id = 0;
       nuevoCliente.idGenero = 0;
+      this.cuentaSeleccionada = new Cuenta();
+      this.cuentaSeleccionada.id = 0;
+      this.cuentaSeleccionada.idRol = 4;
       return nuevoCliente;
    }
 
@@ -211,5 +217,17 @@ export class ClienteComponent implements OnInit {
 
    onSelect(entidadActual: Persona): void {
       this.entidadSeleccionada = entidadActual;
+      this.getCuentaAsociada();
+   }
+
+   getCuentaAsociada() {
+       this.busy = this.cuentaService
+      .getFiltrado('idPersona', 'coincide', this.entidadSeleccionada.id.toString())
+      .then(respuesta => {
+         this.cuentaSeleccionada = respuesta[0];
+      })
+      .catch(error => {
+
+      });
    }
 }

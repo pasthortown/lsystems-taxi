@@ -1,3 +1,4 @@
+import { CuentaService } from './../CRUD/cuenta/cuenta.service';
 import { GeneroService } from './../CRUD/genero/genero.service';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +15,7 @@ import { EstadoCuentaService } from '../CRUD/estadocuenta/estadocuenta.service';
       FormsModule,
       AdministradorRoutingModule
    ],
-   providers: [PersonaService, GeneroService, EstadoCuentaService],
+   providers: [PersonaService, GeneroService, EstadoCuentaService, CuentaService],
    declarations: [AdministradorComponent],
 })
 export class AdministradorModule { }

@@ -7,6 +7,7 @@ import { ClienteRoutingModule } from './cliente-routing.module';
 import { ClienteComponent } from './cliente.component';
 import { PersonaService } from '../CRUD/persona/persona.service';
 import { EstadoCuentaService } from '../CRUD/estadocuenta/estadocuenta.service';
+import { CuentaService } from '../CRUD/cuenta/cuenta.service';
 
 @NgModule({
    imports: [
@@ -14,7 +15,7 @@ import { EstadoCuentaService } from '../CRUD/estadocuenta/estadocuenta.service';
       FormsModule,
       ClienteRoutingModule
    ],
-   providers: [PersonaService, GeneroService, EstadoCuentaService],
+   providers: [PersonaService, GeneroService, EstadoCuentaService, CuentaService],
    declarations: [ClienteComponent],
 })
 export class ClienteModule { }
