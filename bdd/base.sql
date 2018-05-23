@@ -77,12 +77,19 @@ CREATE TABLE Cuenta (
     idPersona INT NULL,
     idRol INT NULL,
     clave BLOB NULL,
+    idEstadoCuenta INT NULL,
     PRIMARY KEY (id)
 );
 
 ALTER TABLE Cuenta ADD CONSTRAINT unicidadCuenta UNIQUE (idPersona, idRol);
 
 CREATE TABLE Rol (
+    id INT NOT NULL AUTO_INCREMENT,
+    descripcion VARCHAR(50) NULL UNIQUE,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE EstadoCuenta (
     id INT NOT NULL AUTO_INCREMENT,
     descripcion VARCHAR(50) NULL UNIQUE,
     PRIMARY KEY (id)

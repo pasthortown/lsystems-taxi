@@ -1,13 +1,13 @@
 <?php
 include_once('../controladores/Controlador_Base.php');
-include_once('../entidades/CRUD/Cuenta.php');
-class Controlador_cuenta extends Controlador_Base
+include_once('../entidades/CRUD/EstadoCuenta.php');
+class Controlador_estadocuenta extends Controlador_Base
 {
    function crear($args)
    {
-      $cuenta = new Cuenta($args["id"],$args["idPersona"],$args["idRol"],$args["clave"],$args["idEstadoCuenta"]);
-      $sql = "INSERT INTO Cuenta (idPersona,idRol,clave,idEstadoCuenta) VALUES (?,?,?,?);";
-      $parametros = array($cuenta->idPersona,$cuenta->idRol,$cuenta->clave,$cuenta->idEstadoCuenta);
+      $estadocuenta = new EstadoCuenta($args["id"],$args["descripcion"]);
+      $sql = "INSERT INTO EstadoCuenta (descripcion) VALUES (?);";
+      $parametros = array($estadocuenta->descripcion);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;
@@ -18,9 +18,9 @@ class Controlador_cuenta extends Controlador_Base
 
    function actualizar($args)
    {
-      $cuenta = new Cuenta($args["id"],$args["idPersona"],$args["idRol"],$args["clave"],$args["idEstadoCuenta"]);
-      $parametros = array($cuenta->idPersona,$cuenta->idRol,$cuenta->clave,$cuenta->idEstadoCuenta,$cuenta->id);
-      $sql = "UPDATE Cuenta SET idPersona = ?,idRol = ?,clave = ?,idEstadoCuenta = ? WHERE id = ?;";
+      $estadocuenta = new EstadoCuenta($args["id"],$args["descripcion"]);
+      $parametros = array($estadocuenta->descripcion,$estadocuenta->id);
+      $sql = "UPDATE EstadoCuenta SET descripcion = ? WHERE id = ?;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;
@@ -33,7 +33,7 @@ class Controlador_cuenta extends Controlador_Base
    {
       $id = $args["id"];
       $parametros = array($id);
-      $sql = "DELETE FROM Cuenta WHERE id = ?;";
+      $sql = "DELETE FROM EstadoCuenta WHERE id = ?;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;
@@ -46,10 +46,10 @@ class Controlador_cuenta extends Controlador_Base
    {
       $id = $args["id"];
       if ($id==""){
-         $sql = "SELECT * FROM Cuenta;";
+         $sql = "SELECT * FROM EstadoCuenta;";
       }else{
       $parametros = array($id);
-         $sql = "SELECT * FROM Cuenta WHERE id = ?;";
+         $sql = "SELECT * FROM EstadoCuenta WHERE id = ?;";
       }
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
@@ -60,7 +60,7 @@ class Controlador_cuenta extends Controlador_Base
       $pagina = $args["pagina"];
       $registrosPorPagina = $args["registros_por_pagina"];
       $desde = (($pagina-1)*$registrosPorPagina);
-      $sql ="SELECT * FROM Cuenta LIMIT $desde,$registrosPorPagina;";
+      $sql ="SELECT * FROM EstadoCuenta LIMIT $desde,$registrosPorPagina;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
@@ -68,7 +68,7 @@ class Controlador_cuenta extends Controlador_Base
    function numero_paginas($args)
    {
       $registrosPorPagina = $args["registros_por_pagina"];
-      $sql ="SELECT IF(ceil(count(*)/$registrosPorPagina)>0,ceil(count(*)/$registrosPorPagina),1) as 'paginas' FROM Cuenta;";
+      $sql ="SELECT IF(ceil(count(*)/$registrosPorPagina)>0,ceil(count(*)/$registrosPorPagina),1) as 'paginas' FROM EstadoCuenta;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta[0];
    }
@@ -81,16 +81,16 @@ class Controlador_cuenta extends Controlador_Base
       switch ($tipoFiltro){
          case "coincide":
             $parametros = array($filtro);
-            $sql = "SELECT * FROM Cuenta WHERE $nombreColumna = ?;";
+            $sql = "SELECT * FROM EstadoCuenta WHERE $nombreColumna = ?;";
             break;
          case "inicia":
-            $sql = "SELECT * FROM Cuenta WHERE $nombreColumna LIKE '$filtro%';";
+            $sql = "SELECT * FROM EstadoCuenta WHERE $nombreColumna LIKE '$filtro%';";
             break;
          case "termina":
-            $sql = "SELECT * FROM Cuenta WHERE $nombreColumna LIKE '%$filtro';";
+            $sql = "SELECT * FROM EstadoCuenta WHERE $nombreColumna LIKE '%$filtro';";
             break;
          default:
-            $sql = "SELECT * FROM Cuenta WHERE $nombreColumna LIKE '%$filtro%';";
+            $sql = "SELECT * FROM EstadoCuenta WHERE $nombreColumna LIKE '%$filtro%';";
             break;
       }
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);

@@ -3,4 +3,5 @@ export class Cuenta {
    idPersona: number;
    idRol: number;
    clave: Blob;
+   idEstadoCuenta: number;
 }

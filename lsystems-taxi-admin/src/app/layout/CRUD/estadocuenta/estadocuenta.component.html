@@ -1,7 +1,7 @@
 <div class="container">
    <div class="row">
       <div class="col-md-12 text-right">
-         <h2 style="margin-top:0px">Catálogo de Cuenta</h2>
+         <h2 style="margin-top:0px">Catálogo de EstadoCuenta</h2>
       </div>
    </div>
    <div class="row">
@@ -38,22 +38,7 @@
                   </th>
                   <th scope="col">
                      <span>
-                        <strong>idPersona</strong>
-                     </span>
-                  </th>
-                  <th scope="col">
-                     <span>
-                        <strong>idRol</strong>
-                     </span>
-                  </th>
-                  <th scope="col">
-                     <span>
-                        <strong>clave</strong>
-                     </span>
-                  </th>
-                  <th scope="col">
-                     <span>
-                        <strong>idEstadoCuenta</strong>
+                        <strong>descripcion</strong>
                      </span>
                   </th>
                </tr>
@@ -64,10 +49,7 @@
                      <i class="fa fa-hand-o-right" [hidden]="!estaSeleccionado(actual)"></i>
                   </td>
                   <td>{{actual.id}}</td>
-                  <td>{{actual.idPersona}}</td>
-                  <td>{{actual.idRol}}</td>
-                  <td>{{actual.clave}}</td>
-                  <td>{{actual.idEstadoCuenta}}</td>
+                  <td>{{actual.descripcion}}</td>
                </tr>
             </tbody>
          </table>
@@ -115,27 +97,9 @@
             </div>
          </div>
          <div class="form-group row">
-            <label for="idPersona" class="col-sm-4 col-form-label">idPersona</label>
+            <label for="descripcion" class="col-sm-4 col-form-label">descripcion</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="idPersona" name="idPersona" placeholder="idPersona" [(ngModel)]="entidadSeleccionada.idPersona">
-            </div>
-         </div>
-         <div class="form-group row">
-            <label for="idRol" class="col-sm-4 col-form-label">idRol</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" id="idRol" name="idRol" placeholder="idRol" [(ngModel)]="entidadSeleccionada.idRol">
-            </div>
-         </div>
-         <div class="form-group row">
-            <label for="clave" class="col-sm-4 col-form-label">clave</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" id="clave" name="clave" placeholder="clave" [(ngModel)]="entidadSeleccionada.clave">
-            </div>
-         </div>
-         <div class="form-group row">
-            <label for="idEstadoCuenta" class="col-sm-4 col-form-label">idEstadoCuenta</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" id="idEstadoCuenta" name="idEstadoCuenta" placeholder="idEstadoCuenta" [(ngModel)]="entidadSeleccionada.idEstadoCuenta">
+              <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="descripcion" [(ngModel)]="entidadSeleccionada.descripcion">
             </div>
          </div>
          </form>
