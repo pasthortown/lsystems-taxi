@@ -22,7 +22,7 @@ class Controlador_login extends Controlador_Base
        return false;
    }
 
-   function passwordRecovery($args)
+   function passwordChange($args)
    {
         $email = $args["email"];
         $accion = $args["accion"];
