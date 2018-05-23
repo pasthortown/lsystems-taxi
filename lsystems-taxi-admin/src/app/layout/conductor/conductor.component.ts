@@ -1,3 +1,7 @@
+import { EstadoCuenta } from './../../../../../lsystems-taxi-driver/src/app/entidades/CRUD/EstadoCuenta';
+import { Genero } from './../../../../../lsystems-taxi-driver/src/app/entidades/CRUD/Genero';
+import { GeneroService } from './../CRUD/genero/genero.service';
+import { EstadoCuentaService } from './../CRUD/estadocuenta/estadocuenta.service';
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Persona } from '../../entidades/CRUD/Persona';
@@ -25,8 +29,10 @@ export class ConductorComponent implements OnInit {
    paginaUltima: number;
    registrosPorPagina: number;
    esVisibleVentanaEdicion: boolean;
+   generos: Genero[];
+   estadosCuenta: EstadoCuenta[];
 
-   constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private dataService: PersonaService, private modalService: NgbModal) {
+   constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private dataService: PersonaService, private modalService: NgbModal, private generoService: GeneroService, private estadoCuentaService: EstadoCuentaService) {
       this.toastr.setRootViewContainerRef(vcr);
    }
 
@@ -129,6 +135,7 @@ export class ConductorComponent implements OnInit {
    crearEntidad(): Persona {
       const nuevoConductor = new Persona();
       nuevoConductor.id = 0;
+      nuevoConductor.idGenero = 0;
       return nuevoConductor;
    }
 
@@ -182,6 +189,30 @@ export class ConductorComponent implements OnInit {
       this.getPagina(this.paginaActual,this.registrosPorPagina);
       this.entidades = Persona[0];
       this.entidadSeleccionada = this.crearEntidad();
+      this.getGeneros();
+      this.getEstadosCuenta();
+   }
+
+   getGeneros(): void {
+      this.busy = this.generoService
+      .getAll()
+      .then(entidadesRecuperadas => {
+         this.generos = entidadesRecuperadas;
+      })
+      .catch(error => {
+
+      });
+   }
+
+   getEstadosCuenta(): void {
+      this.busy = this.estadoCuentaService
+      .getAll()
+      .then(entidadesRecuperadas => {
+         this.estadosCuenta = entidadesRecuperadas;
+      })
+      .catch(error => {
+
+      });
    }
 
    getPaginaPrimera():void {

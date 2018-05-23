@@ -1,7 +1,7 @@
 <div class="container">
    <div class="row">
       <div class="col-md-12 text-right">
-         <h2 style="margin-top:0px">Catálogo de Cliente</h2>
+         <h2 style="margin-top:0px">Administración de Clientes</h2>
       </div>
    </div>
    <div class="row">
@@ -33,47 +33,37 @@
                   </th>
                   <th scope="col">
                      <span>
-                        <strong>Identificador</strong>
+                        <strong>Identificación</strong>
                      </span>
                   </th>
                   <th scope="col">
                      <span>
-                        <strong>identificacion</strong>
+                        <strong>Nombres</strong>
                      </span>
                   </th>
                   <th scope="col">
                      <span>
-                        <strong>nombres</strong>
+                        <strong>Apellidos</strong>
                      </span>
                   </th>
                   <th scope="col">
                      <span>
-                        <strong>apellidos</strong>
+                        <strong>Teléfono Principal</strong>
                      </span>
                   </th>
                   <th scope="col">
                      <span>
-                        <strong>idGenero</strong>
+                        <strong>Teléfono Secundario</strong>
                      </span>
                   </th>
                   <th scope="col">
                      <span>
-                        <strong>direccion</strong>
+                        <strong>Correo Electrónico</strong>
                      </span>
                   </th>
                   <th scope="col">
                      <span>
-                        <strong>telefono1</strong>
-                     </span>
-                  </th>
-                  <th scope="col">
-                     <span>
-                        <strong>telefono2</strong>
-                     </span>
-                  </th>
-                  <th scope="col">
-                     <span>
-                        <strong>correoElectronico</strong>
+                        <strong>Estado</strong>
                      </span>
                   </th>
                </tr>
@@ -83,15 +73,13 @@
                   <td>
                      <i class="fa fa-hand-o-right" [hidden]="!estaSeleccionado(actual)"></i>
                   </td>
-                  <td>{{actual.id}}</td>
                   <td>{{actual.identificacion}}</td>
                   <td>{{actual.nombres}}</td>
                   <td>{{actual.apellidos}}</td>
-                  <td>{{actual.idGenero}}</td>
-                  <td>{{actual.direccion}}</td>
                   <td>{{actual.telefono1}}</td>
                   <td>{{actual.telefono2}}</td>
                   <td>{{actual.correoElectronico}}</td>
+                  <td><span class="fa fa-ban fa-2x"></span><span class="fa fa-check fa-2x"></span><span class="	fa fa-ellipsis-h fa-2x"></span></td>
                </tr>
             </tbody>
          </table>
@@ -120,7 +108,7 @@
       <div class="modal-header">
          <h4 class="modal-title">
             <span *ngIf="entidadSeleccionada.id != 0">
-               Edición de Datos: {{entidadSeleccionada.descripcion | uppercase}}
+               Edición de Datos: {{entidadSeleccionada.identificacion | uppercase}}
             </span>
             <span *ngIf="entidadSeleccionada.id === 0">
                Ingreso de Datos:
@@ -133,57 +121,69 @@
       <div class="modal-body">
          <form>
          <div class="form-group row">
-            <label for="id" class="col-sm-4 col-form-label">Identificador</label>
+            <label for="id" class="col-sm-4 col-form-label">No.</label>
             <div class="col-sm-8">
               <input type="text" readonly class="form-control" id="id" name="id" [(ngModel)]="entidadSeleccionada.id">
             </div>
          </div>
          <div class="form-group row">
-            <label for="identificacion" class="col-sm-4 col-form-label">identificacion</label>
+            <label for="identificacion" class="col-sm-4 col-form-label">Identificación</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="identificacion" name="identificacion" placeholder="identificacion" [(ngModel)]="entidadSeleccionada.identificacion">
+              <input type="text" class="form-control" id="identificacion" name="identificacion" placeholder="Identificación" [(ngModel)]="entidadSeleccionada.identificacion">
             </div>
          </div>
          <div class="form-group row">
-            <label for="nombres" class="col-sm-4 col-form-label">nombres</label>
+            <label for="nombres" class="col-sm-4 col-form-label">Nombres</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="nombres" name="nombres" placeholder="nombres" [(ngModel)]="entidadSeleccionada.nombres">
+              <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombres" [(ngModel)]="entidadSeleccionada.nombres">
             </div>
          </div>
          <div class="form-group row">
-            <label for="apellidos" class="col-sm-4 col-form-label">apellidos</label>
+            <label for="apellidos" class="col-sm-4 col-form-label">Apellidos</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="apellidos" [(ngModel)]="entidadSeleccionada.apellidos">
+              <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos" [(ngModel)]="entidadSeleccionada.apellidos">
             </div>
          </div>
          <div class="form-group row">
-            <label for="idGenero" class="col-sm-4 col-form-label">idGenero</label>
+            <label for="idGenero" class="col-sm-4 col-form-label">Género</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="idGenero" name="idGenero" placeholder="idGenero" [(ngModel)]="entidadSeleccionada.idGenero">
+                <select class="form-control" id="idGenero" name="idGenero" [(ngModel)]="entidadSeleccionada.idGenero">
+                    <option value="0" selected>Seleccione...</option>
+                    <option *ngFor="let genero of generos" value={{genero.id}}>{{genero.descripcion}}</option>
+                </select>
             </div>
          </div>
          <div class="form-group row">
-            <label for="direccion" class="col-sm-4 col-form-label">direccion</label>
+            <label for="direccion" class="col-sm-4 col-form-label">Dirección</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="direccion" name="direccion" placeholder="direccion" [(ngModel)]="entidadSeleccionada.direccion">
+              <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección" [(ngModel)]="entidadSeleccionada.direccion">
             </div>
          </div>
          <div class="form-group row">
-            <label for="telefono1" class="col-sm-4 col-form-label">telefono1</label>
+            <label for="telefono1" class="col-sm-4 col-form-label">Teléfono Principal</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="telefono1" name="telefono1" placeholder="telefono1" [(ngModel)]="entidadSeleccionada.telefono1">
+              <input type="text" class="form-control" id="telefono1" name="telefono1" placeholder="Teléfono Principal" [(ngModel)]="entidadSeleccionada.telefono1">
             </div>
          </div>
          <div class="form-group row">
-            <label for="telefono2" class="col-sm-4 col-form-label">telefono2</label>
+            <label for="telefono2" class="col-sm-4 col-form-label">Teléfono Secundario</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="telefono2" name="telefono2" placeholder="telefono2" [(ngModel)]="entidadSeleccionada.telefono2">
+              <input type="text" class="form-control" id="telefono2" name="telefono2" placeholder="Teléfono Secundario" [(ngModel)]="entidadSeleccionada.telefono2">
             </div>
          </div>
          <div class="form-group row">
-            <label for="correoElectronico" class="col-sm-4 col-form-label">correoElectronico</label>
+            <label for="correoElectronico" class="col-sm-4 col-form-label">Correo Electrónico</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="correoElectronico" name="correoElectronico" placeholder="correoElectronico" [(ngModel)]="entidadSeleccionada.correoElectronico">
+              <input type="text" class="form-control" id="correoElectronico" name="correoElectronico" placeholder="Correo Electrónico" [(ngModel)]="entidadSeleccionada.correoElectronico">
+            </div>
+         </div>
+         <div class="form-group row">
+            <label for="idEstadoCuenta" class="col-sm-4 col-form-label">Estado de la Cuenta</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="idEstadoCuenta" name="idEstadoCuenta" [(ngModel)]="entidadSeleccionada.idEstadoCuenta">
+                    <option value="0" selected>Seleccione...</option>
+                    <option *ngFor="let estadoCuenta of estadosCuenta" value={{estadoCuenta.id}}>{{estadoCuenta.descripcion}}</option>
+                </select>
             </div>
          </div>
          </form>

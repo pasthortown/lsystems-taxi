@@ -1,3 +1,5 @@
+import { EstadoCuentaService } from './../CRUD/estadocuenta/estadocuenta.service';
+import { GeneroService } from './../CRUD/genero/genero.service';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -12,7 +14,7 @@ import { PersonaService } from '../CRUD/persona/persona.service';
       FormsModule,
       ConductorRoutingModule
    ],
-   providers: [PersonaService],
+   providers: [PersonaService, GeneroService, EstadoCuentaService],
    declarations: [ConductorComponent],
 })
 export class ConductorModule { }
