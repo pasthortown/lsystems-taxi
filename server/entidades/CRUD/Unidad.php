@@ -6,13 +6,15 @@ class Unidad
    public $numero;
    public $anoFabricacion;
    public $registroMunicipal;
+   public $idEstadoUnidad;
 
-   function __construct($id,$placa,$numero,$anoFabricacion,$registroMunicipal){
+   function __construct($id,$placa,$numero,$anoFabricacion,$registroMunicipal,$idEstadoUnidad){
       $this->id = $id;
       $this->placa = $placa;
       $this->numero = $numero;
       $this->anoFabricacion = $anoFabricacion;
       $this->registroMunicipal = $registroMunicipal;
+      $this->idEstadoUnidad = $idEstadoUnidad;
    }
 }
 ?>

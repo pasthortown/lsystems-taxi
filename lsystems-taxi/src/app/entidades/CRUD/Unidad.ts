@@ -4,4 +4,5 @@ export class Unidad {
    numero: number;
    anoFabricacion: number;
    registroMunicipal: string;
+   idEstadoUnidad: number;
 }

@@ -17,6 +17,7 @@ CREATE TABLE Unidad (
     numero INT NULL,
     anoFabricacion INT NULL,
     registroMunicipal VARCHAR(10) NULL,
+    idEstadoUnidad INT NULL,
     PRIMARY KEY (id)
 );
 
@@ -48,6 +49,12 @@ CREATE TABLE Persona (
 );
 
 CREATE TABLE Genero (
+    id INT NOT NULL AUTO_INCREMENT,
+    descripcion VARCHAR(20) NULL UNIQUE,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE EstadoUnidad (
     id INT NOT NULL AUTO_INCREMENT,
     descripcion VARCHAR(20) NULL UNIQUE,
     PRIMARY KEY (id)
