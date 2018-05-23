@@ -25,6 +25,7 @@ class Controlador_login extends Controlador_Base
    function passwordRecovery($args)
    {
         $email = $args["email"];
+        $accion = $args["accion"];
         $sql = "SELECT Cuenta.id, CONCAT(Persona.nombres,' ',Persona.apellidos) as 'usuario' FROM Persona INNER JOIN Cuenta ON Persona.id = Cuenta.idPersona WHERE Persona.correoElectronico = ?;";
         $parametros = array($email);
         $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
@@ -54,7 +55,15 @@ class Controlador_login extends Controlador_Base
             $parametros = array($nuevaClave, $respuesta[0]["id"]);
             $respuesta2 = $this->conexion->ejecutarConsulta($sql,$parametros);
             $mailSender = new Controlador_mail_sender();
-            $mailSender->enviarMail('gpstrackingec@gmail.com','GPS Tracking EC', '1509Charles*', 'gpstrackingec@gmail.com','LSystems Taxi EC',$email,$usuario,'Hola, '.$usuario.'. Tu nueva clave es <strong>'.$nuevaClave.'</strong>','Reseteo de Clave');
+            $cuerpoMensaje = '<div style="width:90%; float:left;"><div style="width:100%; float:left; border: 1px solid black; border-radius: 10px;"><div style="width:100%; float:left; padding-top:5px; padding-bottom:5px; font-family: Arial, Helvetica, sans-serif; background-color: darkblue; color: white; border-radius: 10px 10px 0px 0px;">&nbsp;';
+            $cuerpoMensaje .= ALIASMAIL;
+            $cuerpoMensaje .= '</div><div style="width:100%; float:left; text-align: center">';
+            $cuerpoMensaje .= '<h3>'.$accion.'</h3>';
+            $cuerpoMensaje .= '<div style="width:100%; float:left; text-align: left">';
+            $cuerpoMensaje .= '<p>&nbsp;Estimado <strong>'.$usuario.'</strong>.</p>';
+            $cuerpoMensaje .= '<p>&nbsp;Su nueva clave es <strong>'.$nuevaClave.'</strong></p>';
+            $cuerpoMensaje .= '</div></div></div>';
+            $mailSender->enviarMail(FROMMAIL,ALIASMAIL, CLAVEMAIL, 'no-responder@noresponder.com',ALIASMAIL,$email,$usuario,$cuerpoMensaje,$accion);
             return true;
         }
         return false;
