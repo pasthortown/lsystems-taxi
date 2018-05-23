@@ -83,25 +83,6 @@
                </tr>
             </tbody>
          </table>
-         <div class="col-md-12">
-            <div class="btn-toolbar">
-               <div>
-                  <button type="button" class="btn btn-default" (click)="getPaginaPrimera()">
-                     <span class="fa fa-fast-backward"></span>
-                  </button>
-                  <button type="button" class="btn btn-default" (click)="getPaginaAnterior()">
-                     <span class="fa fa-step-backward"></span>
-                  </button>
-                  <span><strong style="margin:10px;">Página</strong><strong id="paginaActual">{{paginaActual}}</strong><strong style="margin:10px;">de</strong><strong id="paginaUltima" style="margin-right:10px;">{{paginaUltima}}</strong></span>
-                  <button type="button" class="btn btn-default" (click)="getPaginaSiguiente()">
-                     <span class="fa fa-step-forward"></span>
-                  </button>
-                  <button type="button" class="btn btn-default" (click)="getPaginaUltima()">
-                     <span class="fa fa-fast-forward"></span>
-                  </button>
-               </div>
-            </div>
-         </div>
       </div>
    </div>
    <ng-template #content let-c="close" let-d="dismiss">

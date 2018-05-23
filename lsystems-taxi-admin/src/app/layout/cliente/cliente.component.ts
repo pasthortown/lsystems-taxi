@@ -91,30 +91,19 @@ export class ClienteComponent implements OnInit {
       });
    }
 
-   getPagina(pagina: number, tamanoPagina: number): void {
+   getCuentas(rol: string): void {
+      this.entidades = [];
       this.busy = this.dataService
-      .getPagina(pagina, tamanoPagina)
+      .getCuentas(rol)
       .then(entidadesRecuperadas => {
-         this.entidades = entidadesRecuperadas
-         if (entidadesRecuperadas == null || entidadesRecuperadas.length === 0) {
+          if (JSON.stringify(entidadesRecuperadas)=='[0]') {
             this.toastr.success('¡No hay datos!', 'Consulta');
-         } else {
-            this.toastr.success('La consulta fue exitosa', 'Consulta');
-         }
+          } else {
+            this.entidades = entidadesRecuperadas
+          }
       })
       .catch(error => {
          this.toastr.success('Se produjo un error', 'Consulta');
-      });
-   }
-
-   getNumeroPaginas(tamanoPagina: number): void{
-      this.busy = this.dataService
-      .getNumeroPaginas(tamanoPagina)
-      .then(respuesta => {
-         this.paginaUltima = respuesta.paginas;
-      })
-      .catch(error => {
-         //Error al leer las paginas
       });
    }
 
@@ -185,8 +174,7 @@ export class ClienteComponent implements OnInit {
    }
 
    refresh(): void {
-      this.getNumeroPaginas(this.registrosPorPagina);
-      this.getPagina(this.paginaActual,this.registrosPorPagina);
+      this.getCuentas('Cliente');
       this.entidades = Persona[0];
       this.entidadSeleccionada = this.crearEntidad();
       this.getGeneros();
@@ -213,30 +201,6 @@ export class ClienteComponent implements OnInit {
       .catch(error => {
 
       });
-   }
-
-   getPaginaPrimera():void {
-      this.paginaActual = 1;
-      this.refresh();
-   }
-
-   getPaginaAnterior():void {
-      if(this.paginaActual>1){
-         this.paginaActual = this.paginaActual - 1;
-         this.refresh();
-      }
-   }
-
-   getPaginaSiguiente():void {
-      if(this.paginaActual < this.paginaUltima){
-         this.paginaActual = this.paginaActual + 1;
-         this.refresh();
-      }
-   }
-
-   getPaginaUltima():void {
-      this.paginaActual = this.paginaUltima;
-      this.refresh();
    }
 
    ngOnInit() {

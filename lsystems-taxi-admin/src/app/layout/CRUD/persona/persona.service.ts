@@ -40,6 +40,11 @@ export class PersonaService {
       return this.http.get(url).toPromise().then(response=>(response.json() as Persona[])[0]).catch(this.handleError);
    }
 
+   getCuentas(rol: string): Promise<Persona[]> {
+      const url = `${environment.apiUrl+'/cuentas/cuentas_clientes'}?rol=${rol}`;
+      return this.http.get(url).toPromise().then(response=>(response.json() as Persona[])).catch(this.handleError);
+   }
+
    remove(id: number): Promise<boolean> {
       const url = `${this.urlBase+'/borrar'}?id=${id}`;
       return this.http.get(url).toPromise().then(response=>response.json() as Persona).catch(this.handleError);
