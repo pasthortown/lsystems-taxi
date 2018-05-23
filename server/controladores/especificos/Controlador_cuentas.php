@@ -6,7 +6,7 @@ class Controlador_cuentas extends Controlador_Base
    {
       $rol = $args["rol"];
       $parametros = array($rol);
-      $sql = "SELECT Persona.* FROM Persona INNER JOIN Cuenta ON Cuenta.idPersona = Persona.id INNER JOIN Rol ON Cuenta.idRol = Rol.id WHERE Rol.descripcion = ?;";
+      $sql = "SELECT Persona.*, EstadoCuenta.descripcion as 'EstadoCuenta', Cuenta.idEstadoCuenta FROM Persona INNER JOIN Cuenta ON Cuenta.idPersona = Persona.id INNER JOIN EstadoCuenta ON Cuenta.idEstadoCuenta = EstadoCuenta.id INNER JOIN Rol ON Cuenta.idRol = Rol.id WHERE Rol.descripcion = ?;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    } 
