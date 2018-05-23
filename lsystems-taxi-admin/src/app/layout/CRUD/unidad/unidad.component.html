@@ -1,7 +1,7 @@
 <div class="container">
    <div class="row">
       <div class="col-md-12 text-right">
-         <h2 style="margin-top:0px">Catálogo de Unidad</h2>
+         <h2 style="margin-top:0px">Administración de Unidades</h2>
       </div>
    </div>
    <div class="row">
@@ -33,32 +33,22 @@
                   </th>
                   <th scope="col">
                      <span>
-                        <strong>Identificador</strong>
+                        <strong>Placa</strong>
                      </span>
                   </th>
                   <th scope="col">
                      <span>
-                        <strong>idCoperativa</strong>
+                        <strong>Número</strong>
                      </span>
                   </th>
                   <th scope="col">
                      <span>
-                        <strong>placa</strong>
+                        <strong>Año de Fabricación</strong>
                      </span>
                   </th>
                   <th scope="col">
                      <span>
-                        <strong>numero</strong>
-                     </span>
-                  </th>
-                  <th scope="col">
-                     <span>
-                        <strong>anoFabricacion</strong>
-                     </span>
-                  </th>
-                  <th scope="col">
-                     <span>
-                        <strong>registroMunicipal</strong>
+                        <strong>Registro Municipal</strong>
                      </span>
                   </th>
                </tr>
@@ -68,8 +58,6 @@
                   <td>
                      <i class="fa fa-hand-o-right" [hidden]="!estaSeleccionado(actual)"></i>
                   </td>
-                  <td>{{actual.id}}</td>
-                  <td>{{actual.idCoperativa}}</td>
                   <td>{{actual.placa}}</td>
                   <td>{{actual.numero}}</td>
                   <td>{{actual.anoFabricacion}}</td>
@@ -102,7 +90,7 @@
       <div class="modal-header">
          <h4 class="modal-title">
             <span *ngIf="entidadSeleccionada.id != 0">
-               Edición de Datos: {{entidadSeleccionada.descripcion | uppercase}}
+               Edición de Datos: {{entidadSeleccionada.placa | uppercase}}
             </span>
             <span *ngIf="entidadSeleccionada.id === 0">
                Ingreso de Datos:
@@ -121,33 +109,27 @@
             </div>
          </div>
          <div class="form-group row">
-            <label for="idCoperativa" class="col-sm-4 col-form-label">idCoperativa</label>
+            <label for="placa" class="col-sm-4 col-form-label">Placa</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="idCoperativa" name="idCoperativa" placeholder="idCoperativa" [(ngModel)]="entidadSeleccionada.idCoperativa">
+              <input type="text" class="form-control" id="placa" name="placa" placeholder="Placa" [(ngModel)]="entidadSeleccionada.placa">
             </div>
          </div>
          <div class="form-group row">
-            <label for="placa" class="col-sm-4 col-form-label">placa</label>
+            <label for="numero" class="col-sm-4 col-form-label">Número</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="placa" name="placa" placeholder="placa" [(ngModel)]="entidadSeleccionada.placa">
+              <input type="text" class="form-control" id="numero" name="numero" placeholder="Número" [(ngModel)]="entidadSeleccionada.numero">
             </div>
          </div>
          <div class="form-group row">
-            <label for="numero" class="col-sm-4 col-form-label">numero</label>
+            <label for="anoFabricacion" class="col-sm-4 col-form-label">Año de Fabricación</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="numero" name="numero" placeholder="numero" [(ngModel)]="entidadSeleccionada.numero">
+              <input type="text" class="form-control" id="anoFabricacion" name="anoFabricacion" placeholder="Año de Fabricación" [(ngModel)]="entidadSeleccionada.anoFabricacion">
             </div>
          </div>
          <div class="form-group row">
-            <label for="anoFabricacion" class="col-sm-4 col-form-label">anoFabricacion</label>
+            <label for="registroMunicipal" class="col-sm-4 col-form-label">Registro Municipal</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="anoFabricacion" name="anoFabricacion" placeholder="anoFabricacion" [(ngModel)]="entidadSeleccionada.anoFabricacion">
-            </div>
-         </div>
-         <div class="form-group row">
-            <label for="registroMunicipal" class="col-sm-4 col-form-label">registroMunicipal</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" id="registroMunicipal" name="registroMunicipal" placeholder="registroMunicipal" [(ngModel)]="entidadSeleccionada.registroMunicipal">
+              <input type="text" class="form-control" id="registroMunicipal" name="registroMunicipal" placeholder="Registro Municipal" [(ngModel)]="entidadSeleccionada.registroMunicipal">
             </div>
          </div>
          </form>

@@ -5,9 +5,9 @@ class Controlador_unidad extends Controlador_Base
 {
    function crear($args)
    {
-      $unidad = new Unidad($args["id"],$args["idCoperativa"],$args["placa"],$args["numero"],$args["anoFabricacion"],$args["registroMunicipal"]);
-      $sql = "INSERT INTO Unidad (idCoperativa,placa,numero,anoFabricacion,registroMunicipal) VALUES (?,?,?,?,?);";
-      $parametros = array($unidad->idCoperativa,$unidad->placa,$unidad->numero,$unidad->anoFabricacion,$unidad->registroMunicipal);
+      $unidad = new Unidad($args["id"],$args["placa"],$args["numero"],$args["anoFabricacion"],$args["registroMunicipal"]);
+      $sql = "INSERT INTO Unidad (placa,numero,anoFabricacion,registroMunicipal) VALUES (?,?,?,?);";
+      $parametros = array($unidad->placa,$unidad->numero,$unidad->anoFabricacion,$unidad->registroMunicipal);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;
@@ -18,9 +18,9 @@ class Controlador_unidad extends Controlador_Base
 
    function actualizar($args)
    {
-      $unidad = new Unidad($args["id"],$args["idCoperativa"],$args["placa"],$args["numero"],$args["anoFabricacion"],$args["registroMunicipal"]);
-      $parametros = array($unidad->idCoperativa,$unidad->placa,$unidad->numero,$unidad->anoFabricacion,$unidad->registroMunicipal,$unidad->id);
-      $sql = "UPDATE Unidad SET idCoperativa = ?,placa = ?,numero = ?,anoFabricacion = ?,registroMunicipal = ? WHERE id = ?;";
+      $unidad = new Unidad($args["id"],$args["placa"],$args["numero"],$args["anoFabricacion"],$args["registroMunicipal"]);
+      $parametros = array($unidad->placa,$unidad->numero,$unidad->anoFabricacion,$unidad->registroMunicipal,$unidad->id);
+      $sql = "UPDATE Unidad SET placa = ?,numero = ?,anoFabricacion = ?,registroMunicipal = ? WHERE id = ?;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;

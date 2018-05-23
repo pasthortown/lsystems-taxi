@@ -13,7 +13,6 @@ CREATE TABLE Coperativa (
 
 CREATE TABLE Unidad (
     id INT NOT NULL AUTO_INCREMENT,
-    idCoperativa INT NOT NULL,
     placa VARCHAR(10) NULL UNIQUE,
     numero INT NULL,
     anoFabricacion INT NULL,
