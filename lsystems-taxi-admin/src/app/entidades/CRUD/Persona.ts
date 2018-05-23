@@ -8,4 +8,5 @@ export class Persona {
    telefono1: string;
    telefono2: string;
    correoElectronico: string;
+   EstadoCuenta: string;
 }

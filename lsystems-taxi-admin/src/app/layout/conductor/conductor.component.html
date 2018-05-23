@@ -79,7 +79,7 @@
                    <td>{{actual.telefono1}}</td>
                    <td>{{actual.telefono2}}</td>
                    <td>{{actual.correoElectronico}}</td>
-                   <td><span class="badge badge-danger">Desactivada</span><span class="badge badge-success">Activada</span><span class="badge badge-warning">Pendiente</span></td>
+                   <td><span *ngIf="actual.EstadoCuenta=='Desactivada'" class="badge badge-danger">Desactivada</span><span *ngIf="actual.EstadoCuenta=='Activada'" class="badge badge-success">Activada</span><span *ngIf="actual.EstadoCuenta=='Pendiente'" class="badge badge-warning">Pendiente</span></td>
                 </tr>
              </tbody>
           </table>
