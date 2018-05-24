@@ -131,6 +131,7 @@ export class ClienteComponent implements OnInit {
       this.cuentaSeleccionada = new Cuenta();
       this.cuentaSeleccionada.id = 0;
       this.cuentaSeleccionada.idRol = 4;
+      this.cuentaSeleccionada.idEstadoCuenta = 0;
       return nuevoCliente;
    }
 

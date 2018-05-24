@@ -131,6 +131,7 @@ export class AdministradorComponent implements OnInit {
       this.cuentaSeleccionada = new Cuenta();
       this.cuentaSeleccionada.id = 0;
       this.cuentaSeleccionada.idRol = 1;
+      this.cuentaSeleccionada.idEstadoCuenta = 0;
       return nuevoAdministrador;
    }
 

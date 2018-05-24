@@ -131,6 +131,7 @@ export class ConductorComponent implements OnInit {
       this.cuentaSeleccionada = new Cuenta();
       this.cuentaSeleccionada.id = 0;
       this.cuentaSeleccionada.idRol = 3;
+      this.cuentaSeleccionada.idEstadoCuenta = 0;
       return nuevoConductor;
    }
 
