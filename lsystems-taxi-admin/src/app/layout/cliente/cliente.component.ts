@@ -119,7 +119,7 @@ export class ClienteComponent implements OnInit {
       if (this.entidadSeleccionada.id === undefined || this.entidadSeleccionada.id === 0) {
          this.add();
       } else {
-         this.update(this.entidadSeleccionada);
+         this.update();
       }
       this.cerrarVentanaEdicion();
    }
@@ -150,8 +150,8 @@ export class ClienteComponent implements OnInit {
       });
    }
 
-   update(entidadParaActualizar: Persona): void {
-      this.busy = this.dataService.update(entidadParaActualizar)
+   update(): void {
+      this.busy = this.dataService.actualizar_cuenta(this.entidadSeleccionada.id, this.entidadSeleccionada.identificacion, this.entidadSeleccionada.nombres, this.entidadSeleccionada.apellidos, this.entidadSeleccionada.idGenero, this.entidadSeleccionada.direccion, this.entidadSeleccionada.telefono1, this.entidadSeleccionada.telefono2,this.entidadSeleccionada.correoElectronico, this.cuentaSeleccionada.idEstadoCuenta)
       .then(respuesta => {
          if(respuesta){
             this.toastr.success('La actualización fue exitosa', 'Actualización');

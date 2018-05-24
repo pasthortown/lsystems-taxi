@@ -51,6 +51,12 @@ export class PersonaService {
       return this.http.post(url,JSON.stringify(data)).toPromise().then(response=>(response.json() as Boolean)).catch(this.handleError);
    }
 
+   actualizar_cuenta(idPersona: number, identificacion: string, nombres: string, apellidos: string, idGenero: number, direccion: string, telefono1: string, telefono2: string, correoElectronico: string, idEstadoCuenta: number): Promise<Boolean> {
+      const url = `${environment.apiUrl+'cuentas/actualizar_cuenta'}`;
+      const data = {idPersona: idPersona, identificacion: identificacion, nombres: nombres, apellidos: apellidos, idGenero: idGenero, direccion: direccion, telefono1: telefono1, telefono2: telefono2, correoElectronico: correoElectronico, idEstadoCuenta: idEstadoCuenta};
+      return this.http.post(url,JSON.stringify(data)).toPromise().then(response=>(response.json() as Boolean)).catch(this.handleError);
+   }
+
    remove(id: number): Promise<boolean> {
       const url = `${this.urlBase+'/borrar'}?id=${id}`;
       return this.http.get(url).toPromise().then(response=>response.json() as Persona).catch(this.handleError);

@@ -39,4 +39,25 @@ class Controlador_cuentas extends Controlador_Base
       $args = array("email"=>$correoElectronico, "accion"=>"Tu cuenta en LSystems-Taxi");
       return $mailSender->passwordChange($args);
    }
+
+   function actualizar_cuenta($args)
+   {
+      $idPersona = $args["idPersona"];
+      $identificacion = $args["identificacion"];
+      $nombres = $args["nombres"];
+      $apellidos = $args["apellidos"];
+      $idGenero = $args["idGenero"];
+      $direccion = $args["direccion"];
+      $telefono1 = $args["telefono1"];
+      $telefono2 = $args["telefono2"];
+      $correoElectronico = $args["correoElectronico"];
+      $idEstadoCuenta = $args["idEstadoCuenta"];
+      $parametros = array($identificacion,$nombres,$apellidos,$idGenero,$direccion,$telefono1,$telefono2,$correoElectronico, $idPersona);
+      $sql = "UPDATE Persona SET identificacion = ?,nombres = ?,apellidos = ?,idGenero = ?,direccion = ?,telefono1 = ?,telefono2 = ?,correoElectronico = ? WHERE id = ?;";
+      $updatePersona = $this->conexion->ejecutarConsulta($sql,$parametros);
+      $parametros = array($idEstadoCuenta, $idPersona);
+      $sql = "UPDATE Cuenta SET idEstadoCuenta = ? WHERE idPersona = ?;";
+      $updateCuenta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return true;
+   }
 }
