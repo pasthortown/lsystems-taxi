@@ -136,6 +136,19 @@ export class ClienteComponent implements OnInit {
    }
 
    add(): void {
+        if(this.entidadSeleccionada.identificacion == '' || this.entidadSeleccionada.identificacion == null ||
+        this.entidadSeleccionada.nombres == '' || this.entidadSeleccionada.nombres == null ||
+        this.entidadSeleccionada.apellidos == '' || this.entidadSeleccionada.apellidos == null ||
+        this.entidadSeleccionada.direccion == '' || this.entidadSeleccionada.direccion == null ||
+        this.entidadSeleccionada.correoElectronico == '' || this.entidadSeleccionada.correoElectronico == null ||
+        this.entidadSeleccionada.telefono1 == '' || this.entidadSeleccionada.telefono1 == null ||
+        this.entidadSeleccionada.telefono2 == '' || this.entidadSeleccionada.telefono2 == null ||
+        this.entidadSeleccionada.idGenero == 0 || this.entidadSeleccionada.idGenero == null ||
+        this.cuentaSeleccionada.idEstadoCuenta == 0 || this.cuentaSeleccionada.idEstadoCuenta == null
+        ){
+            this.toastr.warning('Todos los campos son obligatorios', 'Creación');
+            return;
+        }
       this.busy = this.dataService.crearCuenta(this.entidadSeleccionada.identificacion,this.entidadSeleccionada.nombres, this.entidadSeleccionada.apellidos,this.entidadSeleccionada.idGenero, this.entidadSeleccionada.direccion, this.entidadSeleccionada.telefono1, this.entidadSeleccionada.telefono2, this.entidadSeleccionada.correoElectronico, this.cuentaSeleccionada.idRol, this.cuentaSeleccionada.idEstadoCuenta)
       .then(respuesta => {
          if(respuesta){
@@ -151,6 +164,19 @@ export class ClienteComponent implements OnInit {
    }
 
    update(): void {
+       if(this.entidadSeleccionada.identificacion == '' || this.entidadSeleccionada.identificacion == null ||
+        this.entidadSeleccionada.nombres == '' || this.entidadSeleccionada.nombres == null ||
+        this.entidadSeleccionada.apellidos == '' || this.entidadSeleccionada.apellidos == null ||
+        this.entidadSeleccionada.direccion == '' || this.entidadSeleccionada.direccion == null ||
+        this.entidadSeleccionada.correoElectronico == '' || this.entidadSeleccionada.correoElectronico == null ||
+        this.entidadSeleccionada.telefono1 == '' || this.entidadSeleccionada.telefono1 == null ||
+        this.entidadSeleccionada.telefono2 == '' || this.entidadSeleccionada.telefono2 == null ||
+        this.entidadSeleccionada.idGenero == 0 || this.entidadSeleccionada.idGenero == null ||
+        this.cuentaSeleccionada.idEstadoCuenta == 0 || this.cuentaSeleccionada.idEstadoCuenta == null
+        ){
+            this.toastr.warning('Todos los campos son obligatorios', 'Creación');
+            return;
+        }
       this.busy = this.dataService.actualizar_cuenta(this.entidadSeleccionada.id, this.entidadSeleccionada.identificacion, this.entidadSeleccionada.nombres, this.entidadSeleccionada.apellidos, this.entidadSeleccionada.idGenero, this.entidadSeleccionada.direccion, this.entidadSeleccionada.telefono1, this.entidadSeleccionada.telefono2,this.entidadSeleccionada.correoElectronico, this.cuentaSeleccionada.idEstadoCuenta)
       .then(respuesta => {
          if(respuesta){
