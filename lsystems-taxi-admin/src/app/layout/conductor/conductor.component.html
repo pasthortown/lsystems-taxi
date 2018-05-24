@@ -161,7 +161,7 @@
           <div class="form-group row">
              <label for="idEstadoCuenta" class="col-sm-4 col-form-label">Estado de la Cuenta</label>
              <div class="col-sm-8">
-                 <select class="form-control" id="idEstadoCuenta" name="idEstadoCuenta" [(ngModel)]="entidadSeleccionada.idEstadoCuenta">
+                 <select class="form-control" id="idEstadoCuenta" name="idEstadoCuenta" [(ngModel)]="cuentaSeleccionada.idEstadoCuenta">
                      <option value="0" selected>Seleccione...</option>
                      <option *ngFor="let estadoCuenta of estadosCuenta" value={{estadoCuenta.id}}>{{estadoCuenta.descripcion}}</option>
                  </select>

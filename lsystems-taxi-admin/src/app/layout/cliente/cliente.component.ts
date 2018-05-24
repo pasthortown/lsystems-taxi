@@ -117,7 +117,7 @@ export class ClienteComponent implements OnInit {
    aceptar(): void {
       if (!this.isValid(this.entidadSeleccionada)) {return;}
       if (this.entidadSeleccionada.id === undefined || this.entidadSeleccionada.id === 0) {
-         this.add(this.entidadSeleccionada);
+         this.add();
       } else {
          this.update(this.entidadSeleccionada);
       }
@@ -135,8 +135,8 @@ export class ClienteComponent implements OnInit {
       return nuevoCliente;
    }
 
-   add(entidadNueva: Persona): void {
-      this.busy = this.dataService.create(entidadNueva)
+   add(): void {
+      this.busy = this.dataService.crearCuenta(this.entidadSeleccionada.identificacion,this.entidadSeleccionada.nombres, this.entidadSeleccionada.apellidos,this.entidadSeleccionada.idGenero, this.entidadSeleccionada.direccion, this.entidadSeleccionada.telefono1, this.entidadSeleccionada.telefono2, this.entidadSeleccionada.correoElectronico, this.cuentaSeleccionada.idRol, this.cuentaSeleccionada.idEstadoCuenta)
       .then(respuesta => {
          if(respuesta){
             this.toastr.success('La creación fue exitosa', 'Creación');
