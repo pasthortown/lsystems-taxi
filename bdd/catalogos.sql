@@ -1,7 +1,7 @@
-INSERT INTO `Calificacion` (`id`,`descripcion`) VALUES (1,'Servicio malo');
-INSERT INTO `Calificacion` (`id`,`descripcion`) VALUES (2,'Servicio deficiente');
-INSERT INTO `Calificacion` (`id`,`descripcion`) VALUES (3,'Servicio regular');
-INSERT INTO `Calificacion` (`id`,`descripcion`) VALUES (4,'Buen servicio');
+INSERT INTO `Calificacion` (`id`,`descripcion`) VALUES (1,'Servicio Malo');
+INSERT INTO `Calificacion` (`id`,`descripcion`) VALUES (2,'Servicio Deficiente');
+INSERT INTO `Calificacion` (`id`,`descripcion`) VALUES (3,'Servicio Regular');
+INSERT INTO `Calificacion` (`id`,`descripcion`) VALUES (4,'Buen Servicio');
 INSERT INTO `Calificacion` (`id`,`descripcion`) VALUES (5,'Excelente Servicio');
 INSERT INTO `Genero` (`id`,`descripcion`) VALUES (1,'Masculino');
 INSERT INTO `Genero` (`id`,`descripcion`) VALUES (2,'Femenino');
