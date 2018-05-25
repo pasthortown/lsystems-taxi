@@ -1,3 +1,4 @@
+import { EstadoUnidadService } from './../CRUD/estadounidad/estadounidad.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +11,6 @@ import { PosicionService } from '../CRUD/posicion/posicion.service';
 @NgModule({
     imports: [CommonModule, MonitoreoRoutingModule, FormsModule],
     declarations: [MonitoreoComponent],
-    providers: [CoperativaService, UnidadService, PosicionService]
+    providers: [CoperativaService, UnidadService, PosicionService, EstadoUnidadService]
 })
 export class MonitoreoModule {}

@@ -6,6 +6,8 @@ import { Unidad } from './../../entidades/CRUD/Unidad';
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { } from '@types/googlemaps';
+import { EstadoUnidad } from '../../entidades/CRUD/EstadoUnidad';
+import { EstadoUnidadService } from '../CRUD/estadounidad/estadounidad.service';
 
 @Component({
     selector: 'app-monitoreo',
@@ -22,8 +24,9 @@ export class MonitoreoComponent implements OnInit {
     minutosRefrescar: number;
     unidadesMonitoreadasMarcador = [];
     unidadSeleccionada: Unidad;
+    estadosUnidad: EstadoUnidad[];
 
-    constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private unidadService: UnidadService, private posicionService: PosicionService) {
+    constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private unidadService: UnidadService, private posicionService: PosicionService, private estadoUnidadService: EstadoUnidadService) {
         this.toastr.setRootViewContainerRef(vcr);
     }
 
@@ -37,6 +40,21 @@ export class MonitoreoComponent implements OnInit {
         this.unidadesMonitoreadasMarcador = [];
         this.minutosRefrescar = 0;
         this.getUnidades();
+        this.getEstadosUnidad();
+    }
+
+    getEstadosUnidad() {
+      this.busy = this.estadoUnidadService
+      .getAll()
+      .then(entidadesRecuperadas => {
+        if(JSON.stringify(entidadesRecuperadas) == '[0]'){
+            return;
+        }
+        this.estadosUnidad = entidadesRecuperadas;
+      })
+      .catch(error => {
+
+      });
     }
 
     getUnidades() {
@@ -101,20 +119,37 @@ export class MonitoreoComponent implements OnInit {
                         anchor: new google.maps.Point(30, 30),
                         scaledSize: new google.maps.Size(30, 30)
                     }
+                },
+                4: {
+                    image : {
+                        url: iconBase + 'Taxi_Solicitado.png',
+                        size: new google.maps.Size(30, 30),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(30, 30),
+                        scaledSize: new google.maps.Size(30, 30)
+                    }
                 }
             };
             let location = new google.maps.LatLng(JSON.parse(posicionUnidad.latitud) as number,JSON.parse(posicionUnidad.longitud) as number);
+            let estadoUnidad = 'Libre';
+            this.estadosUnidad.forEach(estado => {
+                if(posicionUnidad.idEstadoUnidad == estado.id){
+                    estadoUnidad = estado.descripcion;
+                }
+            });
             let infowindow = new google.maps.InfoWindow({
                 content: '<div><h4>' + 'No. ' + posicionUnidad.numero + ' - ' + posicionUnidad.placa + '</h4>'+
                         '<h5>' + Math.floor(JSON.parse(posicionUnidad.velocidad) as number) + ' Km/h</h5>'+
+                        '<h6><strong>' + estadoUnidad + '</strong></h6>'+
                         '<small>' + posicionUnidad.tiempo + '</small>'+
                         '</div>'
             });
             let noEncontrado = true;
+            let icono = icons[posicionUnidad.idEstadoUnidad<=4 ? posicionUnidad.idEstadoUnidad : 1].image;
             this.unidadesMonitoreadasMarcador.forEach(marcador => {
                 if (marcador.getTitle() === 'No. ' + posicionUnidad.numero + ' - ' + posicionUnidad.placa) {
                     noEncontrado = false;
-                    marcador.setIcon(icons[posicionUnidad.idEstadoUnidad].image);
+                    marcador.setIcon(icono);
                     marcador.setPosition(location);
                     google.maps.event.clearListeners(marcador,'click');
                     marcador.addListener('click', function() {
@@ -127,7 +162,7 @@ export class MonitoreoComponent implements OnInit {
                     position: location,
                     map: this.map,
                     draggable: false,
-                    icon: icons[posicionUnidad.idEstadoUnidad].image,
+                    icon: icono,
                     title: 'No. ' + posicionUnidad.numero + ' - ' + posicionUnidad.placa
                 });
                 marcadorNuevo.addListener('click', function() {
