@@ -47,7 +47,7 @@ export class PosicionService {
 
    getPosicionActualAll(): Promise<Posicion[]> {
       const url = `${this.urlBase+'/leer_posicions_actuales'}`;
-      return this.http.get(url).toPromise().then(response=>(response.json() as Posicion[])[0]).catch(this.handleError);
+      return this.http.get(url).toPromise().then(response=>(response.json() as Posicion[])).catch(this.handleError);
    }
 
    remove(id: number): Promise<boolean> {
