@@ -205,6 +205,24 @@ export class ViajeComponent implements OnInit {
         draggable: false,
         title: 'Fin'
       });
+      let infowindowInicio = new google.maps.InfoWindow({
+        content: '<div><h6><strong>Partida</strong></h6>'+
+                    '<small>' + entidadActual.Unidad + '</small><br/>'+
+                    '<small>' + entidadActual.fechaInicio + '</small>'+
+                    '</div>'
+      });
+      markerInicio.addListener('click', function() {
+        infowindowInicio.open(this.map, markerInicio);
+      });
+      let infowindowFin = new google.maps.InfoWindow({
+        content: '<div><h6><strong>Llegada</strong></h6>'+
+                    '<small>' + entidadActual.Unidad + '</small><br/>'+
+                    '<small>' + entidadActual.fechaFin + '</small>'+
+                    '</div>'
+      });
+      markerFin.addListener('click', function() {
+        infowindowFin.open(this.map, markerFin);
+      });
       this.marcadoresMapa.push(markerInicio);
       this.marcadoresMapa.push(markerFin);
       this.poly.getPath().push(inicio);
