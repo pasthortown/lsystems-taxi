@@ -1,6 +1,8 @@
 <?php
 include_once('../controladores/Controlador_Base.php');
 include_once('../entidades/CRUD/Expresion.php');
+include_once('../controladores/especificos/Controlador_mail_sender.php');
+
 class Controlador_expresion extends Controlador_Base
 {
    function crear($args)
@@ -81,19 +83,35 @@ class Controlador_expresion extends Controlador_Base
       switch ($tipoFiltro){
          case "coincide":
             $parametros = array($filtro);
-            $sql = "SELECT * FROM Expresion WHERE $nombreColumna = ?;";
+            $sql = "SELECT Expresion.*, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Unidad ON Unidad.id = Expresion.idUnidad WHERE Expresion.$nombreColumna = ?;";
             break;
          case "inicia":
-            $sql = "SELECT * FROM Expresion WHERE $nombreColumna LIKE '$filtro%';";
+            $sql = "SELECT Expresion.*, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Unidad ON Unidad.id = Expresion.idUnidad WHERE Expresion.$nombreColumna LIKE '$filtro%';";
             break;
          case "termina":
-            $sql = "SELECT * FROM Expresion WHERE $nombreColumna LIKE '%$filtro';";
+            $sql = "SELECT Expresion.*, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Unidad ON Unidad.id = Expresion.idUnidad WHERE Expresion.$nombreColumna LIKE '%$filtro';";
             break;
          default:
-            $sql = "SELECT * FROM Expresion WHERE $nombreColumna LIKE '%$filtro%';";
+            $sql = "SELECT Expresion.*, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Unidad ON Unidad.id = Expresion.idUnidad WHERE Expresion.$nombreColumna LIKE '%$filtro%';";
             break;
       }
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
+   }
+
+   function enviarRespuesta($args){
+      $email = $args["email"];
+      $usuario = $args["usuario"];
+      $respuesta = $args["respuesta"];
+      $accion = 'Servicio al Cliente';
+      $mailSender = new Controlador_mail_sender();
+      $cuerpoMensaje = '<div style="width:90%; float:left;"><div style="width:100%; float:left; border: 1px solid black; border-radius: 10px;"><div style="width:100%; float:left; padding-top:5px; padding-bottom:5px; font-family: Arial, Helvetica, sans-serif; background-color: darkblue; color: white; border-radius: 10px 10px 0px 0px;">&nbsp;';
+      $cuerpoMensaje .= ALIASMAIL;
+      $cuerpoMensaje .= '</div><div style="width:100%; float:left; text-align: center">';
+      $cuerpoMensaje .= '<h3>'.$accion.'</h3>';
+      $cuerpoMensaje .= '<div style="width:100%; float:left; text-align: left">';
+      $cuerpoMensaje .= '<p>'.$respuesta.'</p>';
+      $cuerpoMensaje .= '</div></div></div>';
+      return $mailSender->enviarMail(FROMMAIL, ALIASMAIL, CLAVEMAIL, 'no-responder@noresponder.com',ALIASMAIL,$email,$usuario,$cuerpoMensaje,$accion);
    }
 }

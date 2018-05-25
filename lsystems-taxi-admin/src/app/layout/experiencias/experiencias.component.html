@@ -1,0 +1,131 @@
+<div class="container-fluid">
+    <div class="form-group row">
+        <div class="col-12">
+            <h2 class="text-right">Reporte de Experiencias de Usuario</h2>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group row" style="border-bottom: 1px solid black; padding-bottom: 10px;">
+            <div class="col-4">
+                <button type="button" class="btn btn-default" (click)="refresh()">
+                    <span class="fa fa-refresh"></span>&nbsp;Actualizar
+                </button>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-12">
+                <table class="col-12 table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th>
+                                <span>
+                                    <strong>No.</strong>
+                                </span>
+                            </th>
+                            <th>
+                                <span>
+                                    <strong>Placa</strong>
+                                </span>
+                            </th>
+                            <th>
+                                <span>
+                                    <strong>Mensaje</strong>
+                                </span>
+                            </th>
+                            <th>
+                                <span>
+                                    <strong>Opciones</strong>
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let actual of experiencias" (click)="onSelectExpresion(actual)">
+                            <td>
+                                <i class="fa fa-hand-o-right" [hidden]="!estaSeleccionado(actual)"></i>
+                            </td>
+                            <td class="text-center">
+                                {{actual.numero}}
+                            </td>
+                            <td>
+                                {{actual.placa}}
+                            </td>
+                            <td>
+                                <p class="text-justify">{{actual.contenido}}</p>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-secondary" (click)="mostrarInfo(content)">
+                                    <span class="fa fa fa-eye"></span>&nbsp;Mostrar
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h3><strong>Mensaje Recibido:</strong></h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <div class="col-12"><h5><strong>Remitente</strong></h5></div>
+            <div class="col-6">
+                <strong>Nombre:</strong>&nbsp;{{remitente.nombres}} {{remitente.apellidos}}
+            </div>
+            <div class="col-6">
+                <strong>Teléfono:</strong>&nbsp;{{remitente.telefono1}} / {{remitente.telefono2}}
+            </div>
+            <div class="col-12">
+                <strong>Correo Electrónico:</strong>&nbsp;{{remitente.correoElectronico}}
+            </div>
+            <div class="col-12">
+                <strong>Calificación:</strong>&nbsp;
+                <span *ngIf="experienciaSeleccionada.idCalificacion==1" class="badge badge-danger">Servicio Malo</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacion==2" class="badge badge-warning">Servicio Deficiente</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacion==3" class="badge badge-secondary">Servicio Regular</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacion==4" class="badge badge-info">Buen Servicio</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacion==5" class="badge badge-success">Excelente Servicio</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-12"><h5><strong>Unidad</strong></h5></div>
+            <div class="col-4">
+                <strong>Registro Municipal:</strong>&nbsp;{{unidad.registroMunicipal}}
+            </div>
+            <div class="col-4">
+                <strong>Placa:</strong>&nbsp;{{unidad.placa}}
+            </div>
+            <div class="col-4">
+                <strong>Año Fabricación:</strong>&nbsp;{{unidad.anoFabricacion}}
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-12"><h5><strong>Contenido</strong></h5></div>
+            <div class="col-12">
+                <p class="alert alert-secondary text-justify">{{experienciaSeleccionada.contenido}}</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-12"><h5><strong>Responder</strong></h5></div>
+            <div class="col-12">
+                <textarea rows="3" class="form-control" id="contenido" name="contenido" placeholder="Respuesta" [(ngModel)]="experienciaSeleccionada.respuesta"></textarea>
+                <div style="float:left; width:100%; height:5px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button *ngIf="adjuntoPresente" type="button" class="btn btn-success col-offset-sm-4" (click)="obtenerAdjunto()">
+            <span class="fa fa-file-pdf-o"></span>&nbsp;Descargar Adjunto
+        </button>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" (click)="c('responder')">
+                <span class="fa fa-send"></span>&nbsp;Responder
+            </button>
+        </div>
+    </div>
+</ng-template>

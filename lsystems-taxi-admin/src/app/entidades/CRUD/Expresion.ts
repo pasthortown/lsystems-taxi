@@ -6,4 +6,6 @@ export class Expresion {
    respuesta: string;
    idCalificacion: number;
    idAdjunto: number;
+   placa: string;
+   numero: string;
 }

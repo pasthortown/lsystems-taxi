@@ -23,6 +23,7 @@ const routes: Routes = [
             { path: 'monitoreo', loadChildren: './monitoreo/monitoreo.module#MonitoreoModule' },
             { path: 'viajes', loadChildren: './CRUD/viaje/viaje.module#ViajeModule' },
             { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilModule' },
+            { path: 'experiencias', loadChildren: './experiencias/experiencias.module#ExperienciasModule' },
         ]
     }
 ];
