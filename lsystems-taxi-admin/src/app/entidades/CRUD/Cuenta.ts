@@ -2,6 +2,6 @@ export class Cuenta {
    id: number;
    idPersona: number;
    idRol: number;
-   clave: Blob;
+   clave: string;
    idEstadoCuenta: number;
 }

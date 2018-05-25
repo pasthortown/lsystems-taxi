@@ -9,4 +9,7 @@ export class Viaje {
    idUnidad: number;
    idUsuario: number;
    idConductor: number;
+   Unidad: string;
+   Conductor: string;
+   Usuario: string;
 }

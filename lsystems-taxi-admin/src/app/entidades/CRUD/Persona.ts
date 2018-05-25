@@ -9,4 +9,5 @@ export class Persona {
    telefono2: string;
    correoElectronico: string;
    EstadoCuenta: string;
+   NombreCompleto: string;
 }

@@ -57,6 +57,11 @@ export class PersonaService {
       return this.http.post(url,JSON.stringify(data)).toPromise().then(response=>(response.json() as Boolean)).catch(this.handleError);
    }
 
+   getListaPersonasRol(idRol: number): Promise<Persona[]> {
+    const url = `${this.urlBase+'/getListaPersonasRol'}?idRol=${idRol}`;
+    return this.http.get(url).toPromise().then(response=>response.json() as Persona[]).catch(this.handleError);
+   }
+
    remove(id: number): Promise<boolean> {
       const url = `${this.urlBase+'/borrar'}?id=${id}`;
       return this.http.get(url).toPromise().then(response=>response.json() as Persona).catch(this.handleError);

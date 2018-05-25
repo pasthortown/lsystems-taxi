@@ -1,63 +1,110 @@
 <div [@routerTransition]>
-    <h2 class="text-muted">Dashboard <small>Statistics Overview</small></h2>
+    <div class="col-12">
+        <img src="assets/images/lsystemstaxilogo.png" class="img-responsive col-4"/>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <ngb-carousel>
                 <ng-template ngbSlide *ngFor="let slider of sliders">
                     <img class="img-fluid mx-auto d-block" [src]="slider.imagePath" alt="Random first slide" width="100%">
-                    <div class="carousel-caption">
-                        <h3>{{slider.label}}</h3>
-                        <p>{{slider.text}}</p>
+                    <div class="carousel-caption" style="color: white; text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black; font-style: bold; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+                        <h2>{{slider.label}}</h2>
+                        <h3>{{slider.text}}</h3>
                     </div>
                 </ng-template>
             </ngb-carousel>
         </div>
     </div>
     <hr>
-    <div class="row">
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'primary'" [icon]="'fa-comments'" [count]="26" [label]="'New Comments!'" ></app-stat>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'warning'" [icon]="'fa-tasks'" [count]="12" [label]="'New task!'" ></app-stat>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'success'" [icon]="'fa-shopping-cart'" [count]="124" [label]="'New Orders!'" ></app-stat>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'danger'" [icon]="'fa-support'" [count]="13" [label]="'New Tickets!'"></app-stat>
-        </div>
-    </div>
-    <hr />
-    <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
-    <hr />
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="card card-default">
-                <div class="card-header">
-                    <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
+    <div class="col-12">
+        <div class="form-group row">
+            <div class="col-6">
+                <div class="card col-12" style="background-color:#4286f4;">
+                    <div class="card-body">
+                        <div class="form-group row card-title" style="color: white;">
+                            <div class="col-2">
+                                <i class="fa fa-map-marker fa-4x"></i>
+                            </div>
+                            <div class="col-10 text-right">
+                                <h5><strong>POSICIONAMIENTO</strong></h5>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="height: 100px;">
+                            <div class="col-12">
+                                <p class="card-text text-right" style="color:white;">Localización y control del estado de sus vehículos en tiempo real.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.card-header -->
-                <app-timeline></app-timeline>
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.col-lg-8 -->
-        <div class="col-lg-4">
-            <div class="card card-default mb-3">
-                <div class="card-header">
-                    <i class="fa fa-bell fa-fw"></i> Notifications card
+            <div class="col-6">
+                <div class="card col-12" style="background-color:#f9c43b;">
+                    <div class="card-body">
+                        <div class="form-group row card-title" style="color: white;">
+                            <div class="col-2">
+                                <i class="fa fa-list-alt fa-4x"></i>
+                            </div>
+                            <div class="col-10 text-right">
+                                <h5><strong>CONTROL DE ACTIVIDAD</strong></h5>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="height: 100px;">
+                            <div class="col-12">
+                                <p class="card-text text-right" style="color:white;">Registro de todos los movimientos realizados y rutas programadas.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.card-header -->
-                <app-notification></app-notification>
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-
-            <app-chat></app-chat>
-            <!-- /.card .chat-card -->
         </div>
-        <!-- /.col-lg-4 -->
+        <div class="form-group row">
+            <div class="col-6">
+                <div class="card col-12" style="background-color:#40b745;">
+                    <div class="card-body">
+                        <div class="form-group row card-title" style="color: white;">
+                            <div class="col-2">
+                                <i class="fa fa-rss fa-4x"></i>
+                            </div>
+                            <div class="col-10 text-right">
+                                <h5><strong>RADAR SITIOS POIS</strong></h5>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="height: 100px;">
+                            <div class="col-12">
+                                <p class="card-text text-right" style="color:white;">Controle el cumplimiento de las paradas en las rutas programadas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card col-12" style="background-color:#ce1231;">
+                    <div class="card-body">
+                        <div class="form-group row card-title" style="color: white;">
+                            <div class="col-2">
+                                <i class="fa fa-cogs fa-4x"></i>
+                            </div>
+                            <div class="col-10 text-right">
+                                <h5><strong>SOPORTE 24/7</strong></h5>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="height: 100px;">
+                            <div class="col-12">
+                                <p class="card-text text-right" style="color:white;">Mesa de Soporte Técnico on-line 24/7 para solventar cualquier consulta o requerimiento.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="float:left; width:100%; height:20px;"></div>
+        <div class="col-12">
+            <div class="col-12 text-center">
+                <h6>GPS TRACKING EC</h6>
+                <div class="col-12 text-center small">&copy; Producto desarrollado por Luis Afonso Salazar Vaca y Andrés Alejandro Romero Barreto</div>
+                <br/>
+            </div>
+        </div>
     </div>
 </div>
+

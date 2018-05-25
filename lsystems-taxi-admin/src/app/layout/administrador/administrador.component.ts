@@ -1,9 +1,9 @@
 import { CuentaService } from './../CRUD/cuenta/cuenta.service';
-import { Cuenta } from './../../../../../lsystems-taxi-driver/src/app/entidades/CRUD/Cuenta';
+import { Cuenta } from './../../entidades/CRUD/Cuenta';
 import { EstadoCuentaService } from './../CRUD/estadocuenta/estadocuenta.service';
-import { EstadoCuenta } from './../../../../../lsystems-taxi-driver/src/app/entidades/CRUD/EstadoCuenta';
+import { EstadoCuenta } from './../../entidades/CRUD/EstadoCuenta';
 import { GeneroService } from './../CRUD/genero/genero.service';
-import { Genero } from './../../../../../lsystems-taxi/src/app/entidades/CRUD/Genero';
+import { Genero } from './../../entidades/CRUD/Genero';
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Persona } from '../../entidades/CRUD/Persona';

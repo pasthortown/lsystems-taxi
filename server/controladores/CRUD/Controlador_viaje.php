@@ -108,4 +108,38 @@ class Controlador_viaje extends Controlador_Base
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
+
+   function leer_viajes_por($args)
+   {
+      $idUnidad = $args["idUnidad"];
+      $idUsuario = $args["idUsuario"];
+      $idConductor = $args["idConductor"];
+      $fechaDesde = $args["fechaDesde"];
+      $fechaHasta = $args["fechaHasta"];
+      $fechaDesdeNoSQLTime = strtotime($fechaDesde);
+      $fechaDesdeSQLTime = date("Y-m-d 00:00:00", $fechaDesdeNoSQLTime);
+      $fechaHastaNoSQLTime = strtotime($fechaHasta);
+      $fechaHastaSQLTime = date("Y-m-d 23:59:59", $fechaHastaNoSQLTime);
+      $sql = "SELECT Viaje.*, CONCAT(Usuario.apellidos, ' ', Usuario.nombres) as 'Usuario', CONCAT(Conductor.apellidos, ' ', Conductor.nombres) as 'Conductor', CONCAT('No. ',Unidad.numero, ' - ', Unidad.placa) as 'Unidad' FROM Viaje LEFT JOIN Persona as Usuario ON Usuario.id = Viaje.idUsuario LEFT JOIN Persona as Conductor ON Conductor.id = Viaje.idConductor INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE fechaInicio>? AND fechaFin<?;";
+      $parametros = array($fechaDesdeSQLTime, $fechaHastaSQLTime);
+      if(!($idUnidad == 0)){
+            $sql = trim($sql,';');
+            $sql = $sql.' AND idUnidad = ?;';
+            array_push($parametros,$idUnidad);
+      }
+      if(!($idUsuario == 0)){
+            $sql = trim($sql,';');
+            $sql = $sql.' AND idUsuario = ?;';
+            array_push($parametros,$idUsuario);
+      }
+      if(!($idConductor == 0)){
+            $sql = trim($sql,';');
+            $sql = $sql.' AND idConductor = ?;';
+            array_push($parametros,$idConductor);
+      }
+      $sql = trim($sql,';');
+      $sql = $sql.' ORDER BY fechaInicio, idUnidad, idUsuario, idConductor;';
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
 }

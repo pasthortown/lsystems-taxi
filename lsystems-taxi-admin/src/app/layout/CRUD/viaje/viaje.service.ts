@@ -40,6 +40,12 @@ export class ViajeService {
       return this.http.get(url).toPromise().then(response=>(response.json() as Viaje[])[0]).catch(this.handleError);
    }
 
+   getLeerViajesPor(idUnidad: number, idUsuario: number, idConductor: number, fechaDesde: string, fechaHasta: string): Promise<Viaje[]> {
+    let url: string = `${this.urlBase+'/leer_viajes_por'}`;
+    url = url + '?fechaDesde=' + fechaDesde + '&fechaHasta=' + fechaHasta + '&idUnidad=' + idUnidad + '&idUsuario=' + idUsuario + '&idConductor=' + idConductor;
+    return this.http.get(url).toPromise().then(response=>response.json() as Viaje[]).catch(this.handleError);
+   }
+
    remove(id: number): Promise<boolean> {
       const url = `${this.urlBase+'/borrar'}?id=${id}`;
       return this.http.get(url).toPromise().then(response=>response.json() as Viaje).catch(this.handleError);

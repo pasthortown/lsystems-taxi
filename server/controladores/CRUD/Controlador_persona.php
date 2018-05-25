@@ -96,4 +96,13 @@ class Controlador_persona extends Controlador_Base
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
+
+   function getListaPersonasRol($args)
+   {
+      $idRol = $args["idRol"];
+      $parametros = array($idRol);
+      $sql = "SELECT Persona.id, UPPER(CONCAT(Persona.apellidos,' ',Persona.nombres)) as 'NombreCompleto' FROM Persona INNER JOIN Cuenta ON Cuenta.idPersona = Persona.id WHERE Cuenta.idRol = ? ORDER BY Persona.apellidos;";
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
 }
