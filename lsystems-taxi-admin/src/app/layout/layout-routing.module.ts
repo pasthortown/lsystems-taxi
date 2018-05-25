@@ -21,7 +21,8 @@ const routes: Routes = [
             { path: 'admin-clientes', loadChildren: './cliente/cliente.module#ClienteModule' },
             { path: 'admin-conductores', loadChildren: './conductor/conductor.module#ConductorModule' },
             { path: 'monitoreo', loadChildren: './monitoreo/monitoreo.module#MonitoreoModule' },
-            { path: 'viajes', loadChildren: './CRUD/viaje/viaje.module#ViajeModule' }
+            { path: 'viajes', loadChildren: './CRUD/viaje/viaje.module#ViajeModule' },
+            { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilModule' },
         ]
     }
 ];

@@ -46,8 +46,8 @@
                 <li class="nested" [class.expand]="showMenu === 'profile'">
                     <ul class="submenu">
                         <li>
-                            <a href="javascript:void(0)">
-                                <span><i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}</span>
+                            <a [routerLink]="['/perfil']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                <i class="fa fa-fw fa-user"></i>&nbsp;Perfil
                             </a>
                         </li>
                         <li>
