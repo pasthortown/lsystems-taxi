@@ -40,6 +40,16 @@ export class PosicionService {
       return this.http.get(url).toPromise().then(response=>(response.json() as Posicion[])[0]).catch(this.handleError);
    }
 
+   getPosicionActual(idUnidad: number): Promise<Posicion[]> {
+      const url = `${this.urlBase+'/leer_posicions_actuales'}?idUnidad=${idUnidad}`;
+      return this.http.get(url).toPromise().then(response=>(response.json() as Posicion[])[0]).catch(this.handleError);
+   }
+
+   getPosicionActualAll(): Promise<Posicion[]> {
+      const url = `${this.urlBase+'/leer_posicions_actuales'}`;
+      return this.http.get(url).toPromise().then(response=>(response.json() as Posicion[])[0]).catch(this.handleError);
+   }
+
    remove(id: number): Promise<boolean> {
       const url = `${this.urlBase+'/borrar'}?id=${id}`;
       return this.http.get(url).toPromise().then(response=>response.json() as Posicion).catch(this.handleError);

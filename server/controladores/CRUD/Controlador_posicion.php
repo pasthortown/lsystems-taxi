@@ -102,4 +102,16 @@ class Controlador_posicion extends Controlador_Base
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
+
+   function leer_posicions_actuales($args) {
+      $idUnidad = $args["idUnidad"];
+      if ($idUnidad==""){
+         $sql = "SELECT Posicion.id, a.idUnidad, a.tiempo, Posicion.latitud, Posicion.longitud, Posicion.velocidad, Unidad.numero, Unidad.placa, Unidad.registroMunicipal, Unidad.anoFabricacion, Unidad.idEstadoUnidad FROM (SELECT Posicion.idUnidad, MAX(Posicion.tiempo) as 'tiempo' FROM Posicion GROUP BY idUnidad) a INNER JOIN Unidad ON a.idUnidad = Unidad.id INNER JOIN Posicion ON Posicion.idUnidad = a.idUnidad WHERE Posicion.tiempo = a.tiempo;";
+      }else{
+      $parametros = array($idUnidad);
+         $sql = "SELECT Posicion.id, a.idUnidad, a.tiempo, Posicion.latitud, Posicion.longitud, Posicion.velocidad, Unidad.numero, Unidad.placa, Unidad.registroMunicipal, Unidad.anoFabricacion, Unidad.idEstadoUnidad FROM (SELECT Posicion.idUnidad, MAX(Posicion.tiempo) as 'tiempo' FROM Posicion GROUP BY idUnidad) a INNER JOIN Unidad ON a.idUnidad = Unidad.id INNER JOIN Posicion ON Posicion.idUnidad = a.idUnidad WHERE Posicion.tiempo = a.tiempo AND Posicion.idUnidad = ?;";
+      }
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
 }

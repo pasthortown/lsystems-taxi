@@ -17,7 +17,7 @@ export class MonitoreoComponent implements OnInit {
     map: google.maps.Map;
     busy: Promise<any>;
     unidades: Unidad[];
-    poly: google.maps.Polyline;
+    posicionesUnidades: Posicion[];
     monitoreando: Boolean;
     minutosRefrescar: number;
     unidadesMonitoreadasMarcador = [];
@@ -36,6 +36,43 @@ export class MonitoreoComponent implements OnInit {
         this.startGoogleMap();
         this.unidadesMonitoreadasMarcador = [];
         this.minutosRefrescar = 0;
+        this.getUnidades();
+    }
+
+    getUnidades() {
+      this.unidades = [];
+      this.busy = this.unidadService
+      .getAll()
+      .then(entidadesRecuperadas => {
+        if(JSON.stringify(entidadesRecuperadas) == '[0]'){
+            return;
+        }
+        this.unidades = entidadesRecuperadas;
+        this.getPosicionesActuales();
+      })
+      .catch(error => {
+
+      });
+    }
+
+    getPosicionesActuales() {
+        this.posicionesUnidades = [];
+        this.busy = this.posicionService
+        .getPosicionActualAll()
+        .then(entidadesRecuperadas => {
+          if(JSON.stringify(entidadesRecuperadas) == '[0]'){
+              return;
+          }
+          this.posicionesUnidades = entidadesRecuperadas;
+          this.dibujarPosicionesActuales();
+        })
+        .catch(error => {
+
+        });
+    }
+
+    dibujarPosicionesActuales() {
+
     }
 
     startGoogleMap() {
@@ -45,25 +82,10 @@ export class MonitoreoComponent implements OnInit {
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
-        this.poly = new google.maps.Polyline({
-            strokeColor: '#ed8917',
-            strokeOpacity: 1,
-            strokeWeight: 3,
-            geodesic: true,
-            map: this.map
-         });
     }
 
     onSelectUnidad(unidad: Unidad){
         this.unidadSeleccionada = unidad;
-        this.poly.setMap(null);
-        this.poly = new google.maps.Polyline({
-            strokeColor: '#ed8917',
-            strokeOpacity: 1,
-            strokeWeight: 3,
-            geodesic: true,
-            map: this.map
-        });
     }
 
     estaSeleccionadaUnidad(unidad: Unidad): boolean {
@@ -74,7 +96,7 @@ export class MonitoreoComponent implements OnInit {
     }
 
     actualizarMonitoreo() {
-
+        this.getPosicionesActuales();
     }
 
     iniciarMonitoreo() {
