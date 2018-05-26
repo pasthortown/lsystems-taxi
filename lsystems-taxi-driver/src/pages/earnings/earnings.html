@@ -13,6 +13,52 @@
 </ion-header>
 
 
-<ion-content padding>
-aqui el detalle de los viajes realizados
+<ion-content>
+
+    <ion-list>
+        <ion-list-header>
+          Hoy
+        </ion-list-header>
+        <a ion-item (click)="openModal({charNum: 0})">
+          Fecha
+        </a>
+      </ion-list>
+<!--
+    <ion-list>
+        <ion-list-header>
+          Hoy
+        </ion-list-header>
+
+        <ion-item *ngFor="let item of pasajerosHoy">
+          <ion-avatar item-start>
+            <img src="assets/imgs/Taxi_Ocupado.png">
+          </ion-avatar>
+          <h2><b>Pasajero: {{item.nombre}}</b></h2>
+          <h3>Hora de inicio: {{item.horaInicio}}</h3>
+          <p>Hora de arrivo: {{item.horaFin}}</p>
+        </ion-item>
+      </ion-list>
+
+      <ion-list>
+        <ion-list-header>
+          Ayer
+        </ion-list-header>
+
+        <ion-item *ngFor="let item of pasajeros">
+            <ion-avatar item-start>
+              <img src="assets/imgs/Taxi_Ocupado.png">
+            </ion-avatar>
+            <h2><b>Pasajero: {{item.nombre}}</b></h2>
+            <h3>Hora de inicio: {{item.horaInicio}}</h3>
+            <p>Hora de arrivo: {{item.horaFin}}</p>
+          </ion-item>
+      </ion-list>
+-->
+
+   <!--<ion-list inset>
+        <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+          {{ item.text }}
+        </button>
+      </ion-list>
+    -->
 </ion-content>
