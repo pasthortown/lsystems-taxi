@@ -12,7 +12,7 @@ import { AccountPage } from '../account/account';
   templateUrl: 'tabs.html'
 })
 export class TabsPage implements OnInit{
-tab4Root = AccountPage;
+  tab4Root = AccountPage;
   tab1Root = HomePage;
   tab2Root = EarningsPage;
   tab3Root = RatingsPage;
