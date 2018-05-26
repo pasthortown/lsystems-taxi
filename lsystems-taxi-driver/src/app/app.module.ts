@@ -1,3 +1,6 @@
+import { AccountPage } from './../pages/account/account';
+import { RatingsPage } from './../pages/ratings/ratings';
+import { EarningsPage } from './../pages/earnings/earnings';
 import { RegisterPage } from './../pages/register/register';
 import { LoginPage } from './../pages/login/login';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -22,7 +25,10 @@ import { HttpModule } from '@angular/http';
     HomePage,
     TabsPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    EarningsPage,
+    RatingsPage,
+    AccountPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +43,10 @@ import { HttpModule } from '@angular/http';
     HomePage,
     TabsPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    EarningsPage,
+    RatingsPage,
+    AccountPage
   ],
   providers: [
     StatusBar,
