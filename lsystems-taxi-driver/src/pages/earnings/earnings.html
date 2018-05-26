@@ -7,23 +7,42 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Itinerarios realizados</ion-title>
+    <ion-title>Viajes realizados</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
+  <ion-card>
+    <ion-card-header>
+      <b>Viajes totales:</b>
+    </ion-card-header>
+
+    <ion-card-content>
+        {{total}}<!-- Add card content here! -->
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+        <b>Viajes en esta semana:</b>
+      </ion-card-header>
+
+      <ion-card-content>
+          {{semana}}<!-- Add card content here! -->
+    </ion-card-content>
+  </ion-card>
 
     <ion-list>
         <ion-list-header>
-          <p><b>Hoy</b></p>
+          <p><b>Hoy - martes, 23 de febrero de 2018</b></p>
           <p>Total viajes: 5</p>
         </ion-list-header>
 
         <ion-item *ngFor="let item of pasajerosHoy">
           <ion-avatar item-start>
-            <img src="assets/imgs/Taxi_Ocupado.png">
+            <img src="assets/imgs/Taxi_Standard.png">
           </ion-avatar>
           <h2><b>Pasajero: {{item.nombre}}</b></h2>
           <h3>Hora de inicio: {{item.horaInicio}}</h3>
@@ -31,20 +50,6 @@
         </ion-item>
       </ion-list>
 
-      <ion-list>
-        <ion-list-header>
-          Ayer
-        </ion-list-header>
-
-        <ion-item *ngFor="let item of pasajeros">
-            <ion-avatar item-start>
-              <img src="assets/imgs/Taxi_Ocupado.png">
-            </ion-avatar>
-            <h2><b>Pasajero: {{item.nombre}}</b></h2>
-            <h3>Hora de inicio: {{item.horaInicio}}</h3>
-            <p>Hora de arrivo: {{item.horaFin}}</p>
-          </ion-item>
-      </ion-list>
 
    <!--<ion-list inset>
         <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
