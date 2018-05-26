@@ -33,15 +33,15 @@ export class LoginPage implements OnInit{
     .subscribe(respuesta => {
       if (respuesta.json().idRol == 0) {
         this.showToast('Credenciales Incorrectos', 3000);
-        localStorage.removeItem('isLoggedin');
+        sessionStorage.removeItem('isLoggedin');
         sessionStorage.removeItem('logedResult');
         return;
       }
       sessionStorage.setItem('logedResult', JSON.stringify(respuesta.json().Persona));
-      localStorage.setItem('isLoggedin', 'true');
+      sessionStorage.setItem('isLoggedin', 'true');
       this.navCtrl.push(TabsPage);
     }, error => {
-      localStorage.removeItem('isLoggedin');
+      sessionStorage.removeItem('isLoggedin');
       sessionStorage.removeItem('logedResult');
       this.showToast('Ocurrió un error al autenticar', 3000);
     });

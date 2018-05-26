@@ -1,6 +1,8 @@
+import { Persona } from './../../../../lsystems-taxi-admin/src/app/entidades/CRUD/Persona';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { } from '@types/googlemaps';
+import { ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -11,8 +13,7 @@ export class HomePage implements OnInit {
   map: google.maps.Map;
   poly: google.maps.Polyline;
 
-  constructor(public navCtrl: NavController) {
-
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController) {
   }
 
   ngOnInit() {
@@ -20,8 +21,11 @@ export class HomePage implements OnInit {
   }
 
   refresh() {
+    let personaLogeada = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
     this.startGoogleMap();
+    this.showToast('Saludos, ' + personaLogeada.nombres + ' ' + personaLogeada.apellidos,3000)
   }
+
   startGoogleMap() {
     const mapProp = {
         center: new google.maps.LatLng(-0.224710, -78.516763),
@@ -35,7 +39,16 @@ export class HomePage implements OnInit {
         strokeWeight: 3,
         geodesic: true,
         map: this.map
-      });
-    }
+    });
+  }
+
+  showToast(mensaje: string, time: number):void {
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      position: 'middle',
+      duration: time
+    });
+    toast.present();
+  }
 
 }
