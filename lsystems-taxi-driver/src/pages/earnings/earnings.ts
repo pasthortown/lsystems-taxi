@@ -16,6 +16,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class EarningsPage {
 pasajerosHoy:any[];
 pasajeros:any[];
+semana=20;
+total=123;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.pasajerosHoy=[];
     for(let i=1; i<6;i++){
