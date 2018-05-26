@@ -1,13 +1,16 @@
 <ion-header>
   <ion-navbar>
-    <ion-title >
-      <ion-item>
-        <ion-label> Estado [en-línea/desconectado]</ion-label>
-        <ion-toggle></ion-toggle>
-      </ion-item>
-    </ion-title>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="{{taxi}}">
+      </ion-avatar>
+      <ion-label (click)="getUnidad()">[UNIDAD]</ion-label>
+      <ion-toggle *ngIf="!seleccionadaUnidad" disabled></ion-toggle>
+      <ion-toggle *ngIf="seleccionadaUnidad"></ion-toggle>
+    </ion-item>
   </ion-navbar>
 </ion-header>
+
 <ion-content>
   <div #gmap id="gmap" col-12></div>
 </ion-content>

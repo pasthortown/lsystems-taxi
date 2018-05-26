@@ -10,16 +10,25 @@ export class HomePage implements OnInit {
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
   poly: google.maps.Polyline;
+  taxi: string;
+  seleccionadaUnidad: boolean;
 
   constructor(public navCtrl: NavController) {
   }
 
   ngOnInit() {
+    this.seleccionadaUnidad = false;
+    this.taxi = 'assets/imgs/Taxi_No_Disponible.png';
     this.refresh();
   }
 
   refresh() {
     this.startGoogleMap();
+    this.getUnidad();
+  }
+
+  getUnidad() {
+
   }
 
   startGoogleMap() {
