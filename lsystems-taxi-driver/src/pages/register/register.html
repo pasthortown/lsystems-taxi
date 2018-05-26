@@ -30,6 +30,12 @@
           <ion-label floating>Contraseña</ion-label>
           <ion-input type="password" [(ngModel)]="cuenta.clave"></ion-input>
       </ion-item>
+      <ion-item>
+        <button *ngIf="verificando" ion-button icon-left clear small color="primary">
+          <ion-icon name="clock"></ion-icon>
+          <div>Por favor espere...</div>
+        </button>
+      </ion-item>
     </ion-list>
   </ion-row>
   <ion-row>

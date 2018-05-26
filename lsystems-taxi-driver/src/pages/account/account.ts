@@ -24,11 +24,13 @@ export class AccountPage implements OnInit {
   confirmarNuevaClave: string;
   claveNueva: string;
   webServiceURL = environment.apiUrl;
+  verificando: boolean;
 
   constructor( public toastCtrl: ToastController, public navCtrl: NavController, public camera: Camera, public navParams: NavParams, public http: Http) {
   }
 
   ngOnInit() {
+    this.verificando = false;
     this.refresh();
   }
 
@@ -100,12 +102,14 @@ export class AccountPage implements OnInit {
   }
 
   actualizar() {
+    this.verificando = true;
     this.http.post(this.webServiceURL + '/persona/actualizar',JSON.stringify(this.usuario))
     .subscribe(respuesta => {
       if(this.fotoPersona.id == 0){
         this.fotoPersona.idPersona = this.usuario.id;
         this.http.post(this.webServiceURL + '/fotografiapersona/crear',JSON.stringify(this.fotoPersona))
         .subscribe(respuesta => {
+          this.verificando = false;
           this.showToast('Cambios Guardados', 3000);
         }, error => {
 
@@ -113,17 +117,20 @@ export class AccountPage implements OnInit {
       }else {
         this.http.post(this.webServiceURL + '/fotografiapersona/actualizar',JSON.stringify(this.fotoPersona))
         .subscribe(respuesta => {
+          this.verificando = false;
           this.showToast('Cambios Guardados', 3000);
         }, error => {
 
         });
       }
     }, error => {
+      this.verificando = false;
       this.showToast('Ocurrió un error', 3000);
     });
   }
 
   actualizarCuenta() {
+    this.verificando = true;
     this.http.get(this.webServiceURL + '/cuenta/leer_filtrado?columna=idPersona&tipo_filtro=coincide&filtro='+this.usuario.id.toString())
     .subscribe(respuesta => {
       this.cuenta = respuesta.json()[0] as Cuenta;
@@ -132,13 +139,17 @@ export class AccountPage implements OnInit {
       .subscribe(respuesta => {
         if(respuesta.json()){
           this.showToast('Contraseña Actualizada', 3000);
+          this.verificando = false;
         }else{
+          this.verificando = false;
           this.showToast('Ocurrió un error', 3000);
         }
       }, error => {
+        this.verificando = false;
         this.showToast('Ocurrió un error', 3000);
       });
     }, error => {
+      this.verificando = false;
       this.showToast('Ocurrió un error', 3000);
     });
   }

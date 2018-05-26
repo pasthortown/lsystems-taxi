@@ -16,12 +16,14 @@ import { ToastController } from 'ionic-angular';
 export class LoginPage implements OnInit{
   webServiceURL = environment.apiUrl + 'login';
   loginRequest: LoginRequest;
+  verificando: boolean;
 
   constructor(public navCtrl: NavController, public toastCtrl: ToastController, public navParams: NavParams, public http: Http) {
   }
 
   ngOnInit() {
     this.loginRequest = new LoginRequest();
+    this.verificando = false;
   }
 
   ionViewDidLoad() {
@@ -29,13 +31,14 @@ export class LoginPage implements OnInit{
   }
 
   ingresar() {
-    this.showToast('Verificando, por favor espere...', 3000);
+    this.verificando = true;
     this.http.post(this.webServiceURL + '/cuenta',JSON.stringify(this.loginRequest))
     .subscribe(respuesta => {
       if (respuesta.json().idRol == 0) {
         this.showToast('Credenciales Incorrectos', 3000);
         sessionStorage.removeItem('isLoggedin');
         sessionStorage.removeItem('logedResult');
+        this.verificando = false;
         return;
       }
       sessionStorage.setItem('logedResult', JSON.stringify(respuesta.json().Persona));
@@ -44,6 +47,7 @@ export class LoginPage implements OnInit{
     }, error => {
       sessionStorage.removeItem('isLoggedin');
       sessionStorage.removeItem('logedResult');
+      this.verificando = false;
       this.showToast('Ocurrió un error al autenticar', 3000);
     });
   }

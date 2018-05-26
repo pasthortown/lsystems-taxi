@@ -16,6 +16,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 export class UnidadPage implements OnInit {
   webServiceURL = environment.apiUrl + 'unidad';
   registroMunicipal: string;
+  verificando: boolean;
 
   constructor(public navCtrl: NavController, private barcodeScanner: BarcodeScanner, public toastCtrl: ToastController, public navParams: NavParams, public http: Http) {
   }
@@ -26,6 +27,7 @@ export class UnidadPage implements OnInit {
 
   ngOnInit() {
     this.registroMunicipal = '';
+    this.verificando = false;
     this.refresh();
   }
 
@@ -41,13 +43,14 @@ export class UnidadPage implements OnInit {
   }
 
   confirmar() {
-    this.showToast('Verificando, por favor espere...', 3000);
+    this.verificando = true;
     this.http.get(this.webServiceURL + '/leer_filtrado?columna=registroMunicipal&tipo_filtro=coincide&filtro='+this.registroMunicipal)
     .subscribe(respuesta => {
       if(JSON.stringify(respuesta.json())=='[0]'){
         sessionStorage.removeItem('isLoggedin');
         sessionStorage.removeItem('logedResult');
         sessionStorage.removeItem('unidad');
+        this.verificando = false;
         this.navCtrl.push(LoginPage);
         return;
       }
@@ -58,6 +61,7 @@ export class UnidadPage implements OnInit {
       sessionStorage.removeItem('isLoggedin');
       sessionStorage.removeItem('logedResult');
       sessionStorage.removeItem('unidad');
+      this.verificando = false;
       this.showToast('Ocurrió un error al buscar la unidad', 3000);
     });
   }

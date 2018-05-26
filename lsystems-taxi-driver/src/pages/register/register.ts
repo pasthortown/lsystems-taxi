@@ -16,6 +16,7 @@ export class RegisterPage implements OnInit{
   webServiceURL = environment.apiUrl;
   persona: Persona;
   cuenta: Cuenta;
+  verificando: boolean;
 
   constructor(public navCtrl: NavController, public toastCtrl: ToastController, public navParams: NavParams, public http: Http) {
   }
@@ -23,6 +24,7 @@ export class RegisterPage implements OnInit{
   ngOnInit() {
     this.persona = new Persona();
     this.cuenta = new Cuenta();
+    this.verificando = false;
   }
 
   ionViewDidLoad() {

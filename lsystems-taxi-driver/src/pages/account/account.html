@@ -71,4 +71,10 @@
           </ion-item>
       </ion-list>
     </ion-row>
+    <ion-row>
+      <button *ngIf="verificando" ion-button icon-left clear small color="primary">
+        <ion-icon name="clock"></ion-icon>
+        <div>Por favor espere...</div>
+      </button>
+    </ion-row>
   </ion-content>
