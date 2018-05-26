@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost/lsystems-taxi/server/'
+  apiUrl: 'http://192.168.1.181/lsystems-taxi/server/'
 };
