@@ -1,16 +1,15 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+<ion-header id="header">
+  <ion-navbar id="header">
+    <ion-title id="header">
+      <ion-item>
+        <ion-label> Estado [en-línea/desconectado]</ion-label>
+        <ion-toggle></ion-toggle>
+      </ion-item>
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
-  <div id="Header">
-    <ion-item>
-      <ion-label> En línea</ion-label>
-      <ion-toggle></ion-toggle>
-    </ion-item>
-  </div>
   <div #gmap id="gmap" col-12></div>
 </ion-content>
