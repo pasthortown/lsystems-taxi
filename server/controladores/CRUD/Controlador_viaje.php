@@ -202,4 +202,25 @@ class Controlador_viaje extends Controlador_Base
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
+   
+   function calcularDesplazamiento($args)
+   {
+      $latDesde = $args["latDesde"];
+      $lngDesde = $args["lngDesde"];
+      $latHasta = $args["latHasta"];
+      $lngHasta = $args["lngHasta"];
+      $fechaInicio = $args["fechaInicio"];
+      $fechaFin = $args["fechaFin"];
+      $fechaDesdeNoSQLTime = date_create($fechaInicio);
+      $fechaHastaNoSQLTime = date_create($fechaFin);
+      $tiempo = date_diff($fechaDesdeNoSQLTime, $fechaHastaNoSQLTime, true)->format('%h Horas %i minutos %s segundos');
+      $radioTierra = 6378;
+      $difLat = ($latDesde - $latHasta)*(pi()/180);
+      $difLng = ($lngDesde - $lngHasta)*(pi()/180);
+      $a = pow(sin($difLat/2),2) + cos($latDesde) * cos($latHasta) * pow(sin($difLng/2),2);
+      $c = 2 * atan2(sqrt($a),sqrt(1-$a));
+      $desplazamiento = $radioTierra * $c;      
+      $respuesta = array("tiempo"=>$tiempo, "desplazamiento"=>number_format($desplazamiento, 2, '.', '').' Km');
+      return $respuesta;
+   }
 }
