@@ -2,9 +2,10 @@ import { LoginPage } from './../login/login';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
-import { Persona } from './Persona';
-import { Cuenta } from './Cuenta';
+import { Persona } from './../../app/entidades/CRUD/Persona';
+import { Cuenta } from './../../app/entidades/CRUD/Cuenta';
 import { ToastController } from 'ionic-angular';
+import { environment } from './../../../environments/environment';
 
 @IonicPage()
 @Component({
@@ -12,7 +13,7 @@ import { ToastController } from 'ionic-angular';
   templateUrl: 'register.html',
 })
 export class RegisterPage implements OnInit{
-  webServiceURL = 'http://shiptracking.000webhostapp.com/server/';
+  webServiceURL = environment.apiUrl;
   persona: Persona;
   cuenta: Cuenta;
 
@@ -29,18 +30,26 @@ export class RegisterPage implements OnInit{
   }
 
   registrar(){
+    if(this.persona.identificacion == '' || this.persona.identificacion == null ||
+       this.persona.nombres == '' || this.persona.nombres == null ||
+       this.persona.apellidos == '' || this.persona.apellidos == null ||
+       this.persona.correoElectronico == '' || this.persona.correoElectronico == null ||
+       this.cuenta.clave == '' || this.cuenta.clave == null){
+        this.showToast('Todos los campos son obligatorios.');
+        return;
+    }
     this.http.post(this.webServiceURL + '/persona/crear',JSON.stringify(this.persona))
     .subscribe(r1 => {
       if(r1.json()){
         this.http.get(this.webServiceURL + '/persona/leer_filtrado?columna=identificacion&tipo_filtro=coincide&filtro='+this.persona.identificacion)
         .subscribe(r2 => {
-          this.cuenta.idCoperativa=0;
+          this.cuenta.idEstadoCuenta=1;
           this.cuenta.idRol=3;
           this.cuenta.idPersona = r2.json()[0].id;
           this.http.post(this.webServiceURL + '/cuenta/crear',JSON.stringify(this.cuenta))
           .subscribe(r3 => {
             if(r3.json()){
-              this.showToast('Registro Completo, tu opinión es importante para nosotros');
+              this.showToast('Registro Completo, en breve la activaremos y podrás comenzar');
               this.navCtrl.push(LoginPage);
             }else {
               this.showToast('Ocurrió un error al registrar');

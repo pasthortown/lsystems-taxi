@@ -1,7 +1,7 @@
 import { environment } from './../../../environments/environment';
 import { RegisterPage } from './../register/register';
 import { TabsPage } from './../tabs/tabs';
-import { LoginRequest } from './Login-Request';
+import { LoginRequest } from './../../app/entidades/especifico/Login-Request';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
@@ -32,7 +32,7 @@ export class LoginPage implements OnInit{
     this.http.post(this.webServiceURL + '/cuenta',JSON.stringify(this.loginRequest))
     .subscribe(respuesta => {
       if (respuesta.json().idRol == 0) {
-        this.showToast('Credenciales Incorrectos');
+        this.showToast('Credenciales Incorrectos', 3000);
         localStorage.removeItem('isLoggedin');
         sessionStorage.removeItem('logedResult');
         return;
@@ -43,28 +43,30 @@ export class LoginPage implements OnInit{
     }, error => {
       localStorage.removeItem('isLoggedin');
       sessionStorage.removeItem('logedResult');
-      this.showToast('Ocurrió un error al autenticar');
+      this.showToast('Ocurrió un error al autenticar', 3000);
     });
   }
 
   passwordRecovery() {
     if(this.loginRequest.email == null || this.loginRequest.email == ''){
-      this.showToast('Ingrese su correo electrónico');
+      this.showToast('Ingrese su correo electrónico', 3000);
       return;
     }
-    this.http.get(this.webServiceURL + 'passwordRecovery?email='+this.loginRequest.email)
+    this.showToast('Por favor espere...', 3000);
+    let data = {email: this.loginRequest.email, accion: 'Recuperar Clave'};
+    this.http.post(this.webServiceURL + '/passwordChange', JSON.stringify(data))
     .subscribe(respuesta => {
-      this.showToast('La contraseña ha cambiado, revise su correo electrónico');
+      this.showToast('La contraseña ha cambiado, revise su correo electrónico', 3000);
     }, error => {
-      this.showToast('Ocurrió un error al recuperar la contraseña');
+      this.showToast('Ocurrió un error al recuperar la contraseña', 3000);
     });
   }
 
-  showToast(mensaje: string):void {
+  showToast(mensaje: string, time: number):void {
     let toast = this.toastCtrl.create({
       message: mensaje,
       position: 'middle',
-      duration: 3000
+      duration: time
     });
     toast.present();
   }
