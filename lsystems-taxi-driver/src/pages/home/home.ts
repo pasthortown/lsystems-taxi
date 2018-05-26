@@ -56,6 +56,7 @@ export class HomePage implements OnInit {
       }
       if(this.unidad.idEstadoUnidad == 3){
         this.showToast('Modo No Disponible Activado', 3000);
+        this.getUltimaPosicion();
       }
     }, error => {
       this.taxi = 'assets/imgs/Taxi_No_Disponible.png';
@@ -83,6 +84,8 @@ export class HomePage implements OnInit {
       this.posicion.latitud = resp.coords.latitude.toString();
       this.posicion.longitud = resp.coords.longitude.toString();
       let location = new google.maps.LatLng(JSON.parse(this.posicion.latitud) as number,JSON.parse(this.posicion.longitud) as number);
+      this.map.setCenter(location);
+      this.map.setZoom(16);
       this.posicion.idUnidad = this.unidad.id;
       this.posicion.tiempo = new Date();
       this.posicion.velocidad = Math.floor(resp.coords.speed * 3.6).toString();
@@ -98,9 +101,10 @@ export class HomePage implements OnInit {
           return;
         }
         this.posicion.id = respuesta.json()[0].id;
+        let idEstadoUnidad = respuesta.json()[0].idEstadoUnidad;
         this.http.post(this.webServiceURL + 'posicion/actualizar',JSON.stringify(this.posicion))
           .subscribe(respuesta => {
-            this.updateMiEstado(respuesta.json()[0].idEstadoUnidad,location);
+            this.updateMiEstado(idEstadoUnidad,location);
           }, error => {
 
         });
@@ -113,7 +117,7 @@ export class HomePage implements OnInit {
   }
 
   updateMiEstado(idEstadoUnidad, location){
-    let iconBase = 'assets/images/';
+    let iconBase = 'assets/imgs/';
     let icons = {
         1: {
             image : {
