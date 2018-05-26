@@ -1,4 +1,4 @@
-import { TabsPage } from './../../../lsystems-taxi/src/pages/tabs/tabs';
+import { TabsPage } from './../pages/tabs/tabs';
 import { LoginPage } from './../pages/login/login';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
