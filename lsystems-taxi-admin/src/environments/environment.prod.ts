@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost/lsystems-taxi/server/'
+  apiUrl: 'http://192.168.1.181/lsystems-taxi/server/'
 };
