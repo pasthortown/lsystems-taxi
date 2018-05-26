@@ -15,21 +15,21 @@
 
 <ion-content>
   <ion-card>
-    <ion-card-header>
-      <b>Viajes totales:</b>
+    <ion-card-header  id=carHeader >
+      <p style="color:#666666"><b>Viajes totales:</b></p>
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content text-right Style="font-size:3rem">
         {{total}}<!-- Add card content here! -->
     </ion-card-content>
   </ion-card>
 
   <ion-card>
-    <ion-card-header>
-        <b>Viajes en esta semana:</b>
+    <ion-card-header floating id=carHeader >
+        <p style="color:#666666"><b>Viajes en esta semana:</b></p>
       </ion-card-header>
 
-      <ion-card-content>
+      <ion-card-content text-right Style="font-size:3rem">
           {{semana}}<!-- Add card content here! -->
     </ion-card-content>
   </ion-card>
@@ -37,12 +37,13 @@
     <ion-list>
         <ion-list-header>
           <p><b>Hoy - martes, 23 de febrero de 2018</b></p>
-          <p>Total viajes: 5</p>
+          <p >Total viajes: 5</p>
         </ion-list-header>
 
         <ion-item *ngFor="let item of pasajerosHoy">
           <ion-avatar item-start>
             <img src="assets/imgs/Taxi_Standard.png">
+            <div text-center Style="font-size:1rem">Placa</div>
           </ion-avatar>
           <h2><b>Pasajero: {{item.nombre}}</b></h2>
           <h3>Hora de inicio: {{item.horaInicio}}</h3>
