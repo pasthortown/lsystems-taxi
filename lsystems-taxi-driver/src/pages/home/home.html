@@ -4,9 +4,8 @@
       <ion-avatar item-start>
         <img src="{{taxi}}">
       </ion-avatar>
-      <ion-label (click)="getUnidad()">[UNIDAD]</ion-label>
-      <ion-toggle *ngIf="!seleccionadaUnidad" disabled></ion-toggle>
-      <ion-toggle *ngIf="seleccionadaUnidad"></ion-toggle>
+      <ion-label>No. {{unidad.numero}} - {{unidad.placa}}</ion-label>
+      <ion-toggle (ionChange)="activar()" [(ngModel)]="activado"></ion-toggle>
     </ion-item>
   </ion-navbar>
 </ion-header>

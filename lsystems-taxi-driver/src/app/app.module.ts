@@ -1,3 +1,4 @@
+import { UnidadPage } from './../pages/unidad/unidad';
 import { AccountPage } from './../pages/account/account';
 import { RatingsPage } from './../pages/ratings/ratings';
 import { EarningsPage } from './../pages/earnings/earnings';
@@ -17,6 +18,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
 import { Camera } from '@ionic-native/camera';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { Camera } from '@ionic-native/camera';
     RegisterPage,
     EarningsPage,
     RatingsPage,
-    AccountPage
+    AccountPage,
+    UnidadPage
   ],
   imports: [
     BrowserModule,
@@ -47,12 +51,15 @@ import { Camera } from '@ionic-native/camera';
     RegisterPage,
     EarningsPage,
     RatingsPage,
-    AccountPage
+    AccountPage,
+    UnidadPage
   ],
   providers: [
     StatusBar,
     Camera,
     SplashScreen,
+    BarcodeScanner,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -1,6 +1,6 @@
+import { UnidadPage } from './../unidad/unidad';
 import { environment } from './../../../environments/environment';
 import { RegisterPage } from './../register/register';
-import { TabsPage } from './../tabs/tabs';
 import { LoginRequest } from './../../app/entidades/especifico/Login-Request';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -29,6 +29,7 @@ export class LoginPage implements OnInit{
   }
 
   ingresar() {
+    this.showToast('Verificando, por favor espere...', 3000);
     this.http.post(this.webServiceURL + '/cuenta',JSON.stringify(this.loginRequest))
     .subscribe(respuesta => {
       if (respuesta.json().idRol == 0) {
@@ -39,7 +40,7 @@ export class LoginPage implements OnInit{
       }
       sessionStorage.setItem('logedResult', JSON.stringify(respuesta.json().Persona));
       sessionStorage.setItem('isLoggedin', 'true');
-      this.navCtrl.push(TabsPage);
+      this.navCtrl.push(UnidadPage);
     }, error => {
       sessionStorage.removeItem('isLoggedin');
       sessionStorage.removeItem('logedResult');
