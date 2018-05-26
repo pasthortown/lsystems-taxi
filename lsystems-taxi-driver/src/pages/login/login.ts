@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { RegisterPage } from './../register/register';
 import { TabsPage } from './../tabs/tabs';
 import { LoginRequest } from './Login-Request';
@@ -6,13 +7,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { ToastController } from 'ionic-angular';
 
+
 @IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
 export class LoginPage implements OnInit{
-  webServiceURL = 'http://192.168.1.10/lsystems-taxi/server/login/';
+  webServiceURL = environment.apiUrl + 'login';
   loginRequest: LoginRequest;
 
   constructor(public navCtrl: NavController, public toastCtrl: ToastController, public navParams: NavParams, public http: Http) {
@@ -27,7 +29,7 @@ export class LoginPage implements OnInit{
   }
 
   ingresar() {
-    this.http.post(this.webServiceURL + 'cuenta',JSON.stringify(this.loginRequest))
+    this.http.post(this.webServiceURL + '/cuenta',JSON.stringify(this.loginRequest))
     .subscribe(respuesta => {
       if (respuesta.json().idRol == 0) {
         this.showToast('Credenciales Incorrectos');
