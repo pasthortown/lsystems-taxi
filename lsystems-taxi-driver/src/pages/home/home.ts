@@ -23,7 +23,8 @@ export class HomePage implements OnInit {
   refresh() {
     let personaLogeada = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
     this.startGoogleMap();
-    this.showToast('Saludos, ' + personaLogeada.nombres + ' ' + personaLogeada.apellidos,3000)
+    this.showToast('Saludos, Mortal', 3000);
+    //this.showToast('Saludos, ' + personaLogeada.nombres + ' ' + personaLogeada.apellidos,3000)
   }
 
   startGoogleMap() {
