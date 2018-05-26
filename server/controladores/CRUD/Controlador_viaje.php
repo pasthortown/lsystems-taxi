@@ -142,6 +142,15 @@ class Controlador_viaje extends Controlador_Base
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
+   
+   function leer_estadisticas_viajes_globales($args)
+   {
+      $idUsuario = $args["idUsuario"];
+      $sql = "SELECT DATE(Viaje.fechaInicio) as 'Fecha', COUNT(*) as 'Cuenta' FROM Viaje GROUP BY DATE(Viaje.fechaInicio);";
+      $parametros = array($idUsuario);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
 
    function leer_estadisticas_viajes_usuario($args)
    {
