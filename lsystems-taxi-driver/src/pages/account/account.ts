@@ -41,7 +41,7 @@ export class AccountPage implements OnInit {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AccountPage');
+
   }
 
   subirPicture(){

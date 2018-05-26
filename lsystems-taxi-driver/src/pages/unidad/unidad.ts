@@ -21,7 +21,7 @@ export class UnidadPage implements OnInit {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UnidadPage');
+
   }
 
   ngOnInit() {

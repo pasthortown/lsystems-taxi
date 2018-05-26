@@ -26,7 +26,7 @@ export class RegisterPage implements OnInit{
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
+
   }
 
   registrar(){

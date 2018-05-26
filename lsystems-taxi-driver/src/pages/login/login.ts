@@ -25,7 +25,7 @@ export class LoginPage implements OnInit{
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+
   }
 
   ingresar() {

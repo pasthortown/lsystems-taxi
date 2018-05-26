@@ -19,7 +19,7 @@ export class RatingsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RatingsPage');
+
   }
 
 }

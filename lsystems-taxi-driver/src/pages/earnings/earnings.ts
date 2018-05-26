@@ -42,7 +42,7 @@ total=123;
   }
   itemSelected(Item){}
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EarningsPage');
+
   }
 
 
