@@ -5,9 +5,9 @@ class Controlador_unidad extends Controlador_Base
 {
    function crear($args)
    {
-      $unidad = new Unidad($args["id"],$args["placa"],$args["numero"],$args["anoFabricacion"],$args["registroMunicipal"],$args["idEstadoUnidad"]);
-      $sql = "INSERT INTO Unidad (placa,numero,anoFabricacion,registroMunicipal,idEstadoUnidad) VALUES (?,?,?,?,?);";
-      $parametros = array($unidad->placa,$unidad->numero,$unidad->anoFabricacion,$unidad->registroMunicipal,$unidad->idEstadoUnidad);
+      $unidad = new Unidad($args["id"],$args["placa"],$args["numero"],$args["anoFabricacion"],$args["registroMunicipal"],$args["idEstadoUnidad"],$args["idCoperativa"]);
+      $sql = "INSERT INTO Unidad (placa,numero,anoFabricacion,registroMunicipal,idEstadoUnidad,idCoperativa) VALUES (?,?,?,?,?,?);";
+      $parametros = array($unidad->placa,$unidad->numero,$unidad->anoFabricacion,$unidad->registroMunicipal,$unidad->idEstadoUnidad,$unidad->idCoperativa);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;
@@ -18,9 +18,9 @@ class Controlador_unidad extends Controlador_Base
 
    function actualizar($args)
    {
-      $unidad = new Unidad($args["id"],$args["placa"],$args["numero"],$args["anoFabricacion"],$args["registroMunicipal"],$args["idEstadoUnidad"]);
-      $parametros = array($unidad->placa,$unidad->numero,$unidad->anoFabricacion,$unidad->registroMunicipal,$unidad->idEstadoUnidad,$unidad->id);
-      $sql = "UPDATE Unidad SET placa = ?,numero = ?,anoFabricacion = ?,registroMunicipal = ?,idEstadoUnidad = ? WHERE id = ?;";
+      $unidad = new Unidad($args["id"],$args["placa"],$args["numero"],$args["anoFabricacion"],$args["registroMunicipal"],$args["idEstadoUnidad"],$args["idCoperativa"]);
+      $parametros = array($unidad->placa,$unidad->numero,$unidad->anoFabricacion,$unidad->registroMunicipal,$unidad->idEstadoUnidad,$unidad->idCoperativa,$unidad->id);
+      $sql = "UPDATE Unidad SET placa = ?,numero = ?,anoFabricacion = ?,registroMunicipal = ?,idEstadoUnidad = ?,idCoperativa = ? WHERE id = ?;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;
