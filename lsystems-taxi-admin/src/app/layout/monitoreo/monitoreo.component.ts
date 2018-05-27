@@ -139,7 +139,7 @@ export class MonitoreoComponent implements OnInit {
 
         let infowindow = new google.maps.InfoWindow({
             content: '<div><h4>No. ' + posicionUnidad.numero.toString() + ' - ' + posicionUnidad.placa + '</h4><h5>'
-                  + Math.floor(posicionUnidad.velocidad).toString() + ' Km/h</h5>'+
+                  + posicionUnidad.velocidad + ' Km/h</h5>'+
                     '<h6><strong>' + estadoUnidad.toString() + '</strong></h6>'+
                     '<small>' + posicionUnidad.tiempo + '</small>'+
                     '</div>'
