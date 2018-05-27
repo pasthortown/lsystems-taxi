@@ -1,13 +1,13 @@
 <?php
 include_once('../controladores/Controlador_Base.php');
-include_once('../entidades/CRUD/Unidad.php');
-class Controlador_unidad extends Controlador_Base
+include_once('../entidades/CRUD/MotivoCalificacionUnidad.php');
+class Controlador_motivocalificacionunidad extends Controlador_Base
 {
    function crear($args)
    {
-      $unidad = new Unidad($args["id"],$args["placa"],$args["numero"],$args["anoFabricacion"],$args["registroMunicipal"],$args["idEstadoUnidad"],$args["idCoperativa"]);
-      $sql = "INSERT INTO Unidad (placa,numero,anoFabricacion,registroMunicipal,idEstadoUnidad,idCoperativa) VALUES (?,?,?,?,?,?);";
-      $parametros = array($unidad->placa,$unidad->numero,$unidad->anoFabricacion,$unidad->registroMunicipal,$unidad->idEstadoUnidad,$unidad->idCoperativa);
+      $motivocalificacionunidad = new MotivoCalificacionUnidad($args["id"],$args["descripcion"]);
+      $sql = "INSERT INTO MotivoCalificacionUnidad (descripcion) VALUES (?);";
+      $parametros = array($motivocalificacionunidad->descripcion);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;
@@ -18,9 +18,9 @@ class Controlador_unidad extends Controlador_Base
 
    function actualizar($args)
    {
-      $unidad = new Unidad($args["id"],$args["placa"],$args["numero"],$args["anoFabricacion"],$args["registroMunicipal"],$args["idEstadoUnidad"],$args["idCoperativa"]);
-      $parametros = array($unidad->placa,$unidad->numero,$unidad->anoFabricacion,$unidad->registroMunicipal,$unidad->idEstadoUnidad,$unidad->idCoperativa,$unidad->id);
-      $sql = "UPDATE Unidad SET placa = ?,numero = ?,anoFabricacion = ?,registroMunicipal = ?,idEstadoUnidad = ?,idCoperativa = ? WHERE id = ?;";
+      $motivocalificacionunidad = new MotivoCalificacionUnidad($args["id"],$args["descripcion"]);
+      $parametros = array($motivocalificacionunidad->descripcion,$motivocalificacionunidad->id);
+      $sql = "UPDATE MotivoCalificacionUnidad SET descripcion = ? WHERE id = ?;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;
@@ -33,7 +33,7 @@ class Controlador_unidad extends Controlador_Base
    {
       $id = $args["id"];
       $parametros = array($id);
-      $sql = "DELETE FROM Unidad WHERE id = ?;";
+      $sql = "DELETE FROM MotivoCalificacionUnidad WHERE id = ?;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;
@@ -46,10 +46,10 @@ class Controlador_unidad extends Controlador_Base
    {
       $id = $args["id"];
       if ($id==""){
-         $sql = "SELECT * FROM Unidad;";
+         $sql = "SELECT * FROM MotivoCalificacionUnidad;";
       }else{
       $parametros = array($id);
-         $sql = "SELECT * FROM Unidad WHERE id = ?;";
+         $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE id = ?;";
       }
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
@@ -60,7 +60,7 @@ class Controlador_unidad extends Controlador_Base
       $pagina = $args["pagina"];
       $registrosPorPagina = $args["registros_por_pagina"];
       $desde = (($pagina-1)*$registrosPorPagina);
-      $sql ="SELECT * FROM Unidad LIMIT $desde,$registrosPorPagina;";
+      $sql ="SELECT * FROM MotivoCalificacionUnidad LIMIT $desde,$registrosPorPagina;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
@@ -68,7 +68,7 @@ class Controlador_unidad extends Controlador_Base
    function numero_paginas($args)
    {
       $registrosPorPagina = $args["registros_por_pagina"];
-      $sql ="SELECT IF(ceil(count(*)/$registrosPorPagina)>0,ceil(count(*)/$registrosPorPagina),1) as 'paginas' FROM Unidad;";
+      $sql ="SELECT IF(ceil(count(*)/$registrosPorPagina)>0,ceil(count(*)/$registrosPorPagina),1) as 'paginas' FROM MotivoCalificacionUnidad;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta[0];
    }
@@ -81,16 +81,16 @@ class Controlador_unidad extends Controlador_Base
       switch ($tipoFiltro){
          case "coincide":
             $parametros = array($filtro);
-            $sql = "SELECT * FROM Unidad WHERE $nombreColumna = ?;";
+            $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE $nombreColumna = ?;";
             break;
          case "inicia":
-            $sql = "SELECT * FROM Unidad WHERE $nombreColumna LIKE '$filtro%';";
+            $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE $nombreColumna LIKE '$filtro%';";
             break;
          case "termina":
-            $sql = "SELECT * FROM Unidad WHERE $nombreColumna LIKE '%$filtro';";
+            $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE $nombreColumna LIKE '%$filtro';";
             break;
          default:
-            $sql = "SELECT * FROM Unidad WHERE $nombreColumna LIKE '%$filtro%';";
+            $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE $nombreColumna LIKE '%$filtro%';";
             break;
       }
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);

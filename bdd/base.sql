@@ -18,6 +18,7 @@ CREATE TABLE Unidad (
     anoFabricacion INT NULL,
     registroMunicipal VARCHAR(10) NULL,
     idEstadoUnidad INT NULL,
+    idCoperativa INT NULL,
     PRIMARY KEY (id)
 );
 
@@ -32,6 +33,22 @@ CREATE TABLE Viaje (
     idUnidad INT NULL,
     idUsuario INT NULL,
     idConductor INT NULL,
+    idEstadoViaje INT NULL,
+    idMotivoEstado INT NULL,
+    costoReal DOUBLE NULL,
+    costoCalculado DOUBLE NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE EstadoViaje (
+    id INT NOT NULL AUTO_INCREMENT,
+    descripcion VARCHAR(20) NULL UNIQUE,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE MotivoEstado (
+    id INT NOT NULL AUTO_INCREMENT,
+    descripcion VARCHAR(20) NULL UNIQUE,
     PRIMARY KEY (id)
 );
 
@@ -84,6 +101,7 @@ CREATE TABLE Cuenta (
     idRol INT NULL,
     clave BLOB NULL,
     idEstadoCuenta INT NULL,
+    idCoperativa INT NULL,
     PRIMARY KEY (id)
 );
 
@@ -103,16 +121,47 @@ CREATE TABLE EstadoCuenta (
 
 CREATE TABLE Expresion (
     id INT NOT NULL AUTO_INCREMENT,
-    idUsuario INT NOT NULL,
-    idUnidad INT NULL,
+    idViaje INT NULL,
+    idUsuario INT NULL,
     contenido VARCHAR(500) NULL,
     respuesta VARCHAR(500) NULL,
-    idCalificacion INT NULL,
+    idCalificacionUnidad INT NULL,
+    idCalificacionConductor INT NULL,
+    idCalificacionEstiloConduccion INT NULL,
+    idCalificacionUsuario INT NULL,
+    idMotivoCalificacionUsuario INT NULL,
+    idMotivoCalificacionUnidad INT NULL,
+    idMotivoCalificacionConductor INT NULL,
+    idMotivoCalificacionEstiloConduccion INT NULL,
     idAdjunto INT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE Calificacion (
+    id INT NOT NULL AUTO_INCREMENT,
+    descripcion VARCHAR(50) NULL UNIQUE,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE MotivoCalificacionUsuario (
+    id INT NOT NULL AUTO_INCREMENT,
+    descripcion VARCHAR(50) NULL UNIQUE,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE MotivoCalificacionEstiloConduccion (
+    id INT NOT NULL AUTO_INCREMENT,
+    descripcion VARCHAR(50) NULL UNIQUE,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE MotivoCalificacionUnidad (
+    id INT NOT NULL AUTO_INCREMENT,
+    descripcion VARCHAR(50) NULL UNIQUE,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE MotivoCalificacionConductor (
     id INT NOT NULL AUTO_INCREMENT,
     descripcion VARCHAR(50) NULL UNIQUE,
     PRIMARY KEY (id)

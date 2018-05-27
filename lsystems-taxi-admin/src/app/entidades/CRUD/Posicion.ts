@@ -4,7 +4,7 @@ export class Posicion {
    tiempo: Date;
    latitud: string;
    longitud: string;
-   velocidad: string;
+   velocidad: number;
    numero: number;
    placa: string;
    registroMunicipal: string;

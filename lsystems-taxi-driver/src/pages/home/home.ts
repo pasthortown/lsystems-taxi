@@ -35,9 +35,10 @@ export class HomePage implements OnInit {
   }
 
   refresh() {
-    this.getUltimaPosicion();
-    this.startGoogleMap();
     this.unidad = JSON.parse(sessionStorage.getItem('unidad')) as Unidad;
+    this.posicion.idUnidad = this.unidad.id;
+    this.startGoogleMap();
+    this.getPosicionId();
   }
 
   activar() {
@@ -52,11 +53,12 @@ export class HomePage implements OnInit {
     .subscribe(respuesta => {
       if(this.unidad.idEstadoUnidad == 1){
         this.showToast('Modo Disponible Activado. Esperando solicitudes...', 3000);
+        this.iniciarGPS();
         this.escucharSolicitudes();
       }
       if(this.unidad.idEstadoUnidad == 3){
         this.showToast('Modo No Disponible Activado', 3000);
-        this.getUltimaPosicion();
+        this.detener();
       }
     }, error => {
       this.taxi = 'assets/imgs/Taxi_No_Disponible.png';
@@ -74,49 +76,44 @@ export class HomePage implements OnInit {
     }
   }
 
-  getUltimaPosicion(){
-    let options = {
-      enableHighAccuracy: true,
-      timeout: 10000
-    };
-    this.posicion = new Posicion();
-    this.geolocation.getCurrentPosition(options).then((resp) => {
-      this.posicion.latitud = resp.coords.latitude.toString();
-      this.posicion.longitud = resp.coords.longitude.toString();
-      let location = new google.maps.LatLng(JSON.parse(this.posicion.latitud) as number,JSON.parse(this.posicion.longitud) as number);
-      this.map.setCenter(location);
-      this.map.setZoom(16);
-      this.posicion.idUnidad = this.unidad.id;
-      this.posicion.tiempo = new Date();
-      this.posicion.velocidad = Math.floor(resp.coords.speed * 3.6).toString();
-      this.http.get(this.webServiceURL + 'posicion/leer_posicions_actuales?idUnidad='+this.unidad.id)
-      .subscribe(respuesta => {
-        if(JSON.stringify(respuesta.json())=='[0]'){
-          this.http.post(this.webServiceURL + 'posicion/crear',JSON.stringify(this.posicion))
-          .subscribe(respuesta => {
-            this.updateMiEstado(1,location);
+  getPosicionId() {
+    this.http.get(this.webServiceURL + 'posicion/leer_posicions_actuales?idUnidad='+this.unidad.id)
+    .subscribe(r1 => {
+      if(JSON.stringify(r1.json())=='[0]'){
+        this.http.post(this.webServiceURL + 'posicion/crear',JSON.stringify(this.posicion))
+        .subscribe(r2 => {
+          this.http.get(this.webServiceURL + 'posicion/leer_posicions_actuales?idUnidad='+this.unidad.id)
+          .subscribe(r3 => {
+            this.posicion.id = r3.json()[0].id;
+            return;
           }, error => {
 
           });
-          return;
-        }
-        this.posicion.id = respuesta.json()[0].id;
-        let idEstadoUnidad = respuesta.json()[0].idEstadoUnidad;
-        this.http.post(this.webServiceURL + 'posicion/actualizar',JSON.stringify(this.posicion))
-          .subscribe(respuesta => {
-            this.updateMiEstado(idEstadoUnidad,location);
-          }, error => {
+        }, error => {
 
         });
-      }, error => {
-
-      });
-    }).catch((error) => {
+      }
+      this.posicion.id = r1.json()[0].id;
+    }, error => {
 
     });
   }
 
-  updateMiEstado(idEstadoUnidad, location){
+  setUltimaPosicion(){
+    this.http.post(this.webServiceURL + 'posicion/actualizar',JSON.stringify(this.posicion))
+    .subscribe(r1 => {
+      this.http.get(this.webServiceURL + 'unidad/leer?id='+this.unidad.id.toString())
+      .subscribe(r2 => {
+        this.unidad = r2.json()[0] as Unidad;
+      }, error => {
+
+      });
+    }, error => {
+
+    });
+  }
+
+  updateMiEstado(){
     let iconBase = 'assets/imgs/';
     let icons = {
         1: {
@@ -156,8 +153,9 @@ export class HomePage implements OnInit {
             }
         }
     };
-    this.taxi = icons[idEstadoUnidad<=4 ? idEstadoUnidad : 1].image.url;
-    let icono = icons[idEstadoUnidad<=4 ? idEstadoUnidad : 1].image;
+    let icono = icons[this.unidad.idEstadoUnidad<=4 ? this.unidad.idEstadoUnidad : 1].image;
+    this.taxi = icono.url;
+    let location = new google.maps.LatLng(JSON.parse(this.posicion.latitud) as number,JSON.parse(this.posicion.longitud) as number);
     let noEncontrado = true;
     this.marcadoresVisibles.forEach(marcador => {
       if (marcador.getTitle() === 'No. ' + this.unidad.numero + ' - ' + this.unidad.placa) {
@@ -176,9 +174,11 @@ export class HomePage implements OnInit {
       });
       this.marcadoresVisibles.push(marcadorNuevo);
     }
+    this.map.setCenter(location);
   }
+
   escuchando() {
-    this.getUltimaPosicion();
+    this.setUltimaPosicion();
     // aca validar si hay nuevas solicitudes de servicio
   }
 
@@ -205,5 +205,25 @@ export class HomePage implements OnInit {
       duration: time
     });
     toast.present();
+  }
+
+  iniciarGPS():void {
+    let options = {
+      enableHighAccuracy: true,
+      timeout: 15000
+    };
+    this.subscription = this.geolocation.watchPosition(options)
+    .subscribe(position => {
+      this.posicion.latitud = position.coords.latitude.toString();
+      this.posicion.longitud = position.coords.longitude.toString();
+      this.posicion.velocidad = Math.floor(position.coords.speed * 3.6) + ' Km/h';
+      this.updateMiEstado();
+      this.posicion.tiempo = new Date();
+    });
+  }
+
+  detener():void {
+    this.updateMiEstado();
+    this.subscription.unsubscribe();
   }
 }

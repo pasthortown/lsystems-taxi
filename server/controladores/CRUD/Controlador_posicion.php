@@ -22,11 +22,11 @@ class Controlador_posicion extends Controlador_Base
    function actualizar($args)
    {
       $posicion = new Posicion($args["id"],$args["idUnidad"],$args["tiempo"],$args["latitud"],$args["longitud"],$args["velocidad"]);
-      $parametros = array($posicion->idUnidad,$posicion->tiempo,$posicion->latitud,$posicion->longitud,$posicion->velocidad,$posicion->id);
-      $sql = "UPDATE Posicion SET idUnidad = ?,tiempo = ?,latitud = ?,longitud = ?,velocidad = ? WHERE id = ?;";
-      $tiempoNoSQLTime = strtotime($posicion->tiempo);
+      $tiempoNoSQLTime = strtotime($posicion->tiempo)-(5*3600);
       $tiempoSQLTime = date("Y-m-d H:i:s", $tiempoNoSQLTime);
       $posicion->tiempo = $tiempoSQLTime;
+      $parametros = array($posicion->idUnidad,$posicion->tiempo,$posicion->latitud,$posicion->longitud,$posicion->velocidad,$posicion->id);
+      $sql = "UPDATE Posicion SET idUnidad = ?,tiempo = ?,latitud = ?,longitud = ?,velocidad = ? WHERE id = ?;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;
