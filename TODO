@@ -26,6 +26,7 @@ Expresion (idCalificacionUNidad,
             idMotivoCalificacionEstiloConduccion)
 
 Viaje (idEstadoViaje, idMotivoEstado, costoReal, costoCalculado)
+Total Viajes Semana
 
 POR COPERATIVA:
 Unidad (idCoperativa)

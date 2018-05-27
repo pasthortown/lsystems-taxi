@@ -242,4 +242,40 @@ class Controlador_viaje extends Controlador_Base
       return $respuesta;
    }
 
+   function leer_viajes_hoy_conductor($args)
+   {
+      $id = $args["id"];
+      $sql = "SELECT * FROM Viaje WHERE Viaje.idConductor = ? AND DATE(fechaInicio) = DATE(NOW());";
+      $parametros = array();
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
+
+   function leer_viajes_hoy_cliente($args)
+   {
+      $id = $args["id"];
+      $sql = "SELECT * FROM Viaje WHERE Viaje.idUsuario = ? AND DATE(fechaInicio) = DATE(NOW());";
+      $parametros = array();
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
+
+   function leer_viajes_ultimos_siete_dias_conductor($args)
+   {
+      $id = $args["id"];
+      $sql = "SELECT COUNT(*) as cuenta FROM Viaje WHERE Viaje.idConductor = ? AND DATE(fechaInicio) > date_add(NOW(), INTERVAL -7 DAY);";
+      $parametros = array();
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
+
+   function leer_viajes_ultimos_siete_dias_cliente($args)
+   {
+      $id = $args["id"];
+      $sql = "SELECT COUNT(*) as cuenta FROM Viaje WHERE Viaje.idUsuario = ? AND DATE(fechaInicio) > date_add(NOW(), INTERVAL -7 DAY);";
+      $parametros = array();
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
+   
 }

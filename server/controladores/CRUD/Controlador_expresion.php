@@ -1,6 +1,8 @@
 <?php
 include_once('../controladores/Controlador_Base.php');
 include_once('../entidades/CRUD/Expresion.php');
+include_once('../controladores/especificos/Controlador_mail_sender.php');
+
 class Controlador_expresion extends Controlador_Base
 {
    function crear($args)
@@ -100,6 +102,7 @@ class Controlador_expresion extends Controlador_Base
    function enviarRespuesta($args){
       $email = $args["email"];
       $usuario = $args["usuario"];
+      $contenido = $args["contenido"];
       $respuesta = $args["respuesta"];
       $accion = 'Servicio al Cliente';
       $mailSender = new Controlador_mail_sender();
@@ -108,7 +111,7 @@ class Controlador_expresion extends Controlador_Base
       $cuerpoMensaje .= '</div><div style="width:100%; float:left; text-align: center">';
       $cuerpoMensaje .= '<h3>'.$accion.'</h3>';
       $cuerpoMensaje .= '<div style="width:100%; float:left; text-align: left">';
-      $cuerpoMensaje .= '<p>'.$respuesta.'</p>';
+      $cuerpoMensaje .= '<table><tr><th style="text-align: right;"><strong>Su Mensaje</strong></th><td><p>'.$contenido.'</p></td></tr><tr><th style="text-align: right;"><strong>Nuestra Respuesta</strong></th><td><p>'.$respuesta.'</p></td></tr></table>';
       $cuerpoMensaje .= '</div></div></div>';
       return $mailSender->enviarMail(FROMMAIL, ALIASMAIL, CLAVEMAIL, 'no-responder@noresponder.com',ALIASMAIL,$email,$usuario,$cuerpoMensaje,$accion);
    }
