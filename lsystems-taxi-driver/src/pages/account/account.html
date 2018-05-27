@@ -12,69 +12,73 @@
 </ion-header>
 
   <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="subirImagen($event)"/>
-<ion-content padding>
-    <ion-row>
-      <ion-list inset>
-        <ion-list-header>
-          Datos Personales
-        </ion-list-header>
-        <ion-item>
-            <ion-label floating>Nombres</ion-label>
-            <ion-input type="text" [(ngModel)]="usuario.nombres"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label floating>Apellidos</ion-label>
-            <ion-input type="text" [(ngModel)]="usuario.apellidos"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label floating>Correo Electrónico</ion-label>
-            <ion-input type="text" [(ngModel)]="usuario.correoElectronico"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label floating>Telefono Principal</ion-label>
-            <ion-input type="text" [(ngModel)]="usuario.telefono1"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label floating>Telefono Secundario</ion-label>
-            <ion-input type="text" [(ngModel)]="usuario.telefono2"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label floating>Dirección</ion-label>
-            <ion-input type="text" [(ngModel)]="usuario.direccion"></ion-input>
-        </ion-item>
-        <ion-item>
-          <button ion-button class="submit-btn"  color="secondary" full (click)="actualizar()">Actualizar</button>
-        </ion-item>
-        <ion-list-header>
-          Contraseña de acceso
-        </ion-list-header>
-        <ion-item>
-            <ion-label floating>Contraseña Nueva</ion-label>
-            <ion-input type="password" [(ngModel)]="claveNueva" (keyup)="validarClaveEvent()"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label floating>Confirmar Contraseña</ion-label>
-            <ion-input type="password" [(ngModel)]="confirmarNuevaClave" (keyup)="validarClaveEvent()"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="cambiandoClave">
-          <button *ngIf="!validarClave" ion-button icon-left clear small color="danger">
-            <ion-icon name="close-circle"></ion-icon>
-            <div>Las contraseñas no coinciden</div>
-          </button>
-          <button *ngIf="validarClave" ion-button icon-left clear small color="secondary">
-            <ion-icon name="checkmark-circle"></ion-icon>
-            <div>Las contraseñas coinciden</div>
-          </button>
-        </ion-item>
-        <ion-item>
-            <button ion-button class="submit-btn"  color="secondary" full (click)="actualizarCuenta()">Cambiar Contraseña</button>
-          </ion-item>
-      </ion-list>
-    </ion-row>
-    <ion-row>
-      <button *ngIf="verificando" ion-button icon-left clear small color="primary">
-        <ion-icon name="clock"></ion-icon>
-        <div>Por favor espere...</div>
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Datos Personales
+    </ion-list-header>
+    <ion-item>
+        <ion-label floating>Nombres</ion-label>
+        <ion-input type="text" [(ngModel)]="usuario.nombres"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>Apellidos</ion-label>
+        <ion-input type="text" [(ngModel)]="usuario.apellidos"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>Correo Electrónico</ion-label>
+        <ion-input type="text" [(ngModel)]="usuario.correoElectronico"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>Telefono Principal</ion-label>
+        <ion-input type="text" [(ngModel)]="usuario.telefono1"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>Telefono Secundario</ion-label>
+        <ion-input type="text" [(ngModel)]="usuario.telefono2"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>Dirección</ion-label>
+        <ion-input type="text" [(ngModel)]="usuario.direccion"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-row>
+    <ion-col>
+        <button ion-button class="submit-btn"  color="dark" full (click)="actualizar()">Actualizar</button>
+    </ion-col>
+  </ion-row>
+  <ion-list>
+    <ion-list-header>
+      Contraseña de acceso
+    </ion-list-header>
+    <ion-item>
+        <ion-label floating>Contraseña Nueva</ion-label>
+        <ion-input type="password" [(ngModel)]="claveNueva" (keyup)="validarClaveEvent()"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>Confirmar Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="confirmarNuevaClave" (keyup)="validarClaveEvent()"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="cambiandoClave">
+      <button *ngIf="!validarClave" ion-button icon-left clear small color="danger">
+        <ion-icon name="close-circle"></ion-icon>
+        <div>Las contraseñas no coinciden</div>
       </button>
-    </ion-row>
-  </ion-content>
+      <button *ngIf="validarClave" ion-button icon-left clear small color="secondary">
+        <ion-icon name="checkmark-circle"></ion-icon>
+        <div>Las contraseñas coinciden</div>
+      </button>
+    </ion-item>
+  </ion-list>
+  <ion-row>
+    <ion-col>
+      <button ion-button class="submit-btn"  color="dark" full (click)="actualizarCuenta()">Cambiar Contraseña</button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <button *ngIf="verificando" ion-button icon-left clear small color="primary">
+      <ion-icon name="clock"></ion-icon>
+      <div>Por favor espere...</div>
+    </button>
+  </ion-row>
+</ion-content>

@@ -242,4 +242,57 @@ class Controlador_viaje extends Controlador_Base
       return $respuesta;
    }
 
+   function leer_viajes_hoy_conductor($args)
+   {
+      $id = $args["id"];
+      $sql = "SELECT Viaje.*, CONCAT(Persona.apellidos,' ', Persona.nombres) as 'Usuario', TIME(Viaje.fechaInicio) as 'HoraInicio', TIME(Viaje.fechaFIn) as 'HoraFin' FROM Viaje INNER JOIN Persona ON Viaje.idUsuario = Persona.id WHERE Viaje.idUsuario = 1 AND DATE(fechaInicio) = DATE(NOW()) ORDER BY fechaInicio DESC;";
+      $parametros = array($id);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
+
+   function leer_viajes_hoy_cliente($args)
+   {
+      $id = $args["id"];
+      $sql = "SELECT Viaje.*, CONCAT(Persona.apellidos,' ', Persona.nombres) as 'Usuario', TIME(Viaje.fechaInicio) as 'HoraInicio', TIME(Viaje.fechaFIn) as 'HoraFin' FROM Viaje INNER JOIN Persona ON Viaje.idUsuario = Persona.id WHERE Viaje.idUsuario = 1 AND DATE(fechaInicio) = DATE(NOW()) ORDER BY fechaInicio DESC;";
+      $parametros = array($id);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
+
+   function leer_viajes_ultimos_siete_dias_conductor($args)
+   {
+      $id = $args["id"];
+      $sql = "SELECT COUNT(*) as cuenta FROM Viaje WHERE Viaje.idConductor = ? AND DATE(fechaInicio) > date_add(NOW(), INTERVAL -7 DAY);";
+      $parametros = array($id);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
+
+   function leer_viajes_ultimos_siete_dias_cliente($args)
+   {
+      $id = $args["id"];
+      $sql = "SELECT COUNT(*) as cuenta FROM Viaje WHERE Viaje.idUsuario = ? AND DATE(fechaInicio) > date_add(NOW(), INTERVAL -7 DAY);";
+      $parametros = array($id);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
+   
+   function leer_total_viajes_conductor($args)
+   {
+      $id = $args["id"];
+      $sql = "SELECT COUNT(*) as cuenta FROM Viaje WHERE Viaje.idConductor = ?;";
+      $parametros = array($id);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
+   
+   function leer_total_viajes_cliente($args)
+   {
+      $id = $args["id"];
+      $sql = "SELECT COUNT(*) as cuenta FROM Viaje WHERE Viaje.idUsuario = ?;";
+      $parametros = array($id);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
 }

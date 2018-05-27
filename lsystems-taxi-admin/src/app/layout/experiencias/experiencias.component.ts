@@ -159,7 +159,7 @@ export class ExperienciasComponent implements OnInit {
         this.busy = this.experienciaService.update(this.experienciaSeleccionada)
         .then(respuesta => {
             if(respuesta){
-                this.busy = this.experienciaService.enviarRespuesta(this.remitente.correoElectronico, this.remitente.nombres + ' ' + this.remitente.apellidos, this.experienciaSeleccionada.respuesta)
+                this.busy = this.experienciaService.enviarRespuesta(this.remitente.correoElectronico, this.remitente.nombres + ' ' + this.remitente.apellidos, this.experienciaSeleccionada.contenido, this.experienciaSeleccionada.respuesta)
                 .then(respuesta2 => {
                     if(respuesta2){
                         this.toastr.success('Respuesta enviada satisfactoriamente', 'Responder');

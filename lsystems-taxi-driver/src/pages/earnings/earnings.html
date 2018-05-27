@@ -1,61 +1,39 @@
-<!--
-  Generated template for the EarningsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
     <ion-title>Viajes realizados</ion-title>
   </ion-navbar>
-
 </ion-header>
-
-
 <ion-content style="background: #383838;">
   <ion-card style="background: #141414; color: white">
     <ion-card-header  id=carHeader >
       <p style="color:#cacaca">Viajes totales:</p>
     </ion-card-header>
-
     <ion-card-content text-right Style="font-size:3em">
-        <b>{{total}}</b><!-- Add card content here! -->
+        <b>{{total}}</b>
     </ion-card-content>
   </ion-card>
-
   <ion-card style="background: #141414; color: white">
     <ion-card-header floating id=carHeader >
         <p style="color:#cacaca">Viajes en esta semana:</p>
       </ion-card-header>
-
       <ion-card-content text-right Style="font-size:3em">
-          <b>{{semana}}</b><!-- Add card content here! -->
+          <b>{{semana}}</b>
     </ion-card-content>
   </ion-card>
-
-    <ion-list>
-        <ion-list-header>
-          <p><b>Hoy - martes, 23 de febrero de 2018</b></p>
-          <p >Total viajes: 5</p>
-        </ion-list-header>
-
-        <ion-item *ngFor="let item of pasajerosHoy">
-          <ion-avatar item-start>
-            <img src="assets/imgs/Taxi_Standard.png">
-            <div text-center Style="font-size:1rem">Placa</div>
-          </ion-avatar>
-          <h2><b>Pasajero: {{item.nombre}}</b></h2>
-          <h3>Hora de inicio: {{item.horaInicio}}</h3>
-          <p>Hora de arrivo: {{item.horaFin}}</p>
-        </ion-item>
-      </ion-list>
-
-
-   <!--<ion-list inset>
-        <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
-          {{ item.text }}
-        </button>
-      </ion-list>
-    -->
+  <ion-list>
+    <ion-list-header>
+      <p><b>Hoy - {{hoyFecha}}</b></p>
+      <p >Total viajes: {{totalHoy}}</p>
+    </ion-list-header>
+    <ion-item *ngFor="let item of viajesHoy">
+      <ion-avatar item-start>
+        <img src="assets/imgs/Taxi_Standard.png">
+        <div text-center Style="font-size:1rem">{{unidad.placa}}</div>
+      </ion-avatar>
+      <h2><b>Pasajero:</b> {{item.Usuario}}</h2>
+      <h3><b>Hora de inicio:</b> {{item.HoraInicio}}</h3>
+      <h3><b>Hora de Fin:</b> {{item.HoraFin}}</h3>
+      <p><b>Dinero Cobrado:</b> {{item.costoReal}} USD</p>
+    </ion-item>
+  </ion-list>
 </ion-content>

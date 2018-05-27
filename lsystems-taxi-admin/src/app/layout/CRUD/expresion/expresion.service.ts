@@ -55,9 +55,9 @@ export class ExpresionService {
       return this.http.post(url, JSON.stringify(entidadTransporte)).toPromise().then(response=>response.json()).catch(this.handleError);
    }
 
-   enviarRespuesta(email: string, usuario: string, respuesta: string): Promise<boolean> {
+   enviarRespuesta(email: string, usuario: string, contenido: string, respuesta: string): Promise<boolean> {
       const url = `${this.urlBase+'/enviarRespuesta'}`;
-      const data = {email: email, usuario: usuario, respuesta: respuesta};
+      const data = {email: email, usuario: usuario, contenido: contenido, respuesta: respuesta};
       return this.http.post(url, JSON.stringify(data)).toPromise().then(response=>response.json()).catch(this.handleError);
    }
 

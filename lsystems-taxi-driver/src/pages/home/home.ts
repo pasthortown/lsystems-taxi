@@ -230,7 +230,7 @@ export class HomePage implements OnInit {
     .subscribe(position => {
       this.posicion.latitud = position.coords.latitude.toString();
       this.posicion.longitud = position.coords.longitude.toString();
-      this.posicion.velocidad = Math.floor(position.coords.speed * 3.6) + ' Km/h';
+      this.posicion.velocidad = Math.floor(position.coords.speed * 3.6).toFixed(2).toString();
       this.updateMiEstado();
       this.posicion.tiempo = new Date();
     });
