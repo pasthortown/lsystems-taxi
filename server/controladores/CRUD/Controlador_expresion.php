@@ -113,51 +113,6 @@ class Controlador_expresion extends Controlador_Base
       return $mailSender->enviarMail(FROMMAIL, ALIASMAIL, CLAVEMAIL, 'no-responder@noresponder.com',ALIASMAIL,$email,$usuario,$cuerpoMensaje,$accion);
    }
 
-   function leer_estadisticas_viajes_unidad($args)
-   {
-      $idUnidad = $args["idUnidad"];
-      $sql = "SELECT DATE(Viaje.fechaInicio) as 'Fecha', COUNT(*) as 'Cuenta' FROM Viaje WHERE idUnidad = ? GROUP BY DATE(Viaje.fechaInicio)";
-      $asc = $args["asc"];
-      if($asc){
-         $sql = $sql.' ORDER BY DATE(Viaje.fechaInicio) ASC;';
-      }else {
-         $sql = $sql.' ORDER BY DATE(Viaje.fechaInicio) DESC;';
-      }
-      $parametros = array($idUnidad);
-      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
-      return $respuesta;
-   }
-
-   function leer_estadisticas_viajes_unidad($args)
-   {
-      $idUnidad = $args["idUnidad"];
-      $sql = "SELECT DATE(Viaje.fechaInicio) as 'Fecha', COUNT(*) as 'Cuenta' FROM Viaje WHERE idUnidad = ? GROUP BY DATE(Viaje.fechaInicio)";
-      $asc = $args["asc"];
-      if($asc){
-         $sql = $sql.' ORDER BY DATE(Viaje.fechaInicio) ASC;';
-      }else {
-         $sql = $sql.' ORDER BY DATE(Viaje.fechaInicio) DESC;';
-      }
-      $parametros = array($idUnidad);
-      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
-      return $respuesta;
-   }
-
-   function leer_estadisticas_unidad($args)
-   {
-      $idUnidad = $args["idUnidad"];
-      $sql = "SELECT DATE(Viaje.fechaInicio) as 'Fecha', COUNT(*) as 'Cuenta' FROM Viaje WHERE idUnidad = ? GROUP BY DATE(Viaje.fechaInicio)";
-      $asc = $args["asc"];
-      if($asc){
-         $sql = $sql.' ORDER BY DATE(Viaje.fechaInicio) ASC;';
-      }else {
-         $sql = $sql.' ORDER BY DATE(Viaje.fechaInicio) DESC;';
-      }
-      $parametros = array($idUnidad);
-      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
-      return $respuesta;
-   }
-
    function leer_estrellas_unidad($args)
    {
       $id = $args["id"];
