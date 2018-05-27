@@ -75,6 +75,7 @@ export class EarningsPage implements OnInit{
     .subscribe(r => {
       if(JSON.stringify(r.json())=='[0]'){
         this.viajesHoy = [];
+        this.totalHoy = 0;
         return;
       }
       this.viajesHoy = r.json() as Viaje[];
