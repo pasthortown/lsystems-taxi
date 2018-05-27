@@ -41,6 +41,40 @@
                 </ul>
             </li>
         </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages2')">
+                <span><i class="fa fa-plus"></i>&nbsp; Administración de Catálogos</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages2'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/motivo-calificacion-conductor']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-address-card-o"></i>&nbsp;Calificación al Conductor
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/motivo-calificacion-unidad']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-taxi"></i>&nbsp;Calificación a la Unidad
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/motivo-calificacion-usuario']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-user"></i>&nbsp;Calificación al Usuario
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/motivo-calificacion-estilo-conduccion']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-map-signs"></i>&nbsp;Calificación al Estilo de Conducción
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/motivo-estado']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-pencil-square-o"></i>&nbsp;Motivos de Estado
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
         <div class="header-fields">
             <div class="nested-menu">
                 <a class="list-group-item" (click)="addExpandClass('profile')">

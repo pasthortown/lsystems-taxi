@@ -25,6 +25,10 @@ const routes: Routes = [
             { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilModule' },
             { path: 'experiencias', loadChildren: './experiencias/experiencias.module#ExperienciasModule' },
             { path: 'motivo-calificacion-conductor', loadChildren: './CRUD/motivocalificacionconductor/motivocalificacionconductor.module#MotivoCalificacionConductorModule' },
+            { path: 'motivo-calificacion-unidad', loadChildren: './CRUD/motivocalificacionunidad/motivocalificacionunidad.module#MotivoCalificacionUnidadModule' },
+            { path: 'motivo-calificacion-usuario', loadChildren: './CRUD/motivocalificacionusuario/motivocalificacionusuario.module#MotivoCalificacionUsuarioModule' },
+            { path: 'motivo-calificacion-estilo-conduccion', loadChildren: './CRUD/motivocalificacionestiloconduccion/motivocalificacionestiloconduccion.module#MotivoCalificacionEstiloConduccionModule' },
+            { path: 'motivo-estado', loadChildren: './CRUD/motivoestado/motivoestado.module#MotivoEstadoModule' },
         ]
     }
 ];
