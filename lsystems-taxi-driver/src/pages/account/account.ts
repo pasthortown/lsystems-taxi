@@ -135,7 +135,6 @@ export class AccountPage implements OnInit {
     .subscribe(respuesta => {
       this.cuenta = respuesta.json()[0] as Cuenta;
       this.cuenta.clave = this.claveNueva;
-      this.cuenta.idCoperativa = 1;
       this.http.post(this.webServiceURL + '/cuenta/actualizar',JSON.stringify(this.cuenta))
       .subscribe(respuesta => {
         if(respuesta.json()){
