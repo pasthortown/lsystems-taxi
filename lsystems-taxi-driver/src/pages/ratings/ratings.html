@@ -7,11 +7,76 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>ratings</ion-title>
+    <ion-title>Tus estadísticas</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-<ion-content padding>
-aqui los detalles de la clificación del conductor
+<ion-content>
+<div style="height: 55%; background:#141414; color: white;">
+  <div style="height: 80%;">
+    <ion-grid style="height: 100%">
+      <ion-row justify-content-center align-items-end style="height: 70%; font-size: 4em;" >
+        4.7
+      </ion-row>
+      <ion-row justify-content-center align-items-start style="height: 30%;">
+        Estrellitas
+      </ion-row>
+    </ion-grid>
+
+  </div>
+  <div style="height: 20%;" >
+    <ion-row >
+      <ion-col col-4>
+        <button ion-button color="dark" full class="button-ratings">
+          Detalles<br/>calificación
+        </button>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button color="dark" full class="button-ratings">
+          Tasa de<br/>aceptación
+        </button>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button color="dark" full class="button-ratings">
+          Tasa de<br/>rechazo
+        </button>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+<div style="height: 2%; background:#383838"></div>
+
+<ion-list>
+  <ion-item >
+    <ion-avatar item-start justify-content-center>
+      <ion-icon name="ios-heart"></ion-icon>
+    </ion-avatar>
+    <h3><b>Reconocimientos de los pasajeros </b></h3>
+    <p text-wrap>Total de reconocimientos:</p>
+    <p style="color:indigo">17</p>
+  </ion-item>
+
+  <ion-item >
+      <ion-avatar item-start>
+        <ion-icon name="md-chatbubbles" justify-content-center></ion-icon>
+      </ion-avatar>
+      <h3><b>Comentarios de los pasajeros </b></h3>
+      <p text-wrap>Revisa los comentarios de los pasajeros y conoce como mejorar.</p>
+  </ion-item>
+
+  <ion-item >
+      <ion-avatar item-start justify-content-center>
+        <ion-icon name="ios-book"></ion-icon>
+      </ion-avatar>
+      <h3><b>Consejos profesionales</b></h3>
+      <p text-wrap>Mejora tu servicio con consejos de expertos sobre las mejores prácticas de conducción</p>
+  </ion-item>
+
+</ion-list>
+<!--
+<div class="blockRatings">Reconocimiento de usuarios</div>
+<div class="blockRatings">comentarios de los usuarios</div>
+<div class="blockRatings">Consejos profesionales</div>
+-->
 </ion-content>
