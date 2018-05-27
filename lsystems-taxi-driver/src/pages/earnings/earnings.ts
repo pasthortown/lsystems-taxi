@@ -1,49 +1,86 @@
-import { Component } from '@angular/core';
+import { Unidad } from './../../app/entidades/CRUD/Unidad';
+import { Persona } from './../../app/entidades/CRUD/Persona';
+import { environment } from './../../../environments/environment';
+import { Viaje } from './../../app/entidades/CRUD/Viaje';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the EarningsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Http } from '@angular/http';
 
 @IonicPage()
 @Component({
   selector: 'page-earnings',
   templateUrl: 'earnings.html',
 })
-export class EarningsPage {
-pasajerosHoy:any[];
-pasajeros:any[];
-semana=20;
-total=123;
+export class EarningsPage implements OnInit{
+  viajesHoy: Viaje[];
+  semana: number;
+  total: number;
+  usuario: Persona;
+  unidad: Unidad;
+  hoyFecha: string;
+  totalHoy: number;
+  webServiceURL = environment.apiUrl;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.pasajerosHoy=[];
-    for(let i=1; i<6;i++){
-      this.pasajerosHoy.push({
-        id: i,
-        nombre: 'Nombre '+i,
-        horaInicio: i,
-        horaFin:i,
-      });
-    }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
 
-    this.pasajeros=[];
-    for(let i=6; i<17;i++){
-      this.pasajeros.push({
-        id: i,
-        nombre: "Nombre "+i,
-        horaInicio: i,
-        horaFin:i,
-      });
-    }
   }
+
   itemSelected(Item){}
+
   ionViewDidLoad() {
 
   }
 
+  ngOnInit() {
+    this.usuario = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
+    this.unidad = JSON.parse(sessionStorage.getItem('unidad')) as Unidad;
+    this.refresh();
+  }
 
+  refresh() {
+    this.getTotal();
+    this.getSemana();
+    this.getHoy();
+    this.hoyFecha = new Date().toDateString();
+  }
+
+  getTotal() {
+    this.http.get(this.webServiceURL + 'viaje/leer_total_viajes_conductor?id='+this.usuario.id)
+    .subscribe(r => {
+      if(JSON.stringify(r.json())=='[0]'){
+        this.total = 0;
+        return;
+      }
+      this.total = r.json()[0].cuenta;
+    }, error => {
+
+    });
+  }
+
+  getSemana() {
+    this.http.get(this.webServiceURL + 'viaje/leer_viajes_ultimos_siete_dias_conductor?id='+this.usuario.id)
+    .subscribe(r => {
+      if(JSON.stringify(r.json())=='[0]'){
+        this.semana = 0;
+        return;
+      }
+      this.semana = r.json()[0].cuenta;
+    }, error => {
+
+    });
+  }
+
+  getHoy() {
+    this.http.get(this.webServiceURL + 'viaje/leer_viajes_hoy_conductor?id='+this.usuario.id)
+    .subscribe(r => {
+      if(JSON.stringify(r.json())=='[0]'){
+        this.semana = 0;
+        return;
+      }
+      this.viajesHoy = r.json() as Viaje[];
+      this.totalHoy = this.viajesHoy.length;
+    }, error => {
+
+    });
+  }
 }

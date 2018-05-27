@@ -9,7 +9,13 @@ export class Viaje {
    idUnidad: number;
    idUsuario: number;
    idConductor: number;
+   idEstadoViaje: number;
+   idMotivoEstado: number;
+   costoReal: number;
+   costoCalculado: number;
    Unidad: string;
    Conductor: string;
    Usuario: string;
+   HoraInicio: string;
+   HoraFin: string;
 }
