@@ -1,0 +1,17 @@
+popover {
+  .popover-page {
+    height:400px ;
+    background: #141414 ;
+    .text-smaller {
+      border-right: 50px solid $list-md-border-color;
+    }
+
+    .row-dots {
+      border-bottom: 1px solid $list-md-border-color;
+    }
+
+    .dot {
+      border: 1px solid $list-md-border-color;
+    }
+  }
+}

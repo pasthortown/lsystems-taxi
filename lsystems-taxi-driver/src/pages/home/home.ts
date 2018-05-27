@@ -1,8 +1,9 @@
+import { PopoverComponent } from './../../components/popover/popover';
 import { Posicion } from './../../app/entidades/CRUD/Posicion';
 import { environment } from './../../../environments/environment';
 import { Unidad } from './../../app/entidades/CRUD/Unidad';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, PopoverController} from 'ionic-angular';
 import { } from '@types/googlemaps';
 import { Http } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -24,7 +25,20 @@ export class HomePage implements OnInit {
   subscription = null;
   marcadoresVisibles = [];
 
-  constructor(public toastCtrl: ToastController, public navCtrl: NavController, public http: Http, private geolocation: Geolocation) {
+  constructor(
+    public toastCtrl: ToastController,
+    public navCtrl: NavController,
+    public http: Http,
+    private geolocation: Geolocation,
+    public popoverCtrl:PopoverController) {
+
+    }
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(PopoverComponent);
+    popover.present({
+      ev: myEvent
+    });
   }
 
   ngOnInit() {
