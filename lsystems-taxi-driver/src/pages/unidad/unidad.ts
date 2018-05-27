@@ -37,9 +37,9 @@ export class UnidadPage implements OnInit {
   escanear() {
     this.barcodeScanner.scan().then(barcodeData => {
       this.registroMunicipal = barcodeData.text;
-    }, (err) => {
-      this.showToast('Ocurrió un error. Por favor, vuelva a intentarlo', 3000);
-    });
+     }).catch(err => {
+         console.log('Error', err);
+     });
   }
 
   confirmar() {
