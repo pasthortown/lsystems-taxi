@@ -171,7 +171,6 @@ export class MonitoreoComponent implements OnInit {
             });
             this.unidadesMonitoreadasMarcador.push(marcadorNuevo);
         }
-        console.log(posicionUnidad);
     }
 
     dibujarPosicionesActuales() {
