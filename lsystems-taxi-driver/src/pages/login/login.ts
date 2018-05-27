@@ -17,6 +17,7 @@ export class LoginPage implements OnInit{
   webServiceURL = environment.apiUrl + 'login';
   loginRequest: LoginRequest;
   verificando: boolean;
+  splash = true;
 
   constructor(public navCtrl: NavController, public toastCtrl: ToastController, public navParams: NavParams, public http: Http) {
   }
@@ -27,7 +28,7 @@ export class LoginPage implements OnInit{
   }
 
   ionViewDidLoad() {
-
+    setTimeout(() => this.splash = false, 4000);
   }
 
   ingresar() {

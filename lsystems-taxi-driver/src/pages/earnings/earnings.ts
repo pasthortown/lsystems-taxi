@@ -74,7 +74,7 @@ export class EarningsPage implements OnInit{
     this.http.get(this.webServiceURL + 'viaje/leer_viajes_hoy_conductor?id='+this.usuario.id)
     .subscribe(r => {
       if(JSON.stringify(r.json())=='[0]'){
-        this.semana = 0;
+        this.viajesHoy = [];
         return;
       }
       this.viajesHoy = r.json() as Viaje[];
