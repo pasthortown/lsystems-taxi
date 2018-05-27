@@ -15,7 +15,18 @@ App Usuario - VIERNES 6pm (diseño)
 (No listo) - Visualizacion en mapa de la unidad hacia el punto de encuentro y la ruta hacia el destino con tiempos
 
 CAMBIOS BDD:
-Expresion
-Viaje
+
+Expresion (idCalificacionUNidad, 
+            idCalificacionConductor,
+            idCalificacionEstiloConduccion,
+            idCalificacionUsuario,
+            idMotivoCalificacionUsuario,
+            idMotivoCalificacionUnidad,
+            idMotivoCalificacionConductor,
+            idMotivoCalificacionEstiloConduccion)
+
+Viaje (idEstadoViaje, idMotivoEstado, costoReal, costoCalculado)
+
+POR COPERATIVA:
 Unidad (idCoperativa)
 Cuenta (idCoperativa)
