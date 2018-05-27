@@ -245,7 +245,7 @@ class Controlador_viaje extends Controlador_Base
    function leer_viajes_hoy_conductor($args)
    {
       $id = $args["id"];
-      $sql = "SELECT * FROM Viaje WHERE Viaje.idConductor = ? AND DATE(fechaInicio) = DATE(NOW());";
+      $sql = "SELECT * FROM Viaje WHERE Viaje.idConductor = ? AND DATE(fechaInicio) = DATE(NOW()) ORDER BY fechaInicio DESC;";
       $parametros = array();
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
@@ -254,7 +254,7 @@ class Controlador_viaje extends Controlador_Base
    function leer_viajes_hoy_cliente($args)
    {
       $id = $args["id"];
-      $sql = "SELECT * FROM Viaje WHERE Viaje.idUsuario = ? AND DATE(fechaInicio) = DATE(NOW());";
+      $sql = "SELECT * FROM Viaje WHERE Viaje.idUsuario = ? AND DATE(fechaInicio) = DATE(NOW()) ORDER BY fechaInicio DESC;";
       $parametros = array();
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
