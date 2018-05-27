@@ -81,16 +81,16 @@ class Controlador_expresion extends Controlador_Base
       switch ($tipoFiltro){
          case "coincide":
             $parametros = array($filtro);
-            $sql = "SELECT Expresion.*, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna = ?;";
+            $sql = "SELECT Expresion.*, Unidad.id as idUnidad, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna = ?;";
             break;
          case "inicia":
-            $sql = "SELECT Expresion.*, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna LIKE '$filtro%';";
+            $sql = "SELECT Expresion.*, Unidad.id as idUnidad, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna LIKE '$filtro%';";
             break;
          case "termina":
-            $sql = "SELECT Expresion.*, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna LIKE '%$filtro';";
+            $sql = "SELECT Expresion.*, Unidad.id as idUnidad, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna LIKE '%$filtro';";
             break;
          default:
-            $sql = "SELECT Expresion.*, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna LIKE '%$filtro%';";
+            $sql = "SELECT Expresion.*, Unidad.id as idUnidad, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna LIKE '%$filtro%';";
             break;
       }
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
