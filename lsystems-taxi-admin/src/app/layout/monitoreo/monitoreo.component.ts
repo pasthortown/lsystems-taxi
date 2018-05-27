@@ -89,87 +89,94 @@ export class MonitoreoComponent implements OnInit {
         });
     }
 
+    dibujarPosicionActual(posicionUnidad: Posicion) {
+        const iconBase = 'assets/images/';
+        const icons = {
+            1: {
+                image : {
+                    url: iconBase + 'Taxi_Libre.png',
+                    size: new google.maps.Size(30, 30),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(30, 30),
+                    scaledSize: new google.maps.Size(30, 30)
+                }
+            },
+            2: {
+                image : {
+                    url: iconBase + 'Taxi_Ocupado.png',
+                    size: new google.maps.Size(30, 30),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(30, 30),
+                    scaledSize: new google.maps.Size(30, 30)
+                }
+            },
+            3: {
+                image : {
+                    url: iconBase + 'Taxi_No_Disponible.png',
+                    size: new google.maps.Size(30, 30),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(30, 30),
+                    scaledSize: new google.maps.Size(30, 30)
+                }
+            },
+            4: {
+                image : {
+                    url: iconBase + 'Taxi_Solicitado.png',
+                    size: new google.maps.Size(30, 30),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(30, 30),
+                    scaledSize: new google.maps.Size(30, 30)
+                }
+            }
+        };
+        let location = new google.maps.LatLng(JSON.parse(posicionUnidad.latitud) as number,JSON.parse(posicionUnidad.longitud) as number);
+        let estadoUnidad = 'Libre';
+        this.estadosUnidad.forEach(estado => {
+            if(posicionUnidad.idEstadoUnidad == estado.id){
+                estadoUnidad = estado.descripcion;
+            }
+        });
+
+        let infowindow = new google.maps.InfoWindow({
+            content: '<div><h4>No. ' + posicionUnidad.numero.toString() + ' - ' + posicionUnidad.placa + '</h4><h5>'
+                  + Math.floor(posicionUnidad.velocidad).toString() + ' Km/h</h5>'+
+                    '<h6><strong>' + estadoUnidad.toString() + '</strong></h6>'+
+                    '<small>' + posicionUnidad.tiempo + '</small>'+
+                    '</div>'
+        });
+
+        let noEncontrado = true;
+        let icono = icons[posicionUnidad.idEstadoUnidad<=4 ? posicionUnidad.idEstadoUnidad : 1].image;
+        this.unidadesMonitoreadasMarcador.forEach(marcador => {
+            if (marcador.getTitle() === 'No. ' + posicionUnidad.numero + ' - ' + posicionUnidad.placa) {
+                noEncontrado = false;
+                marcador.setIcon(icono);
+                marcador.setPosition(location);
+                google.maps.event.clearListeners(marcador,'click');
+                marcador.addListener('click', function() {
+                    infowindow.open(this.map, marcador);
+                });
+            }
+        });
+        if (noEncontrado){
+            let marcadorNuevo = new google.maps.Marker({
+                position: location,
+                map: this.map,
+                draggable: false,
+                icon: icono,
+                title: 'No. ' + posicionUnidad.numero + ' - ' + posicionUnidad.placa
+            });
+            marcadorNuevo.addListener('click', function() {
+                infowindow.open(this.map, marcadorNuevo);
+            });
+            this.unidadesMonitoreadasMarcador.push(marcadorNuevo);
+        }
+        console.log(posicionUnidad);
+    }
+
     dibujarPosicionesActuales() {
         this.posicionesUnidades.forEach(posicionUnidad => {
-            let iconBase = 'assets/images/';
-            let icons = {
-                1: {
-                    image : {
-                        url: iconBase + 'Taxi_Libre.png',
-                        size: new google.maps.Size(30, 30),
-                        origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(30, 30),
-                        scaledSize: new google.maps.Size(30, 30)
-                    }
-                },
-                2: {
-                    image : {
-                        url: iconBase + 'Taxi_Ocupado.png',
-                        size: new google.maps.Size(30, 30),
-                        origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(30, 30),
-                        scaledSize: new google.maps.Size(30, 30)
-                    }
-                },
-                3: {
-                    image : {
-                        url: iconBase + 'Taxi_No_Disponible.png',
-                        size: new google.maps.Size(30, 30),
-                        origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(30, 30),
-                        scaledSize: new google.maps.Size(30, 30)
-                    }
-                },
-                4: {
-                    image : {
-                        url: iconBase + 'Taxi_Solicitado.png',
-                        size: new google.maps.Size(30, 30),
-                        origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(30, 30),
-                        scaledSize: new google.maps.Size(30, 30)
-                    }
-                }
-            };
-            let location = new google.maps.LatLng(JSON.parse(posicionUnidad.latitud) as number,JSON.parse(posicionUnidad.longitud) as number);
-            let estadoUnidad = 'Libre';
-            this.estadosUnidad.forEach(estado => {
-                if(posicionUnidad.idEstadoUnidad == estado.id){
-                    estadoUnidad = estado.descripcion;
-                }
-            });
-            let infowindow = new google.maps.InfoWindow({
-                content: '<div><h4>' + 'No. ' + posicionUnidad.numero + ' - ' + posicionUnidad.placa + '</h4>'+
-                        '<h5>' + Math.floor(JSON.parse(posicionUnidad.velocidad) as number) + ' Km/h</h5>'+
-                        '<h6><strong>' + estadoUnidad + '</strong></h6>'+
-                        '<small>' + posicionUnidad.tiempo + '</small>'+
-                        '</div>'
-            });
-            let noEncontrado = true;
-            let icono = icons[posicionUnidad.idEstadoUnidad<=4 ? posicionUnidad.idEstadoUnidad : 1].image;
-            this.unidadesMonitoreadasMarcador.forEach(marcador => {
-                if (marcador.getTitle() === 'No. ' + posicionUnidad.numero + ' - ' + posicionUnidad.placa) {
-                    noEncontrado = false;
-                    marcador.setIcon(icono);
-                    marcador.setPosition(location);
-                    google.maps.event.clearListeners(marcador,'click');
-                    marcador.addListener('click', function() {
-                        infowindow.open(this.map, marcador);
-                    });
-                }
-            });
-            if (noEncontrado){
-                let marcadorNuevo = new google.maps.Marker({
-                    position: location,
-                    map: this.map,
-                    draggable: false,
-                    icon: icono,
-                    title: 'No. ' + posicionUnidad.numero + ' - ' + posicionUnidad.placa
-                });
-                marcadorNuevo.addListener('click', function() {
-                    infowindow.open(this.map, marcadorNuevo);
-                });
-                this.unidadesMonitoreadasMarcador.push(marcadorNuevo);
-            }
+            this.dibujarPosicionActual(posicionUnidad);
         });
     }
 
