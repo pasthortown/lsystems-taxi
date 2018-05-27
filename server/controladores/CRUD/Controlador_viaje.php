@@ -5,15 +5,15 @@ class Controlador_viaje extends Controlador_Base
 {
    function crear($args)
    {
-      $viaje = new Viaje($args["id"],$args["fechaInicio"],$args["fechaFin"],$args["latDesde"],$args["lngDesde"],$args["latHasta"],$args["lngHasta"],$args["idUnidad"],$args["idUsuario"],$args["idConductor"]);
-      $sql = "INSERT INTO Viaje (fechaInicio,fechaFin,latDesde,lngDesde,latHasta,lngHasta,idUnidad,idUsuario,idConductor) VALUES (?,?,?,?,?,?,?,?,?);";
+      $viaje = new Viaje($args["id"],$args["fechaInicio"],$args["fechaFin"],$args["latDesde"],$args["lngDesde"],$args["latHasta"],$args["lngHasta"],$args["idUnidad"],$args["idUsuario"],$args["idConductor"],$args["idEstadoViaje"],$args["idMotivoEstado"],$args["costoReal"],$args["costoCalculado"]);
+      $sql = "INSERT INTO Viaje (fechaInicio,fechaFin,latDesde,lngDesde,latHasta,lngHasta,idUnidad,idUsuario,idConductor,idEstadoViaje,idMotivoEstado,costoReal,costoCalculado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
       $fechaInicioNoSQLTime = strtotime($viaje->fechaInicio);
       $fechaInicioSQLTime = date("Y-m-d H:i:s", $fechaInicioNoSQLTime);
       $viaje->fechaInicio = $fechaInicioSQLTime;
       $fechaFinNoSQLTime = strtotime($viaje->fechaFin);
       $fechaFinSQLTime = date("Y-m-d H:i:s", $fechaFinNoSQLTime);
       $viaje->fechaFin = $fechaFinSQLTime;
-      $parametros = array($viaje->fechaInicio,$viaje->fechaFin,$viaje->latDesde,$viaje->lngDesde,$viaje->latHasta,$viaje->lngHasta,$viaje->idUnidad,$viaje->idUsuario,$viaje->idConductor);
+      $parametros = array($viaje->fechaInicio,$viaje->fechaFin,$viaje->latDesde,$viaje->lngDesde,$viaje->latHasta,$viaje->lngHasta,$viaje->idUnidad,$viaje->idUsuario,$viaje->idConductor,$viaje->idEstadoViaje,$viaje->idMotivoEstado,$viaje->costoReal,$viaje->costoCalculado);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;
@@ -24,9 +24,9 @@ class Controlador_viaje extends Controlador_Base
 
    function actualizar($args)
    {
-      $viaje = new Viaje($args["id"],$args["fechaInicio"],$args["fechaFin"],$args["latDesde"],$args["lngDesde"],$args["latHasta"],$args["lngHasta"],$args["idUnidad"],$args["idUsuario"],$args["idConductor"]);
-      $parametros = array($viaje->fechaInicio,$viaje->fechaFin,$viaje->latDesde,$viaje->lngDesde,$viaje->latHasta,$viaje->lngHasta,$viaje->idUnidad,$viaje->idUsuario,$viaje->idConductor,$viaje->id);
-      $sql = "UPDATE Viaje SET fechaInicio = ?,fechaFin = ?,latDesde = ?,lngDesde = ?,latHasta = ?,lngHasta = ?,idUnidad = ?,idUsuario = ?,idConductor = ? WHERE id = ?;";
+      $viaje = new Viaje($args["id"],$args["fechaInicio"],$args["fechaFin"],$args["latDesde"],$args["lngDesde"],$args["latHasta"],$args["lngHasta"],$args["idUnidad"],$args["idUsuario"],$args["idConductor"],$args["idEstadoViaje"],$args["idMotivoEstado"],$args["costoReal"],$args["costoCalculado"]);
+      $parametros = array($viaje->fechaInicio,$viaje->fechaFin,$viaje->latDesde,$viaje->lngDesde,$viaje->latHasta,$viaje->lngHasta,$viaje->idUnidad,$viaje->idUsuario,$viaje->idConductor,$viaje->idEstadoViaje,$viaje->idMotivoEstado,$viaje->costoReal,$viaje->costoCalculado,$viaje->id);
+      $sql = "UPDATE Viaje SET fechaInicio = ?,fechaFin = ?,latDesde = ?,lngDesde = ?,latHasta = ?,lngHasta = ?,idUnidad = ?,idUsuario = ?,idConductor = ?,idEstadoViaje = ?,idMotivoEstado = ?,costoReal = ?,costoCalculado = ? WHERE id = ?;";
       $fechaInicioNoSQLTime = strtotime($viaje->fechaInicio);
       $fechaInicioSQLTime = date("Y-m-d H:i:s", $fechaInicioNoSQLTime);
       $viaje->fechaInicio = $fechaInicioSQLTime;
@@ -223,4 +223,23 @@ class Controlador_viaje extends Controlador_Base
       $respuesta = array("tiempo"=>$tiempo, "desplazamiento"=>number_format($desplazamiento, 2, '.', '').' Km');
       return $respuesta;
    }
+
+   function leer_estadisticas_tasa_aceptacion_conductor($args)
+   {
+      $id = $args["id"];
+      $sql = "SELECT * FROM (SELECT count(*) as Finalizados FROM Viaje WHERE Viaje.idEstadoViaje = 3 AND Viaje.idConductor = $id) a, (SELECT count(*) as Asignados FROM Viaje WHERE Viaje.idConductor = $id) b;";
+      $parametros = array();
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
+
+   function leer_estadisticas_tasa_aceptacion_cliente($args)
+   {
+      $id = $args["id"];
+      $sql = "SELECT * FROM (SELECT count(*) as Finalizados FROM Viaje WHERE Viaje.idEstadoViaje = 3 AND Viaje.idUsuario = $id) a, (SELECT count(*) as Solicitados FROM Viaje WHERE Viaje.idUsuario = $id) b;";
+      $parametros = array();
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
+
 }
