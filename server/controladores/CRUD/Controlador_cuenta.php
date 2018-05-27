@@ -5,9 +5,9 @@ class Controlador_cuenta extends Controlador_Base
 {
    function crear($args)
    {
-      $cuenta = new Cuenta($args["id"],$args["idPersona"],$args["idRol"],$args["clave"],$args["idEstadoCuenta"]);
-      $sql = "INSERT INTO Cuenta (idPersona,idRol,clave,idEstadoCuenta) VALUES (?,?,aes_encrypt(?,'".CIFRADO."'),?);";
-      $parametros = array($cuenta->idPersona,$cuenta->idRol,$cuenta->clave,$cuenta->idEstadoCuenta);
+      $cuenta = new Cuenta($args["id"],$args["idPersona"],$args["idRol"],$args["clave"],$args["idEstadoCuenta"],$args["idCoperativa"]);
+      $sql = "INSERT INTO Cuenta (idPersona,idRol,clave,idEstadoCuenta) VALUES (?,?,aes_encrypt(?,'".CIFRADO."'),?,?);";
+      $parametros = array($cuenta->idPersona,$cuenta->idRol,$cuenta->clave,$cuenta->idEstadoCuenta,$cuenta->idCoperativa);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;
@@ -18,9 +18,9 @@ class Controlador_cuenta extends Controlador_Base
 
    function actualizar($args)
    {
-      $cuenta = new Cuenta($args["id"],$args["idPersona"],$args["idRol"],$args["clave"],$args["idEstadoCuenta"]);
-      $parametros = array($cuenta->idPersona,$cuenta->idRol,$cuenta->clave,$cuenta->idEstadoCuenta,$cuenta->id);
-      $sql = "UPDATE Cuenta SET idPersona = ?,idRol = ?,clave = aes_encrypt(?,'".CIFRADO."'),idEstadoCuenta = ? WHERE id = ?;";
+      $cuenta = new Cuenta($args["id"],$args["idPersona"],$args["idRol"],$args["clave"],$args["idEstadoCuenta"],$args["idCoperativa"]);
+      $parametros = array($cuenta->idPersona,$cuenta->idRol,$cuenta->clave,$cuenta->idEstadoCuenta,$cuenta->idCoperativa,$cuenta->id);
+      $sql = "UPDATE Cuenta SET idPersona = ?,idRol = ?,clave = aes_encrypt(?,'".CIFRADO."'),idEstadoCuenta = ?,idCoperativa = ? WHERE id = ?;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;
@@ -46,10 +46,10 @@ class Controlador_cuenta extends Controlador_Base
    {
       $id = $args["id"];
       if ($id==""){
-         $sql = "SELECT Cuenta.id, Cuenta.idPersona, Cuenta.idRol, Cuenta.idEstadoCuenta FROM Cuenta;";
+         $sql = "SELECT Cuenta.id, Cuenta.idPersona, Cuenta.idRol, Cuenta.idEstadoCuenta, Cuenta.idCoperativa FROM Cuenta;";
       }else{
       $parametros = array($id);
-         $sql = "SELECT Cuenta.id, Cuenta.idPersona, Cuenta.idRol, Cuenta.idEstadoCuenta FROM Cuenta WHERE id = ?;";
+         $sql = "SELECT Cuenta.id, Cuenta.idPersona, Cuenta.idRol, Cuenta.idEstadoCuenta, Cuenta.idCoperativa FROM Cuenta WHERE id = ?;";
       }
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
@@ -60,7 +60,7 @@ class Controlador_cuenta extends Controlador_Base
       $pagina = $args["pagina"];
       $registrosPorPagina = $args["registros_por_pagina"];
       $desde = (($pagina-1)*$registrosPorPagina);
-      $sql ="SELECT Cuenta.id, Cuenta.idPersona, Cuenta.idRol, Cuenta.idEstadoCuenta FROM Cuenta LIMIT $desde,$registrosPorPagina;";
+      $sql ="SELECT Cuenta.id, Cuenta.idPersona, Cuenta.idRol, Cuenta.idEstadoCuenta, Cuenta.idCoperativa FROM Cuenta LIMIT $desde,$registrosPorPagina;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
@@ -81,16 +81,16 @@ class Controlador_cuenta extends Controlador_Base
       switch ($tipoFiltro){
          case "coincide":
             $parametros = array($filtro);
-            $sql = "SELECT Cuenta.id, Cuenta.idPersona, Cuenta.idRol, Cuenta.idEstadoCuenta FROM Cuenta WHERE $nombreColumna = ?;";
+            $sql = "SELECT Cuenta.id, Cuenta.idPersona, Cuenta.idRol, Cuenta.idEstadoCuenta, Cuenta.idCoperativa FROM Cuenta WHERE $nombreColumna = ?;";
             break;
          case "inicia":
-            $sql = "SELECT Cuenta.id, Cuenta.idPersona, Cuenta.idRol, Cuenta.idEstadoCuenta FROM Cuenta WHERE $nombreColumna LIKE '$filtro%';";
+            $sql = "SELECT Cuenta.id, Cuenta.idPersona, Cuenta.idRol, Cuenta.idEstadoCuenta, Cuenta.idCoperativa FROM Cuenta WHERE $nombreColumna LIKE '$filtro%';";
             break;
          case "termina":
-            $sql = "SELECT Cuenta.id, Cuenta.idPersona, Cuenta.idRol, Cuenta.idEstadoCuenta FROM Cuenta WHERE $nombreColumna LIKE '%$filtro';";
+            $sql = "SELECT Cuenta.id, Cuenta.idPersona, Cuenta.idRol, Cuenta.idEstadoCuenta, Cuenta.idCoperativa FROM Cuenta WHERE $nombreColumna LIKE '%$filtro';";
             break;
          default:
-            $sql = "SELECT Cuenta.id, Cuenta.idPersona, Cuenta.idRol, Cuenta.idEstadoCuenta FROM Cuenta WHERE $nombreColumna LIKE '%$filtro%';";
+            $sql = "SELECT Cuenta.id, Cuenta.idPersona, Cuenta.idRol, Cuenta.idEstadoCuenta, Cuenta.idCoperativa FROM Cuenta WHERE $nombreColumna LIKE '%$filtro%';";
             break;
       }
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
