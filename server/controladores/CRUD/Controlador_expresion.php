@@ -81,16 +81,16 @@ class Controlador_expresion extends Controlador_Base
       switch ($tipoFiltro){
          case "coincide":
             $parametros = array($filtro);
-            $sql = "SELECT Expresion.*, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna = ?;";
+            $sql = "SELECT Expresion.*, Unidad.id as idUnidad, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna = ?;";
             break;
          case "inicia":
-            $sql = "SELECT Expresion.*, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna LIKE '$filtro%';";
+            $sql = "SELECT Expresion.*, Unidad.id as idUnidad, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna LIKE '$filtro%';";
             break;
          case "termina":
-            $sql = "SELECT Expresion.*, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna LIKE '%$filtro';";
+            $sql = "SELECT Expresion.*, Unidad.id as idUnidad, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna LIKE '%$filtro';";
             break;
          default:
-            $sql = "SELECT Expresion.*, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna LIKE '%$filtro%';";
+            $sql = "SELECT Expresion.*, Unidad.id as idUnidad, Unidad.numero, Unidad.placa FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje INNER JOIN Unidad ON Unidad.id = Viaje.idUnidad WHERE Expresion.$nombreColumna LIKE '%$filtro%';";
             break;
       }
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
@@ -111,51 +111,6 @@ class Controlador_expresion extends Controlador_Base
       $cuerpoMensaje .= '<p>'.$respuesta.'</p>';
       $cuerpoMensaje .= '</div></div></div>';
       return $mailSender->enviarMail(FROMMAIL, ALIASMAIL, CLAVEMAIL, 'no-responder@noresponder.com',ALIASMAIL,$email,$usuario,$cuerpoMensaje,$accion);
-   }
-
-   function leer_estadisticas_viajes_unidad($args)
-   {
-      $idUnidad = $args["idUnidad"];
-      $sql = "SELECT DATE(Viaje.fechaInicio) as 'Fecha', COUNT(*) as 'Cuenta' FROM Viaje WHERE idUnidad = ? GROUP BY DATE(Viaje.fechaInicio)";
-      $asc = $args["asc"];
-      if($asc){
-         $sql = $sql.' ORDER BY DATE(Viaje.fechaInicio) ASC;';
-      }else {
-         $sql = $sql.' ORDER BY DATE(Viaje.fechaInicio) DESC;';
-      }
-      $parametros = array($idUnidad);
-      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
-      return $respuesta;
-   }
-
-   function leer_estadisticas_viajes_unidad($args)
-   {
-      $idUnidad = $args["idUnidad"];
-      $sql = "SELECT DATE(Viaje.fechaInicio) as 'Fecha', COUNT(*) as 'Cuenta' FROM Viaje WHERE idUnidad = ? GROUP BY DATE(Viaje.fechaInicio)";
-      $asc = $args["asc"];
-      if($asc){
-         $sql = $sql.' ORDER BY DATE(Viaje.fechaInicio) ASC;';
-      }else {
-         $sql = $sql.' ORDER BY DATE(Viaje.fechaInicio) DESC;';
-      }
-      $parametros = array($idUnidad);
-      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
-      return $respuesta;
-   }
-
-   function leer_estadisticas_unidad($args)
-   {
-      $idUnidad = $args["idUnidad"];
-      $sql = "SELECT DATE(Viaje.fechaInicio) as 'Fecha', COUNT(*) as 'Cuenta' FROM Viaje WHERE idUnidad = ? GROUP BY DATE(Viaje.fechaInicio)";
-      $asc = $args["asc"];
-      if($asc){
-         $sql = $sql.' ORDER BY DATE(Viaje.fechaInicio) ASC;';
-      }else {
-         $sql = $sql.' ORDER BY DATE(Viaje.fechaInicio) DESC;';
-      }
-      $parametros = array($idUnidad);
-      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
-      return $respuesta;
    }
 
    function leer_estrellas_unidad($args)
