@@ -1,17 +1,14 @@
 popover {
+  .center {
+    margin: auto;
+    width: 90%;
+    padding: 10px;
+}
   .popover-page {
-    height:400px ;
+    height:450px ;
     background: #141414 ;
     .text-smaller {
       border-right: 50px solid $list-md-border-color;
-    }
-
-    .row-dots {
-      border-bottom: 1px solid $list-md-border-color;
-    }
-
-    .dot {
-      border: 1px solid $list-md-border-color;
     }
   }
 }
