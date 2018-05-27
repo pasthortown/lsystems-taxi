@@ -13,24 +13,24 @@
 </ion-header>
 
 
-<ion-content>
-  <ion-card>
+<ion-content style="background: #383838;">
+  <ion-card style="background: #141414; color: white">
     <ion-card-header  id=carHeader >
-      <p style="color:#666666"><b>Viajes totales:</b></p>
+      <p style="color:#cacaca">Viajes totales:</p>
     </ion-card-header>
 
-    <ion-card-content text-right Style="font-size:3rem">
-        {{total}}<!-- Add card content here! -->
+    <ion-card-content text-right Style="font-size:3em">
+        <b>{{total}}</b><!-- Add card content here! -->
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+  <ion-card style="background: #141414; color: white">
     <ion-card-header floating id=carHeader >
-        <p style="color:#666666"><b>Viajes en esta semana:</b></p>
+        <p style="color:#cacaca">Viajes en esta semana:</p>
       </ion-card-header>
 
-      <ion-card-content text-right Style="font-size:3rem">
-          {{semana}}<!-- Add card content here! -->
+      <ion-card-content text-right Style="font-size:3em">
+          <b>{{semana}}</b><!-- Add card content here! -->
     </ion-card-content>
   </ion-card>
 
