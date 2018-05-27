@@ -5,4 +5,5 @@ export class Unidad {
    anoFabricacion: number;
    registroMunicipal: string;
    idEstadoUnidad: number;
+   idCoperativa: number;
 }

@@ -4,4 +4,5 @@ export class Cuenta {
    idRol: number;
    clave: string;
    idEstadoCuenta: number;
+   idCoperativa: number;
 }

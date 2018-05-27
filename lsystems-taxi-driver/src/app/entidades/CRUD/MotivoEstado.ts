@@ -1,4 +1,4 @@
-export class EstadoCuenta {
+export class MotivoEstado {
    id: number;
    descripcion: string;
 }
