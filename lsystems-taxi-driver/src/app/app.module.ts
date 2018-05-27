@@ -1,3 +1,4 @@
+import { PopoverComponent } from './../components/popover/popover';
 import { UnidadPage } from './../pages/unidad/unidad';
 import { AccountPage } from './../pages/account/account';
 import { RatingsPage } from './../pages/ratings/ratings';
@@ -33,7 +34,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     EarningsPage,
     RatingsPage,
     AccountPage,
-    UnidadPage
+    UnidadPage,
+    PopoverComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     EarningsPage,
     RatingsPage,
     AccountPage,
-    UnidadPage
+    UnidadPage,
+    PopoverComponent
   ],
   providers: [
     StatusBar,
