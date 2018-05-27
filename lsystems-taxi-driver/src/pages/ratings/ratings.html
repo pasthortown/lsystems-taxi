@@ -28,17 +28,17 @@
   <div style="height: 20%;" >
     <ion-row >
       <ion-col col-4>
-        <button ion-button color="dark" full class="button-ratings">
+        <button ion-button (click)="openModal('DetailRatingsPage')" color="dark" full class="button-ratings">
           Detalles<br/>calificación
         </button>
       </ion-col>
       <ion-col col-4>
-        <button ion-button color="dark" full class="button-ratings">
+        <button ion-button (click)="openModal('AcceptanceRatePage')" color="dark" full class="button-ratings">
           Tasa de<br/>aceptación
         </button>
       </ion-col>
       <ion-col col-4>
-        <button ion-button color="dark" full class="button-ratings">
+        <button ion-button (click)="openModal('RejectRatePage')" color="dark" full class="button-ratings">
           Tasa de<br/>rechazo
         </button>
       </ion-col>
