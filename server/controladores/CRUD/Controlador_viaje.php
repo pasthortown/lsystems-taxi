@@ -25,14 +25,14 @@ class Controlador_viaje extends Controlador_Base
    function actualizar($args)
    {
       $viaje = new Viaje($args["id"],$args["fechaInicio"],$args["fechaFin"],$args["latDesde"],$args["lngDesde"],$args["latHasta"],$args["lngHasta"],$args["idUnidad"],$args["idUsuario"],$args["idConductor"],$args["idEstadoViaje"],$args["idMotivoEstado"],$args["costoReal"],$args["costoCalculado"]);
-      $parametros = array($viaje->fechaInicio,$viaje->fechaFin,$viaje->latDesde,$viaje->lngDesde,$viaje->latHasta,$viaje->lngHasta,$viaje->idUnidad,$viaje->idUsuario,$viaje->idConductor,$viaje->idEstadoViaje,$viaje->idMotivoEstado,$viaje->costoReal,$viaje->costoCalculado,$viaje->id);
       $sql = "UPDATE Viaje SET fechaInicio = ?,fechaFin = ?,latDesde = ?,lngDesde = ?,latHasta = ?,lngHasta = ?,idUnidad = ?,idUsuario = ?,idConductor = ?,idEstadoViaje = ?,idMotivoEstado = ?,costoReal = ?,costoCalculado = ? WHERE id = ?;";
-      $fechaInicioNoSQLTime = strtotime($viaje->fechaInicio);
+      $fechaInicioNoSQLTime = strtotime($viaje->fechaInicio)-(5*3600);
       $fechaInicioSQLTime = date("Y-m-d H:i:s", $fechaInicioNoSQLTime);
       $viaje->fechaInicio = $fechaInicioSQLTime;
-      $fechaFinNoSQLTime = strtotime($viaje->fechaFin);
+      $fechaFinNoSQLTime = strtotime($viaje->fechaFin)-(5*3600);
       $fechaFinSQLTime = date("Y-m-d H:i:s", $fechaFinNoSQLTime);
       $viaje->fechaFin = $fechaFinSQLTime;
+      $parametros = array($viaje->fechaInicio,$viaje->fechaFin,$viaje->latDesde,$viaje->lngDesde,$viaje->latHasta,$viaje->lngHasta,$viaje->idUnidad,$viaje->idUsuario,$viaje->idConductor,$viaje->idEstadoViaje,$viaje->idMotivoEstado,$viaje->costoReal,$viaje->costoCalculado,$viaje->id);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){
          return true;
