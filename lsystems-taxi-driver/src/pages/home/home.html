@@ -44,14 +44,14 @@
     </ion-col>
   </ion-row>
   <div #gmap id="gmap" col-12></div>
-  <ion-fab left bottom>
+  <ion-fab left bottom *ngIf="!viajeEnCurso==null">
     <button ion-fab color="light"><ion-icon name="more"></ion-icon></button>
     <ion-fab-list side="right">
       <button ion-fab (click)="UbicarPasajero()"><ion-icon name="person"></ion-icon></button>
       <button ion-fab (click)="Cobrar()"><ion-icon name="logo-usd"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
-  <ion-fab right top *ngIf="viajeEnCurso==null">
+  <ion-fab right top *ngIf="!viajeEnCurso==null">
     <button ion-fab color="light"><ion-icon name="map"></ion-icon></button>
     <ion-fab-list side="left">
       <button ion-fab (click)="DatosPasajero()"><ion-icon name="contact"></ion-icon></button>

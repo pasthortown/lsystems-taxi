@@ -273,6 +273,13 @@ export class HomePage implements OnInit {
     this.pasajero.apellidos = this.solicitudViaje.apellidos;
     this.pasajero.telefono1 = this.solicitudViaje.telefono1;
     this.pasajero.telefono2 = this.solicitudViaje.telefono2;
+    this.unidad.idEstadoUnidad = 4;
+    this.http.post(this.webServiceURL + 'unidad/actualizar',JSON.stringify(this.unidad))
+    .subscribe(r1 => {
+
+    }, error => {
+
+    });
     this.http.post(this.webServiceURL + 'viaje/actualizar',JSON.stringify(this.viajeEnCurso))
     .subscribe(r1 => {
       this.showToast('Adelante, dirígete al punto de encuentro con el cliente',3000);
@@ -415,10 +422,38 @@ export class HomePage implements OnInit {
   }
 
   finalizarViaje(data) {
-    alert(data.Costo);
+    this.viajeEnCurso.fechaFin = new Date();
+    this.unidad.idEstadoUnidad = 1;
+    this.viajeEnCurso.costoReal = data.Costo;
+    this.http.post(this.webServiceURL + 'unidad/actualizar',JSON.stringify(this.unidad))
+    .subscribe(r1 => {
+
+    }, error => {
+
+    });
+    this.http.post(this.webServiceURL + 'viaje/actualizar',JSON.stringify(this.viajeEnCurso))
+    .subscribe(r1 => {
+      this.viajeEnCurso = null;
+      this.showToast('Excelente trabajo',3000);
+    }, error => {
+
+    });
   }
 
   pasajeroABordo(data) {
+    this.viajeEnCurso.fechaInicio = new Date();
+    this.unidad.idEstadoUnidad = 2;
+    this.http.post(this.webServiceURL + 'unidad/actualizar',JSON.stringify(this.unidad))
+    .subscribe(r1 => {
 
+    }, error => {
+
+    });
+    this.http.post(this.webServiceURL + 'viaje/actualizar',JSON.stringify(this.viajeEnCurso))
+    .subscribe(r1 => {
+      this.showToast('Excelente, dirígete al destino solicitado por el cliente',3000);
+    }, error => {
+
+    });
   }
 }
