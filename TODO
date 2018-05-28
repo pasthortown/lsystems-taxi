@@ -5,8 +5,6 @@ App Conductor
 - Mostrar ruta a seguir o delegar tarea a otra App
 - Validar al arrangar si estaba cumpliendo una ruta
 - Informar el rechazo y permitir que se recalcule
-- Confimar cliente sube
-- Registrar cierre viaje
 
 App Usuario - VIERNES 6pm (diseño)
 (No listo) - Visualizacion de viajes realizados
