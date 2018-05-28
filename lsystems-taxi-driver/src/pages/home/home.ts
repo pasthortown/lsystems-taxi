@@ -415,10 +415,10 @@ export class HomePage implements OnInit {
   }
 
   finalizarViaje(data) {
-    alert(data);
+    alert(data.Costo);
   }
 
   pasajeroABordo(data) {
-    alert(data);
+
   }
 }
