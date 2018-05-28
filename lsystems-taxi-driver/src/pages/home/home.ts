@@ -425,6 +425,7 @@ export class HomePage implements OnInit {
     this.viajeEnCurso.fechaFin = new Date();
     this.unidad.idEstadoUnidad = 1;
     this.viajeEnCurso.costoReal = data.Costo;
+    this.viajeEnCurso.idEstadoViaje = 4;
     this.http.post(this.webServiceURL + 'unidad/actualizar',JSON.stringify(this.unidad))
     .subscribe(r1 => {
 
@@ -443,6 +444,7 @@ export class HomePage implements OnInit {
   pasajeroABordo(data) {
     this.viajeEnCurso.fechaInicio = new Date();
     this.unidad.idEstadoUnidad = 2;
+    this.viajeEnCurso.idEstadoViaje = 3;
     this.http.post(this.webServiceURL + 'unidad/actualizar',JSON.stringify(this.unidad))
     .subscribe(r1 => {
 
