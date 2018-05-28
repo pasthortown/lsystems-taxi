@@ -36,6 +36,7 @@ export class HomePage implements OnInit {
   idMotivoEstado: number;
   viajeEnCurso: Viaje;
   pasajero: Persona;
+  viajeIniciado: boolean;
 
   constructor(
     public toastCtrl: ToastController,
@@ -56,6 +57,7 @@ export class HomePage implements OnInit {
 
   refresh() {
     this.solicitudEnPantalla = false;
+    this.viajeIniciado = false;
     this.unidad = JSON.parse(sessionStorage.getItem('unidad')) as Unidad;
     this.usuario = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
     this.posicion.idUnidad = this.unidad.id;
@@ -274,6 +276,7 @@ export class HomePage implements OnInit {
     this.pasajero.telefono1 = this.solicitudViaje.telefono1;
     this.pasajero.telefono2 = this.solicitudViaje.telefono2;
     this.unidad.idEstadoUnidad = 4;
+    this.viajeIniciado = true;
     this.http.post(this.webServiceURL + 'unidad/actualizar',JSON.stringify(this.unidad))
     .subscribe(r1 => {
 
@@ -299,6 +302,7 @@ export class HomePage implements OnInit {
       this.solicitudEnPantalla = false;
       this.marcadoresViaje.forEach(element => {
         element.setMap(null);
+        this.viajeIniciado = false;
       });
       this.marcadoresVisibles = [];
     }, error => {
@@ -439,6 +443,7 @@ export class HomePage implements OnInit {
     }, error => {
 
     });
+    this.viajeIniciado = false;
   }
 
   pasajeroABordo(data) {
