@@ -9,6 +9,7 @@ import { NavController, ToastController} from 'ionic-angular';
 import { } from '@types/googlemaps';
 import { Http } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -34,12 +35,14 @@ export class HomePage implements OnInit {
   motivos: MotivoEstado[]
   idMotivoEstado: number;
   viajeEnCurso: Viaje;
+  pasajero: Persona;
 
   constructor(
     public toastCtrl: ToastController,
     public navCtrl: NavController,
     public http: Http,
-    private geolocation: Geolocation) {
+    private geolocation: Geolocation,
+    public alertCtrl: AlertController) {
 
     }
 
@@ -265,6 +268,11 @@ export class HomePage implements OnInit {
     this.viajeEnCurso.lngHasta = this.solicitudViaje.lngHasta;
     this.viajeEnCurso.id = this.solicitudViaje.id;
     this.viajeEnCurso.idEstadoViaje = 2;
+    this.pasajero = new Persona();
+    this.pasajero.nombres = this.solicitudViaje.nombres;
+    this.pasajero.apellidos = this.solicitudViaje.apellidos;
+    this.pasajero.telefono1 = this.solicitudViaje.telefono1;
+    this.pasajero.telefono2 = this.solicitudViaje.telefono2;
     this.http.post(this.webServiceURL + 'viaje/actualizar',JSON.stringify(this.viajeEnCurso))
     .subscribe(r1 => {
       this.showToast('Adelante, dirígete al punto de encuentro con el cliente',3000);
@@ -334,5 +342,83 @@ export class HomePage implements OnInit {
   detener():void {
     this.updateMiEstado();
     this.subscription.unsubscribe();
+  }
+
+  UbicarPasajero() {
+    let prompt = this.alertCtrl.create({
+      title: 'Pasajero Ubicado',
+      message: "Confirmar que el pasajero se encuentra a bordo.",
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: data => {
+            this.pasajeroABordo(data);
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  Cobrar() {
+    let prompt = this.alertCtrl.create({
+      title: 'Finalizar Viaje',
+      message: "Ingrese el valor cobrado.",
+      inputs: [
+        {
+          type: 'number',
+          name: 'Costo',
+          placeholder: 'Ej: 3.45 USD'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+
+          }
+        },
+        {
+          text: 'Guardar',
+          handler: data => {
+            this.finalizarViaje(data);
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  DatosPasajero() {
+    if(this.pasajero == null){
+      return;
+    }
+    let prompt = this.alertCtrl.create({
+      title: 'Usuario',
+      message: '<b>' + this.pasajero.apellidos + ' ' + this.pasajero.nombres + '</b><br/><b>Tlf. 1: </b>' + this.pasajero.telefono1 + '<br/><b>Tlf. 2: </b>' + this.pasajero.telefono2,
+      buttons: [
+        {
+          text: 'Cerrar',
+          handler: data => {
+
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  finalizarViaje(data) {
+    alert(data);
+  }
+
+  pasajeroABordo(data) {
+    alert(data);
   }
 }
