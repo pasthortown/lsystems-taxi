@@ -18,7 +18,11 @@ export class PopoverComponent {
 
   constructor(public alerCtrl: AlertController) {
   }
-prueba(){}
+
+  aceptarViaje(){
+    return 'ok';
+  }
+
   doRadio() {
     let alert = this.alerCtrl.create();
     alert.setTitle('Selecciona una razón del rechazo');
@@ -66,13 +70,12 @@ prueba(){}
       value: 'black'
     });
 
-    alert.addButton('Cancel');
     alert.addButton({
       text: 'Ok',
       handler: data => {
-        console.log('Radio data:', data);
         this.testRadioOpen = false;
         this.testRadioResult = data;
+        return data;
       }
     });
 

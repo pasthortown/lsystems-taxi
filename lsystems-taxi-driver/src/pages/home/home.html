@@ -9,14 +9,39 @@
     </ion-item>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
-  <button ion-button (click)="presentPopover($event)">
-    <ion-icon name="more"></ion-icon>boton
-  </button>
-
-    <div #gmap id="gmap" col-12></div>
-
-
-
+  <ion-row>
+    <ion-col *ngIf="solicitudEnPantalla">
+        <h4 text-center><b>Solicitud Entrante:</b></h4>
+        <ion-item>
+          <h2><b>Pasajero:</b> {{solicitudViaje.apellidos}} {{solicitudViaje.nombres}}</h2>
+          <h3><b>Teléfono Principal:</b> {{solicitudViaje.telefono1}}</h3>
+          <h3><b>Teléfono Secundario:</b> {{solicitudViaje.telefono2}}</h3>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-left class="submit-btn" color="secondary" full (click)="aceptar()">
+              <ion-icon name="checkmark"></ion-icon>
+              Aceptar
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-left class="submit-btn" color="danger" full (click)="negarse()">
+              <ion-icon name="close"></ion-icon>
+              Negarse
+            </button>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="mostrarMotivo">
+          <ion-item>
+            <ion-label>Motivo</ion-label>
+            <ion-select [(ngModel)]="idMotivoEstado" (ionChange)="confirmarRechazo(idMotivoEstado)">
+              <ion-option value="0">Seleccione...</ion-option>
+              <ion-option *ngFor="let motivo of motivos" value="{{motivo.id}}">{{motivo.descripcion}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-row>
+    </ion-col>
+  </ion-row>
+  <div #gmap id="gmap" col-12></div>
 </ion-content>

@@ -281,7 +281,7 @@ class Controlador_viaje extends Controlador_Base
    function leer_total_viajes_conductor($args)
    {
       $id = $args["id"];
-      $sql = "SELECT COUNT(*) as cuenta FROM Viaje WHERE Viaje.idConductor = ?;";
+      $sql = "SELECT COUNT(*) as cuenta FROM Viaje WHERE Viaje.idConductor = ? AND Viaje.idEstadoViaje = 4;";
       $parametros = array($id);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
@@ -290,7 +290,16 @@ class Controlador_viaje extends Controlador_Base
    function leer_total_viajes_cliente($args)
    {
       $id = $args["id"];
-      $sql = "SELECT COUNT(*) as cuenta FROM Viaje WHERE Viaje.idUsuario = ?;";
+      $sql = "SELECT COUNT(*) as cuenta FROM Viaje WHERE Viaje.idUsuario = ? AND Viaje.idEstadoViaje = 4;";
+      $parametros = array($id);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
+   
+   function leer_viaje_solicitud_asignado_unidad($args)
+   {
+      $id = $args["id"];
+      $sql = "SELECT Viaje.id, Viaje.latDesde, Viaje.lngDesde, Viaje.latHasta, Viaje.lngHasta, Usuario.id as idUsuario, Usuario.nombres, Usuario.apellidos, Usuario.telefono1, Usuario.telefono2 FROM Viaje INNER JOIN Persona as Usuario ON Usuario.id = Viaje.idUsuario WHERE idEstadoViaje = 1 AND idUnidad = ?;";
       $parametros = array($id);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;

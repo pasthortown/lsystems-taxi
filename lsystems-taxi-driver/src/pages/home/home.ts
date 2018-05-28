@@ -1,9 +1,11 @@
-import { PopoverComponent } from './../../components/popover/popover';
+import { Viaje } from './../../app/entidades/CRUD/Viaje';
+import { MotivoEstado } from './../../app/entidades/CRUD/MotivoEstado';
+import { Persona } from './../../app/entidades/CRUD/Persona';
 import { Posicion } from './../../app/entidades/CRUD/Posicion';
 import { environment } from './../../../environments/environment';
 import { Unidad } from './../../app/entidades/CRUD/Unidad';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { NavController, ToastController, PopoverController} from 'ionic-angular';
+import { NavController, ToastController} from 'ionic-angular';
 import { } from '@types/googlemaps';
 import { Http } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -24,35 +26,48 @@ export class HomePage implements OnInit {
   webServiceURL = environment.apiUrl;
   subscription = null;
   marcadoresVisibles = [];
+  usuario: Persona;
+  solicitudEnPantalla: Boolean;
+  solicitudViaje;
+  marcadoresViaje = [];
+  mostrarMotivo: boolean;
+  motivos: MotivoEstado[]
+  idMotivoEstado: number;
+  viajeEnCurso: Viaje;
 
   constructor(
     public toastCtrl: ToastController,
     public navCtrl: NavController,
     public http: Http,
-    private geolocation: Geolocation,
-    public popoverCtrl:PopoverController) {
+    private geolocation: Geolocation) {
 
     }
 
-  presentPopover(myEvent) {
-    let popover = this.popoverCtrl.create(PopoverComponent);
-    popover.present({
-      ev: myEvent
-    });
-  }
-
   ngOnInit() {
     this.seleccionadaUnidad = false;
+    this.mostrarMotivo = false;
     this.taxi = 'assets/imgs/Taxi_No_Disponible.png';
     this.posicion = new Posicion();
     this.refresh();
   }
 
   refresh() {
+    this.solicitudEnPantalla = false;
     this.unidad = JSON.parse(sessionStorage.getItem('unidad')) as Unidad;
+    this.usuario = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
     this.posicion.idUnidad = this.unidad.id;
     this.startGoogleMap();
     this.getPosicionId();
+    this.getMotivos();
+  }
+
+  getMotivos() {
+    this.http.get(this.webServiceURL + 'motivoestado/leer')
+    .subscribe(r2 => {
+      this.motivos = r2.json() as MotivoEstado[];
+    }, error => {
+
+    });
   }
 
   activar() {
@@ -128,6 +143,9 @@ export class HomePage implements OnInit {
   }
 
   updateMiEstado(){
+    if(this.solicitudEnPantalla){
+      return;
+    }
     let iconBase = 'assets/imgs/';
     let icons = {
         1: {
@@ -193,7 +211,84 @@ export class HomePage implements OnInit {
 
   escuchando() {
     this.setUltimaPosicion();
-    // aca validar si hay nuevas solicitudes de servicio
+    this.buscandoSolicitudes();
+  }
+
+  buscandoSolicitudes() {
+    if(this.solicitudEnPantalla){
+      return;
+    }
+    this.http.get(this.webServiceURL + 'viaje/leer_viaje_solicitud_asignado_unidad?id='+this.unidad.id)
+    .subscribe(r1 => {
+      if(JSON.stringify(r1.json())=='[0]'){
+        return;
+      }
+      this.solicitudViaje = r1.json()[0];
+      this.solicitudEnPantalla = true;
+      this.dibujarRutaSolicitud();
+    }, error => {
+
+    });
+  }
+
+  dibujarRutaSolicitud() {
+    let location = new google.maps.LatLng(JSON.parse(this.solicitudViaje.latDesde) as number,JSON.parse(this.solicitudViaje.lngDesde) as number);
+    let marcadorInicio = new google.maps.Marker({
+      position: location,
+      map: this.map,
+      draggable: false,
+      label: 'A',
+      title: 'Inicio'
+    });
+    let location2 = new google.maps.LatLng(JSON.parse(this.solicitudViaje.latHasta) as number,JSON.parse(this.solicitudViaje.lngHasta) as number);
+    let marcadorFin = new google.maps.Marker({
+      position: location2,
+      map: this.map,
+      draggable: false,
+      label: 'B',
+      title: 'Fin'
+    });
+    this.map.setCenter(location);
+    this.map.setZoom(14);
+    this.marcadoresViaje.push(marcadorInicio);
+    this.marcadoresViaje.push(marcadorFin);
+  }
+
+  aceptar(){
+    this.viajeEnCurso = new Viaje();
+    this.viajeEnCurso.idUnidad = this.unidad.id;
+    this.viajeEnCurso.idConductor = this.usuario.id;
+    this.viajeEnCurso.idUsuario = this.solicitudViaje.idUsuario;
+    this.viajeEnCurso.latDesde = this.solicitudViaje.latDesde;
+    this.viajeEnCurso.lngDesde = this.solicitudViaje.lngDesde;
+    this.viajeEnCurso.latHasta = this.solicitudViaje.latHasta;
+    this.viajeEnCurso.lngHasta = this.solicitudViaje.lngHasta;
+    this.viajeEnCurso.id = this.solicitudViaje.id;
+    this.viajeEnCurso.idEstadoViaje = 2;
+    this.http.post(this.webServiceURL + 'viaje/actualizar',JSON.stringify(this.viajeEnCurso))
+    .subscribe(r1 => {
+      this.showToast('Adelante, dirígete al punto de encuentro con el cliente',3000);
+      this.solicitudEnPantalla = false;
+    }, error => {
+
+    });
+  }
+
+  negarse(){
+    this.mostrarMotivo = true;
+  }
+
+  confirmarRechazo(id: number) {
+    this.http.get(this.webServiceURL + 'viaje/rechazarViaje?idUnidad='+this.unidad.id+'&idMotivoEstado='+this.idMotivoEstado)
+    .subscribe(r1 => {
+      this.solicitudEnPantalla = false;
+      this.marcadoresViaje.forEach(element => {
+        element.setMap(null);
+      });
+      this.marcadoresVisibles = [];
+    }, error => {
+
+    });
   }
 
   startGoogleMap() {
