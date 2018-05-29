@@ -245,8 +245,11 @@ class Controlador_viaje extends Controlador_Base
    function leer_viajes_hoy_conductor($args)
    {
       $id = $args["id"];
-      $sql = "SELECT Viaje.*, CONCAT(Persona.apellidos,' ', Persona.nombres) as 'Usuario', TIME(Viaje.fechaInicio) as 'HoraInicio', TIME(Viaje.fechaFIn) as 'HoraFin' FROM Viaje INNER JOIN Persona ON Viaje.idUsuario = Persona.id WHERE Viaje.idConductor = ? AND DATE(fechaInicio) = DATE(NOW()) ORDER BY fechaInicio DESC;";
-      $parametros = array($id);
+      $hoy = $args["hoy"];
+      $hoyNoSQLTime = strtotime($hoy);
+      $hoySQLTime = date("Y-m-d", $hoyNoSQLTime);
+      $sql = "SELECT Viaje.*, CONCAT(Persona.apellidos,' ', Persona.nombres) as 'Usuario', TIME(Viaje.fechaInicio) as 'HoraInicio', TIME(Viaje.fechaFin) as 'HoraFin' FROM Viaje INNER JOIN Persona ON Viaje.idUsuario = Persona.id WHERE Viaje.idConductor = ? AND DATE(fechaInicio) = ? ORDER BY fechaInicio DESC;";
+      $parametros = array($id, $hoySQLTime);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
@@ -254,8 +257,11 @@ class Controlador_viaje extends Controlador_Base
    function leer_viajes_hoy_cliente($args)
    {
       $id = $args["id"];
-      $sql = "SELECT Viaje.*, CONCAT(Persona.apellidos,' ', Persona.nombres) as 'Usuario', TIME(Viaje.fechaInicio) as 'HoraInicio', TIME(Viaje.fechaFIn) as 'HoraFin' FROM Viaje INNER JOIN Persona ON Viaje.idUsuario = Persona.id WHERE Viaje.idUsuario = ? AND DATE(fechaInicio) = DATE(NOW()) ORDER BY fechaInicio DESC;";
-      $parametros = array($id);
+      $hoy = $args["hoy"];
+      $hoyNoSQLTime = strtotime($hoy);
+      $hoySQLTime = date("Y-m-d", $hoyNoSQLTime);
+      $sql = "SELECT Viaje.*, CONCAT(Persona.apellidos,' ', Persona.nombres) as 'Usuario', TIME(Viaje.fechaInicio) as 'HoraInicio', TIME(Viaje.fechaFin) as 'HoraFin' FROM Viaje INNER JOIN Persona ON Viaje.idUsuario = Persona.id WHERE Viaje.idUsuario = ? AND DATE(fechaInicio) = ? ORDER BY fechaInicio DESC;";
+      $parametros = array($id, $hoySQLTime);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
@@ -304,7 +310,7 @@ class Controlador_viaje extends Controlador_Base
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
-
+   
    function verificarSiEnUso($args) {
       $idUnidad = $args["idUnidad"];
       $idConductor = $args["idConductor"];

@@ -83,7 +83,9 @@ export class HomePage implements OnInit {
         return;
       }
       this.activado = true;
-      this.activar();
+      this.viajeIniciado = true;
+      this.iniciarGPS();
+      this.escucharSolicitudes();
       this.viajeEnCurso = r.json().viaje;
       this.pasajero = r.json().pasajero;
     }, error => {
@@ -155,6 +157,7 @@ export class HomePage implements OnInit {
       this.http.get(this.webServiceURL + 'unidad/leer?id='+this.unidad.id.toString())
       .subscribe(r2 => {
         this.unidad = r2.json()[0] as Unidad;
+        this.updateMiEstado();
       }, error => {
 
       });

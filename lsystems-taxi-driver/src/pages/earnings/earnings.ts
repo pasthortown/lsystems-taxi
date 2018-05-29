@@ -71,7 +71,9 @@ export class EarningsPage implements OnInit{
   }
 
   getHoy() {
-    this.http.get(this.webServiceURL + 'viaje/leer_viajes_hoy_conductor?id='+this.usuario.id)
+    const hoy = new Date();
+    let ahoraFecha = hoy.getFullYear() + '-' + (hoy.getMonth()+1).toString() + '-' + hoy.getDate().toString();
+    this.http.get(this.webServiceURL + 'viaje/leer_viajes_hoy_conductor?id='+this.usuario.id+'&hoy='+ahoraFecha)
     .subscribe(r => {
       if(JSON.stringify(r.json())=='[0]'){
         this.viajesHoy = [];
