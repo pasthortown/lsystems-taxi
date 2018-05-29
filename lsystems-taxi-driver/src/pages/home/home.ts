@@ -84,8 +84,8 @@ export class HomePage implements OnInit {
       }
       this.activado = true;
       this.activar();
-      this.viajeEnCurso = r.json()[0].viaje;
-      this.pasajero = r.json()[0].pasajero;
+      this.viajeEnCurso = r.json().viaje;
+      this.pasajero = r.json().pasajero;
     }, error => {
 
     });
