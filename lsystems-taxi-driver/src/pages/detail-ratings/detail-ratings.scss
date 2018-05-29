@@ -6,9 +6,10 @@ page-detail-ratings {
 
 .progress-outer {
   width: 96%;
-  margin: 10px 2%;
-  padding: 3px;
+  margin: 5px 2%;
+  padding: 1px;
   text-align: center;
+  font-size: 12px;
   background-color: #f4f4f4;
   border: 1px solid #dcdcdc;
   color: #fff;
@@ -16,10 +17,10 @@ page-detail-ratings {
 }
 
 .progress-inner {
-  min-width: 15%;
   white-space: nowrap;
   overflow: hidden;
-  padding: 5px;
+  padding: 1px;
+  height: 10px;
   border-radius: 3px;
   background-color: map-get($colors, primary);
 }
