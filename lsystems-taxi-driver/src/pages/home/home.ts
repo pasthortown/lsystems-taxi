@@ -64,12 +64,28 @@ export class HomePage implements OnInit {
     this.startGoogleMap();
     this.getPosicionId();
     this.getMotivos();
+    this.verificarSiEnUso();
   }
 
   getMotivos() {
     this.http.get(this.webServiceURL + 'motivoestado/leer')
     .subscribe(r2 => {
       this.motivos = r2.json() as MotivoEstado[];
+    }, error => {
+
+    });
+  }
+
+  verificarSiEnUso() {
+    this.http.get(this.webServiceURL + 'viaje/verificarSiEnUso?idUnidad='+this.unidad.id+'&idConductor='+this.usuario.id)
+    .subscribe(r => {
+      if(JSON.stringify(r.json())=='[0]'){
+        return;
+      }
+      this.activado = true;
+      this.activar();
+      this.viajeEnCurso = r.json()[0].viaje;
+      this.pasajero = r.json()[0].pasajero;
     }, error => {
 
     });
@@ -287,6 +303,7 @@ export class HomePage implements OnInit {
     .subscribe(r1 => {
       this.showToast('Adelante, dirígete al punto de encuentro con el cliente',3000);
       this.solicitudEnPantalla = false;
+      this.updateMiEstado();
     }, error => {
 
     });
@@ -432,7 +449,7 @@ export class HomePage implements OnInit {
     this.viajeEnCurso.idEstadoViaje = 4;
     this.http.post(this.webServiceURL + 'unidad/actualizar',JSON.stringify(this.unidad))
     .subscribe(r1 => {
-
+      this.updateMiEstado();
     }, error => {
 
     });
@@ -452,7 +469,7 @@ export class HomePage implements OnInit {
     this.viajeEnCurso.idEstadoViaje = 3;
     this.http.post(this.webServiceURL + 'unidad/actualizar',JSON.stringify(this.unidad))
     .subscribe(r1 => {
-
+      this.updateMiEstado();
     }, error => {
 
     });

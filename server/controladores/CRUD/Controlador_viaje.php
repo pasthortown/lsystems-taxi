@@ -304,4 +304,24 @@ class Controlador_viaje extends Controlador_Base
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
+
+   function verificarSiEnUso($args) {
+      $idUnidad = $args["idUnidad"];
+      $idConductor = $args["idConductor"];
+      $sql = "SELECT * FROM Viaje WHERE idUnidad = ? AND idEstadoViaje < 4 AND idConductor = ?;";
+      $parametros = array($idUnidad, $idConductor);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      if(is_null($respuesta[0])){
+         return $respuesta;
+      }
+      $viaje = $respuesta[0];
+      $sql = "SELECT Persona.id as idUsuario, Persona.nombres, Persona.apellidos, Persona.telefono1, Persona.telefono2 FROM Viaje INNER JOIN Persona ON Persona.id = Viaje.idPersona WHERE Viaje.idUnidad = 1 AND Viaje.idEstadoViaje < 4 AND Viaje.idConductor = ?;";
+      $parametros = array($idUnidad, $idConductor);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      if(is_null($respuesta[0])){
+         return $respuesta;
+      }
+      $pasajero = $respuesta[0];
+      return array("viaje"=>$viaje, "pasajero"=>$pasajero);
+   }
 }
