@@ -227,7 +227,7 @@ class Controlador_viaje extends Controlador_Base
    function leer_estadisticas_tasa_aceptacion_conductor($args)
    {
       $id = $args["id"];
-      $sql = "SELECT * FROM (SELECT count(*) as Finalizados FROM Viaje WHERE Viaje.idEstadoViaje = 3 AND Viaje.idConductor = $id) a, (SELECT count(*) as Asignados FROM Viaje WHERE Viaje.idConductor = $id) b;";
+      $sql = "SELECT * FROM (SELECT count(*) as Finalizados FROM Viaje WHERE Viaje.idEstadoViaje = 4 AND Viaje.idConductor = $id) a, (SELECT count(*) as Asignados FROM Viaje WHERE Viaje.idConductor = $id) b;";
       $parametros = array();
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
@@ -236,7 +236,7 @@ class Controlador_viaje extends Controlador_Base
    function leer_estadisticas_tasa_aceptacion_cliente($args)
    {
       $id = $args["id"];
-      $sql = "SELECT * FROM (SELECT count(*) as Finalizados FROM Viaje WHERE Viaje.idEstadoViaje = 3 AND Viaje.idUsuario = $id) a, (SELECT count(*) as Solicitados FROM Viaje WHERE Viaje.idUsuario = $id) b;";
+      $sql = "SELECT * FROM (SELECT count(*) as Finalizados FROM Viaje WHERE Viaje.idEstadoViaje = 4 AND Viaje.idUsuario = $id) a, (SELECT count(*) as Solicitados FROM Viaje WHERE Viaje.idUsuario = $id) b;";
       $parametros = array();
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
