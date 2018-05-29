@@ -1,28 +1,18 @@
-<!--
-  Generated template for the DetailRatingsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
     <ion-title>Detalles</ion-title>
     <ion-buttons end>
       <button ion-button (click)="closeModal()">cerrar</button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
-
-
 <ion-content>
   <div style="height: 35%; background:#141414; color: white;">
     <ion-row justify-content-center align-items-end style="height: 70%;" >
       <div text-center	style="background: #141414; color:#cacaca">
         <div>Tienes</div>
           <div style="font-size:3.5em; color:white">
-            117
+            {{estrellas5}}
           </div>
         <div>viajes calificados con 5 estrellas</div>
       </div>
@@ -43,7 +33,7 @@
           </div>
         </ion-col>
         <ion-col>
-          aqui texto
+          {{estrellas5}} {{estrellas5/total}}
         </ion-col>
       </ion-row>
       <ion-row>
@@ -56,7 +46,7 @@
           </div>
         </ion-col>
         <ion-col>
-          aqui texto
+          {{estrellas4}} {{estrellas4/total}}
         </ion-col>
       </ion-row>
       <ion-row>
@@ -68,7 +58,7 @@
           </div>
         </ion-col>
         <ion-col>
-          aqui texto
+          {{estrellas3}} {{estrellas3/total}}
         </ion-col>
       </ion-row>
       <ion-row>
@@ -79,7 +69,7 @@
           </div>
         </ion-col>
         <ion-col>
-          aqui texto
+          {{estrellas2}} {{estrellas2/total}}
         </ion-col>
       </ion-row>
       <ion-row>
@@ -89,10 +79,9 @@
           </div>
         </ion-col>
         <ion-col>
-          aqui texto
+          {{estrellas1}} {{estrellas1/total}}
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-item>
-
 </ion-content>
