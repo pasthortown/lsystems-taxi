@@ -33,7 +33,11 @@
           </div>
         </ion-col>
         <ion-col>
-          {{estrellas5}} {{estrellas5/total}}
+          <div class="progress-outer">
+            <div class="progress-inner" [style.width]="estrellas5 + '%'">
+              <small>{{estrellas5}}</small>
+            </div>
+          </div>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -46,7 +50,11 @@
           </div>
         </ion-col>
         <ion-col>
-          {{estrellas4}} {{estrellas4/total}}
+          <div class="progress-outer">
+            <div class="progress-inner" [style.width]="estrellas4p + '%'">
+              <small>{{estrellas4}}</small>
+            </div>
+          </div>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -58,7 +66,11 @@
           </div>
         </ion-col>
         <ion-col>
-          {{estrellas3}} {{estrellas3/total}}
+          <div class="progress-outer">
+            <div class="progress-inner" [style.width]="estrellas3p + '%'">
+              <small>{{estrellas3}}</small>
+            </div>
+          </div>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -69,7 +81,11 @@
           </div>
         </ion-col>
         <ion-col>
-          {{estrellas2}} {{estrellas2/total}}
+          <div class="progress-outer">
+            <div class="progress-inner" [style.width]="estrellas2p + '%'">
+              <small>{{estrellas2}}</small>
+            </div>
+          </div>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -79,7 +95,11 @@
           </div>
         </ion-col>
         <ion-col>
-          {{estrellas1}} {{estrellas1/total}}
+          <div class="progress-outer">
+            <div class="progress-inner" [style.width]="estrellas1p + '%'">
+              <small>{{estrellas1}}</small>
+            </div>
+          </div>
         </ion-col>
       </ion-row>
     </ion-grid>
