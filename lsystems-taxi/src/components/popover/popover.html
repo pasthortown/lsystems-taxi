@@ -1,0 +1,22 @@
+<!-- Generated template for the PopoverComponent component -->
+<div class="popover-page">
+  <div style="text-align: center; color:#cacaca" padding>Has recibido una nueva solicitud de viaje</div>
+<div class="center">
+  <img src="assets/imgs/hold.png" width="200" height="200" padding >
+</div>
+<div style="text-align: center; color: #cacaca">¿Qué deseas hacer?</div>
+<ion-grid>
+  <ion-row>
+    <ion-col col-2></ion-col>
+    <ion-col col-8>
+      <button ion-button full style="text-transform: none" (click)="aceptarViaje()" color="secondary">Aceptar viaje</button>
+    </ion-col>
+      </ion-row>
+  <ion-row>
+    <ion-col col-2></ion-col>
+    <ion-col col-8>
+      <button ion-button full style="text-transform: none" (click)="doRadio()"  color="danger" >Rechazar viaje</button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</div>
