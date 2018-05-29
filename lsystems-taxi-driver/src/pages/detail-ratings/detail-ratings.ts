@@ -17,6 +17,11 @@ export class DetailRatingsPage implements OnInit {
   estrellas3: number;
   estrellas4: number;
   estrellas5: number;
+  estrellas1p: number;
+  estrellas2p: number;
+  estrellas3p: number;
+  estrellas4p: number;
+  estrellas5p: number;
   total: number;
   constructor(public navCtrl: NavController, public navParams: NavParams, private view: ViewController, public http: Http) {
 
@@ -48,6 +53,11 @@ export class DetailRatingsPage implements OnInit {
         }
       });
       this.total = this.estrellas1*1 + this.estrellas2*1 + this.estrellas3*1 + this.estrellas4*1 + this.estrellas5*1;
+      this.estrellas1p = (this.estrellas1/this.total)*100;
+      this.estrellas2p = (this.estrellas2/this.total)*100;
+      this.estrellas3p = (this.estrellas3/this.total)*100;
+      this.estrellas4p = (this.estrellas4/this.total)*100;
+      this.estrellas5p = (this.estrellas5/this.total)*100;
     }, error => {
 
     });
