@@ -46,8 +46,8 @@ export class DetailRatingsPage implements OnInit {
         if(element.idCalificacionConductor == 5){
           this.estrellas5 = element.Cuenta;
         }
-        this.total = this.estrellas1 + this.estrellas2 + this.estrellas3 + this.estrellas4 + this.estrellas5;
       });
+      this.total = this.estrellas1*1 + this.estrellas2*1 + this.estrellas3*1 + this.estrellas4*1 + this.estrellas5*1;
     }, error => {
 
     });
