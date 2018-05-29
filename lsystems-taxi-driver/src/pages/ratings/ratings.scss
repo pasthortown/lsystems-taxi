@@ -1,4 +1,18 @@
 page-ratings {
+  ul {
+    padding: 0px;
+    -webkit-padding-start: 0px !important;
+
+    &.rating li {
+      padding: 5px 10px !important;
+      background: none;
+      color: #ffb400;
+
+      ion-icon {
+        font-size: 30px;
+      }
+    }
+  }
 .button-ratings{
   text-transform: none;
   font-size: 0.8em;

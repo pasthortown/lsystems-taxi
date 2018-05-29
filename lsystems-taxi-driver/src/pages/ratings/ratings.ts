@@ -16,8 +16,9 @@ export class RatingsPage implements OnInit{
   unidad: Unidad;
 
   webServiceURL = environment.apiUrl;
-
+  rate:number = 2.5;
   constructor(public navCtrl: NavController, public navParams: NavParams, private modal: ModalController, public http: Http) {
+  this.rate=2.5
   }
 
   openModal(modalName){

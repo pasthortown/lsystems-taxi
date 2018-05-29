@@ -14,8 +14,10 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'detail-ratings.html',
 })
 export class DetailRatingsPage {
+  rate:number
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private view: ViewController) {
+  this.rate=2.5
   }
 
   closeModal(){
