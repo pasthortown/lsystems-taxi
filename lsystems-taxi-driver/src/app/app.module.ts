@@ -37,6 +37,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     RatingsPage,
     AccountPage,
     UnidadPage,
+
     PopoverComponent
   ],
   imports: [

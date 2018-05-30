@@ -1,0 +1,37 @@
+<!--
+  Generated template for the CommentsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Comentarios de los usuarios</ion-title>
+    <ion-buttons end>
+        <button ion-button (click)="closeModal()">cerrar</button>
+      </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      <p><b>En los ultimos 7 días</b></p>
+      <p >Total comentaios: {{totalComments}}</p>
+    </ion-list-header>
+    <ion-item *ngFor="let item of comments">
+      <ion-avatar item-start>
+        <img src="assets/imgs/Taxi_Standard.png">
+        <div text-center Style="font-size:1rem">{{unidad.placa}}</div>
+      </ion-avatar>
+      <h2><b>Un usuario ha indicado:</b></h2>
+      <h3 text-wrap>Comentario aqui</h3>
+      <h3><b>Fecha del viaje:</b> {{item.fecha}}</h3>
+
+    </ion-item>
+  </ion-list>
+
+</ion-content>
