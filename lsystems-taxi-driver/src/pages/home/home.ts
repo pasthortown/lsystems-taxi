@@ -10,6 +10,7 @@ import { } from '@types/googlemaps';
 import { Http } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
 import { AlertController } from 'ionic-angular';
+import { CallNumber } from '@ionic-native/call-number';
 
 @Component({
   selector: 'page-home',
@@ -39,6 +40,7 @@ export class HomePage implements OnInit {
   viajeIniciado: boolean;
 
   constructor(
+    private callNumber: CallNumber,
     public toastCtrl: ToastController,
     public navCtrl: NavController,
     public http: Http,
@@ -438,6 +440,18 @@ export class HomePage implements OnInit {
           text: 'Cerrar',
           handler: data => {
 
+          }
+        },
+        {
+          text: 'Llamar Telf. 1',
+          handler: data => {
+            this.callNumber.callNumber(this.pasajero.telefono1, true)
+          }
+        },
+        {
+          text: 'Llamar Telf. 2',
+          handler: data => {
+            this.callNumber.callNumber(this.pasajero.telefono2, true)
           }
         }
       ]
