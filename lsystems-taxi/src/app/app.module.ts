@@ -1,6 +1,5 @@
 
 import { PopoverComponent } from './../components/popover/popover';
-import { UnidadPage } from './../pages/unidad/unidad';
 import { AccountPage } from './../pages/account/account';
 import { RatingsPage } from './../pages/ratings/ratings';
 import { EarningsPage } from './../pages/earnings/earnings';
@@ -36,7 +35,6 @@ import { Geolocation } from '@ionic-native/geolocation';
     EarningsPage,
     RatingsPage,
     AccountPage,
-    UnidadPage,
     PopoverComponent
   ],
   imports: [
@@ -57,7 +55,6 @@ import { Geolocation } from '@ionic-native/geolocation';
     EarningsPage,
     RatingsPage,
     AccountPage,
-    UnidadPage,
     PopoverComponent
   ],
   providers: [
