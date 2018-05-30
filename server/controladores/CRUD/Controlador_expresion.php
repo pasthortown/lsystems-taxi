@@ -142,4 +142,13 @@ class Controlador_expresion extends Controlador_Base
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
+
+   function getComentariosSieteDias($args)
+   {
+      $id = $args["id"];
+      $sql = "SELECT * FROM Expresion INNER JOIN Viaje ON Viaje.id = Expresion.idViaje WHERE Viaje.idConductor = ? AND DATE(Viaje.fechaInicio) > date_add(NOW(), INTERVAL -7 DAY);";
+      $parametros = array($id);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
 }

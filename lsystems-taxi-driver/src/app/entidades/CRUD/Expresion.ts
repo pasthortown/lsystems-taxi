@@ -16,4 +16,5 @@ export class Expresion {
   placa: string;
   numero: string;
   idUnidad: number;
+  fechaInicio: Date;
 }
