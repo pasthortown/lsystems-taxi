@@ -33,7 +33,7 @@ export class CommentsPage implements OnInit {
     this.comments = [];
     this.http.get(this.webServiceURL + 'expresion/getComentariosSieteDias?id='+this.usuario.id)
     .subscribe(respuesta => {
-      if(respuesta.json() == '[0]'){
+      if(JSON.stringify(respuesta.json())=='[0]'){
         return;
       }
       this.comments = respuesta.json();
