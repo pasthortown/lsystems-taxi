@@ -1,5 +1,6 @@
 
 import { PopoverComponent } from './../components/popover/popover';
+import { UnidadPage } from './../pages/unidad/unidad';
 import { AccountPage } from './../pages/account/account';
 import { RatingsPage } from './../pages/ratings/ratings';
 import { EarningsPage } from './../pages/earnings/earnings';
@@ -22,6 +23,7 @@ import { HttpModule } from '@angular/http';
 import { Camera } from '@ionic-native/camera';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Geolocation } from '@ionic-native/geolocation';
+import { CallNumber } from '@ionic-native/call-number';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     EarningsPage,
     RatingsPage,
     AccountPage,
+    UnidadPage,
+
     PopoverComponent
   ],
   imports: [
@@ -55,6 +59,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     EarningsPage,
     RatingsPage,
     AccountPage,
+    UnidadPage,
     PopoverComponent
   ],
   providers: [
@@ -62,6 +67,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     Camera,
     SplashScreen,
     BarcodeScanner,
+    CallNumber,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

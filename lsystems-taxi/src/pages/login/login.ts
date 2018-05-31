@@ -1,4 +1,4 @@
-import { TabsPage } from './../tabs/tabs';
+import { UnidadPage } from './../unidad/unidad';
 import { environment } from './../../../environments/environment';
 import { RegisterPage } from './../register/register';
 import { LoginRequest } from './../../app/entidades/especifico/Login-Request';
@@ -44,7 +44,7 @@ export class LoginPage implements OnInit{
       }
       sessionStorage.setItem('logedResult', JSON.stringify(respuesta.json().Persona));
       sessionStorage.setItem('isLoggedin', 'true');
-      this.navCtrl.push(TabsPage);
+      this.navCtrl.push(UnidadPage);
     }, error => {
       sessionStorage.removeItem('isLoggedin');
       sessionStorage.removeItem('logedResult');
