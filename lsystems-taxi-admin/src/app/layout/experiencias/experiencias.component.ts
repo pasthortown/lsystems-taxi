@@ -143,13 +143,13 @@ export class ExperienciasComponent implements OnInit {
     calificar(calificacion: string): void {
         switch(calificacion){
             case 'positivo':
-                this.experienciaSeleccionada.idCalificacion = 1;
+                this.experienciaSeleccionada.idCalificacionConductor = 1;
                 break;
             case 'no especifico':
-                this.experienciaSeleccionada.idCalificacion = 2;
+                this.experienciaSeleccionada.idCalificacionConductor = 2;
                 break;
             case 'negativo':
-                this.experienciaSeleccionada.idCalificacion = 3;
+                this.experienciaSeleccionada.idCalificacionConductor = 3;
                 break;
         }
         this.responder();
