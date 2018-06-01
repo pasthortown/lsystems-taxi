@@ -1,4 +1,3 @@
-import { Unidad } from './../../app/entidades/CRUD/Unidad';
 import { Persona } from './../../app/entidades/CRUD/Persona';
 import { environment } from './../../../environments/environment';
 import { Viaje } from './../../app/entidades/CRUD/Viaje';
@@ -16,7 +15,6 @@ export class EarningsPage implements OnInit{
   semana: number;
   total: number;
   usuario: Persona;
-  unidad: Unidad;
   hoyFecha: string;
   totalHoy: number;
   webServiceURL = environment.apiUrl;
@@ -33,7 +31,6 @@ export class EarningsPage implements OnInit{
 
   ngOnInit() {
     this.usuario = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
-    this.unidad = JSON.parse(sessionStorage.getItem('unidad')) as Unidad;
     this.refresh();
   }
 
@@ -45,7 +42,7 @@ export class EarningsPage implements OnInit{
   }
 
   getTotal() {
-    this.http.get(this.webServiceURL + 'viaje/leer_total_viajes_conductor?id='+this.usuario.id)
+    this.http.get(this.webServiceURL + 'viaje/leer_total_viajes_cliente?id='+this.usuario.id)
     .subscribe(r => {
       if(JSON.stringify(r.json())=='[0]'){
         this.total = 0;
@@ -58,7 +55,7 @@ export class EarningsPage implements OnInit{
   }
 
   getSemana() {
-    this.http.get(this.webServiceURL + 'viaje/leer_viajes_ultimos_siete_dias_conductor?id='+this.usuario.id)
+    this.http.get(this.webServiceURL + 'viaje/leer_viajes_ultimos_siete_dias_cliente?id='+this.usuario.id)
     .subscribe(r => {
       if(JSON.stringify(r.json())=='[0]'){
         this.semana = 0;
@@ -73,7 +70,7 @@ export class EarningsPage implements OnInit{
   getHoy() {
     const hoy = new Date();
     let ahoraFecha = hoy.getFullYear() + '-' + (hoy.getMonth()+1).toString() + '-' + hoy.getDate().toString();
-    this.http.get(this.webServiceURL + 'viaje/leer_viajes_hoy_conductor?id='+this.usuario.id+'&hoy='+ahoraFecha)
+    this.http.get(this.webServiceURL + 'viaje/leer_viajes_hoy_cliente?id='+this.usuario.id+'&hoy='+ahoraFecha)
     .subscribe(r => {
       if(JSON.stringify(r.json())=='[0]'){
         this.viajesHoy = [];
