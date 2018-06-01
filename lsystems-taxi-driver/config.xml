@@ -88,4 +88,5 @@
     <plugin name="phonegap-plugin-barcodescanner" spec="^7.1.2" />
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
     <engine name="android" spec="7.0.0" />
+    <plugin name="com-darryncampbell-cordova-plugin-intent" spec="^1.0.2" />
 </widget>
