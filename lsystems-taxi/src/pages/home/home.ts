@@ -60,13 +60,12 @@ export class HomePage implements OnInit {
   refresh() {
     this.solicitudEnPantalla = false;
     this.viajeIniciado = false;
-    this.unidad = JSON.parse(sessionStorage.getItem('unidad')) as Unidad;
     this.usuario = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
-    this.posicion.idUnidad = this.unidad.id;
+    this.unidad = new Unidad();
     this.startGoogleMap();
-    this.getPosicionId();
-    this.getMotivos();
-    this.verificarSiEnUso();
+    //this.getPosicionId();
+    //this.getMotivos();
+    //this.verificarSiEnUso();
   }
 
   getMotivos() {

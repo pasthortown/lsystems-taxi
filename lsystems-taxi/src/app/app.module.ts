@@ -1,6 +1,3 @@
-
-import { PopoverComponent } from './../components/popover/popover';
-import { UnidadPage } from './../pages/unidad/unidad';
 import { AccountPage } from './../pages/account/account';
 import { RatingsPage } from './../pages/ratings/ratings';
 import { EarningsPage } from './../pages/earnings/earnings';
@@ -21,7 +18,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
 import { Camera } from '@ionic-native/camera';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Geolocation } from '@ionic-native/geolocation';
 import { CallNumber } from '@ionic-native/call-number';
 
@@ -36,10 +32,7 @@ import { CallNumber } from '@ionic-native/call-number';
     RegisterPage,
     EarningsPage,
     RatingsPage,
-    AccountPage,
-    UnidadPage,
-
-    PopoverComponent
+    AccountPage
   ],
   imports: [
     BrowserModule,
@@ -58,15 +51,12 @@ import { CallNumber } from '@ionic-native/call-number';
     RegisterPage,
     EarningsPage,
     RatingsPage,
-    AccountPage,
-    UnidadPage,
-    PopoverComponent
+    AccountPage
   ],
   providers: [
     StatusBar,
     Camera,
     SplashScreen,
-    BarcodeScanner,
     CallNumber,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
