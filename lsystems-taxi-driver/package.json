@@ -42,11 +42,9 @@
     "ionic-angular": "3.9.2",
     "ionic2-rating": "^1.2.2",
     "ionicons": "3.0.0",
-    "minimist": "^1.2.0",
     "phonegap-plugin-barcodescanner": "^7.1.2",
     "rxjs": "5.5.10",
     "sw-toolbox": "3.6.0",
-    "xml2js": "^0.4.19",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
@@ -66,12 +64,7 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
-      "mx.ferreyra.callnumber": {},
-      "cordova-plugin-googlemaps": {
-        "API_KEY_FOR_ANDROID": "AIzaSyCZQgG8L6ntkJZarveWX9mvy9f9MMOoNDA",
-        "PLAY_SERVICES_VERSION": "15.0.1",
-        "ANDROID_SUPPORT_V4_VERSION": "26.1.0"
-      }
+      "mx.ferreyra.callnumber": {}
     },
     "platforms": [
       "android"
