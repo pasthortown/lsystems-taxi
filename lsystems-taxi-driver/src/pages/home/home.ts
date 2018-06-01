@@ -95,6 +95,9 @@ export class HomePage implements OnInit {
       this.viajeEnCurso = r.json().viaje;
       this.pasajero = r.json().pasajero;
       this.getRoute();
+      if(this.viajeEnCurso.fechaInicio.getFullYear() == new Date().getFullYear() && this.viajeEnCurso.fechaInicio.getMonth() == new Date().getMonth() && this.viajeEnCurso.fechaInicio.getDate() == new Date().getDate()) {
+        this.pasajeroRecogido = true;
+      }
     }, error => {
 
     });
