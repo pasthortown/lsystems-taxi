@@ -330,13 +330,17 @@ export class HomePage implements OnInit {
       let request: google.maps.DirectionsRequest = {
         origin: PosicionActual,
         destination: DestinoUsuario,
-        travelMode: 'DRIVING',
+        travelMode: google.maps.TravelMode.DRIVING,
         waypoints: [
           {
             location: InicioUsuario,
             stopover: true
         }],
-        provideRouteAlternatives: true
+        provideRouteAlternatives: true,
+        drivingOptions: {
+          departureTime: new Date(),
+          trafficModel: google.maps.TrafficModel.PESSIMISTIC
+        },
       };
       directionsService.route(request, function(result, status) {
         directionsDisplay.setDirections(result);
