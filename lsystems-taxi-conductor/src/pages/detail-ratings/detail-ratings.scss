@@ -1,0 +1,38 @@
+page-detail-ratings {
+.small-star-icon{
+  font-size: 0.5em;
+  color:#ffb400;
+  position:absolute;
+  top: 25%;
+  left:0%;
+  position:relative;
+  text-align: right;
+}
+.item-md {
+  padding-left: 0px;
+}
+.col  {
+  padding: 1px;
+  vertical-align: middle;
+}
+.progress-outer {
+  width: 96%;
+  //margin: 10px 2%;
+  padding: 3px;
+  text-align: center;
+  background-color: #f4f4f4;
+  border: 1px solid #dcdcdc;
+  color: #fff;
+  border-radius: 3px;
+}
+
+.progress-inner {
+  min-width: 0%;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 5px;
+  border-radius: 3px;
+  background-color: map-get($colors, primary);
+}
+
+}

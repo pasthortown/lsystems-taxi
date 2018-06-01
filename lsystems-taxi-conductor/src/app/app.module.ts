@@ -1,3 +1,11 @@
+
+import { PopoverComponent } from './../components/popover/popover';
+import { UnidadPage } from './../pages/unidad/unidad';
+import { AccountPage } from './../pages/account/account';
+import { RatingsPage } from './../pages/ratings/ratings';
+import { EarningsPage } from './../pages/earnings/earnings';
+import { RegisterPage } from './../pages/register/register';
+import { LoginPage } from './../pages/login/login';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -7,10 +15,15 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { Ionic2RatingModule } from 'ionic2-rating';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { GoogleMaps } from '@ionic-native/google-maps';
+import { HttpModule } from '@angular/http';
+import { Camera } from '@ionic-native/camera';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Geolocation } from '@ionic-native/geolocation';
+import { CallNumber } from '@ionic-native/call-number';
 
 @NgModule({
   declarations: [
@@ -18,11 +31,21 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    LoginPage,
+    RegisterPage,
+    EarningsPage,
+    RatingsPage,
+    AccountPage,
+    UnidadPage,
+
+    PopoverComponent
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    HttpModule,
+    IonicModule.forRoot(MyApp),
+    Ionic2RatingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -30,12 +53,22 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    LoginPage,
+    RegisterPage,
+    EarningsPage,
+    RatingsPage,
+    AccountPage,
+    UnidadPage,
+    PopoverComponent
   ],
   providers: [
     StatusBar,
+    Camera,
     SplashScreen,
-    GoogleMaps,
+    BarcodeScanner,
+    CallNumber,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
