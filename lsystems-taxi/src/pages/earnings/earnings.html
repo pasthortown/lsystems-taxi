@@ -4,22 +4,23 @@
   </ion-navbar>
 </ion-header>
 <ion-content style="background: #383838;">
-  <ion-card style="background: #141414; color: white">
+  <div style="background: #141414; color: white">
     <ion-card-header  id=carHeader >
-      <p style="color:#cacaca">Viajes totales:</p>
+      <div style="color:#cacaca">Viajes totales:</div>
     </ion-card-header>
     <ion-card-content text-right Style="font-size:3em">
         <b>{{total}}</b>
     </ion-card-content>
-  </ion-card>
-  <ion-card style="background: #141414; color: white">
+  </div>
+  <div style="background: #141414; color: white">
     <ion-card-header floating id=carHeader >
-        <p style="color:#cacaca">Viajes en esta semana:</p>
-      </ion-card-header>
-      <ion-card-content text-right Style="font-size:3em">
-          <b>{{semana}}</b>
+      <div style="color:#cacaca">Viajes en esta semana:</div>
+    </ion-card-header>
+    <ion-card-content text-right Style="font-size:3em">
+      <b>{{semana}}</b>
     </ion-card-content>
-  </ion-card>
+  </div>
+  <div style="height: 2%; background:#383838"></div>
   <ion-list>
     <ion-list-header>
       <p><b>Hoy - {{hoyFecha}}</b></p>
