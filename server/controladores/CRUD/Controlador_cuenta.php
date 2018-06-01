@@ -6,7 +6,7 @@ class Controlador_cuenta extends Controlador_Base
    function crear($args)
    {
       $cuenta = new Cuenta($args["id"],$args["idPersona"],$args["idRol"],$args["clave"],$args["idEstadoCuenta"],$args["idCoperativa"]);
-      $sql = "INSERT INTO Cuenta (idPersona,idRol,clave,idEstadoCuenta) VALUES (?,?,aes_encrypt(?,'".CIFRADO."'),?,?);";
+      $sql = "INSERT INTO Cuenta (idPersona,idRol,clave,idEstadoCuenta, idCoperativa) VALUES (?,?,aes_encrypt(?,'".CIFRADO."'),?,?);";
       $parametros = array($cuenta->idPersona,$cuenta->idRol,$cuenta->clave,$cuenta->idEstadoCuenta,$cuenta->idCoperativa);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])){

@@ -40,15 +40,15 @@ export class RegisterPage implements OnInit{
         this.showToast('Todos los campos son obligatorios.');
         return;
     }
-    this.http.post(this.webServiceURL + '/persona/crear',JSON.stringify(this.persona))
+    this.http.post(this.webServiceURL + 'persona/crear',JSON.stringify(this.persona))
     .subscribe(r1 => {
       if(r1.json()){
-        this.http.get(this.webServiceURL + '/persona/leer_filtrado?columna=identificacion&tipo_filtro=coincide&filtro='+this.persona.identificacion)
+        this.http.get(this.webServiceURL + 'persona/leer_filtrado?columna=identificacion&tipo_filtro=coincide&filtro='+this.persona.identificacion)
         .subscribe(r2 => {
           this.cuenta.idEstadoCuenta=1;
           this.cuenta.idRol=3;
           this.cuenta.idPersona = r2.json()[0].id;
-          this.http.post(this.webServiceURL + '/cuenta/crear',JSON.stringify(this.cuenta))
+          this.http.post(this.webServiceURL + 'cuenta/crear',JSON.stringify(this.cuenta))
           .subscribe(r3 => {
             if(r3.json()){
               this.showToast('Registro Completo, en breve la activaremos y podrás comenzar');
