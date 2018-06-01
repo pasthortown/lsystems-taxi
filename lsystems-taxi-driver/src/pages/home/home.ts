@@ -11,6 +11,7 @@ import { Http } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
 import { AlertController } from 'ionic-angular';
 import { CallNumber } from '@ionic-native/call-number';
+import { WebIntent } from '@ionic-native/web-intent';
 
 @Component({
   selector: 'page-home',
@@ -38,6 +39,7 @@ export class HomePage implements OnInit {
   viajeEnCurso: Viaje;
   pasajero: Persona;
   viajeIniciado: boolean;
+  pasajeroRecogido: boolean;
 
   constructor(
     private callNumber: CallNumber,
@@ -45,12 +47,14 @@ export class HomePage implements OnInit {
     public navCtrl: NavController,
     public http: Http,
     private geolocation: Geolocation,
+    private webIntent: WebIntent,
     public alertCtrl: AlertController) {
 
     }
 
   ngOnInit() {
     this.seleccionadaUnidad = false;
+    this.pasajeroRecogido = false;
     this.mostrarMotivo = false;
     this.taxi = 'assets/imgs/Taxi_No_Disponible.png';
     this.posicion = new Posicion();
@@ -418,6 +422,7 @@ export class HomePage implements OnInit {
   }
 
   UbicarPasajero() {
+    this.pasajeroRecogido = true;
     let prompt = this.alertCtrl.create({
       title: 'Pasajero Ubicado',
       message: "Confirmar que el pasajero se encuentra a bordo.",
@@ -539,6 +544,18 @@ export class HomePage implements OnInit {
   }
 
   iniciarNavegacion() {
-
+    let destino = this.viajeEnCurso.latDesde + ',' + this.viajeEnCurso.lngDesde;
+    if (this.pasajeroRecogido) {
+      destino = this.viajeEnCurso.latHasta + ',' + this.viajeEnCurso.lngHasta;
+    }
+    const options = {
+      action: this.webIntent.ACTION_VIEW,
+      url: 'geo:' + destino
+    };
+    this.webIntent.startActivity(options)
+    .then(r1 => {
+    }, error => {
+      alert(JSON.stringify(error));
+    });
   }
 }

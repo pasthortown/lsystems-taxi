@@ -23,6 +23,7 @@ import { Camera } from '@ionic-native/camera';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Geolocation } from '@ionic-native/geolocation';
 import { CallNumber } from '@ionic-native/call-number';
+import { WebIntent } from '@ionic-native/web-intent';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { CallNumber } from '@ionic-native/call-number';
     Camera,
     SplashScreen,
     BarcodeScanner,
+    WebIntent,
     CallNumber,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
