@@ -320,6 +320,10 @@ export class HomePage implements OnInit {
   }
 
   getRoute() {
+    this.marcadoresViaje.forEach(element => {
+      element.setMap(null);
+    });
+    this.marcadoresViaje = [];
     let DestinoUsuario = new google.maps.LatLng(JSON.parse(this.viajeEnCurso.latHasta) as number,JSON.parse(this.viajeEnCurso.lngHasta) as number);
     let InicioUsuario = new google.maps.LatLng(JSON.parse(this.viajeEnCurso.latDesde) as number,JSON.parse(this.viajeEnCurso.lngDesde) as number);
     this.geolocation.getCurrentPosition().then((resp) => {
@@ -532,5 +536,9 @@ export class HomePage implements OnInit {
     }, error => {
 
     });
+  }
+
+  iniciarNavegacion() {
+
   }
 }
