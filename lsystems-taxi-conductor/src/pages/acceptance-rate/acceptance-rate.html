@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Tasa de aceptación de viajes</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()">cerrar</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div style="height: 35%; background:#141414; color: white;">
+    <ion-row justify-content-center align-items-end style="height: 70%;" >
+      <div text-center	style="background: #141414; color:#cacaca">
+        <div> </div>
+          <div style="font-size:3.5em; color:white">
+            {{acceptance}}
+          </div>
+        <div style="color: #ffb400;">Tasa de aceptación de viajes</div>
+      </div>
+    </ion-row>
+  </div>
+  <div style="height: 2%; background:#383838"></div>
+  <ion-item>
+    <div text-wrap text-justify style="background: white; color:#383838">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-10>
+            <p>
+              El porcentaje de aceptación se determina
+              comparando el total de solicitudes aceptadas
+              con el total de solicitudes que has recibido.
+            </p>
+            <p>
+              Un alto porcentaje de aceptación otorga un
+              mayor grado deconfianza a los usuarios.
+              Sin embargo, cuando ocurra algún inconveniente
+              que te impida aceptar un viaje, siempre puedes
+              desconectarte del sistema y así evitar que te
+              lleguen solicitudes de viaje.
+              Para esto, desliza el boton de tu unidad en
+              la pantalla de inicio
+            </p>
+            <p>
+              Ten en cuenta que una cancelación por parte de un
+              usuario nunca afectará tu porcentaje de aceptación.
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-item>
+</ion-content>

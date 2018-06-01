@@ -1,0 +1,39 @@
+<div class="login-box">
+    <ion-row class="logo-row">
+      <ion-col></ion-col>
+      <ion-col col-9>
+        <img src="assets/imgs/lsystemstaxilogo.png"/>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list inset>
+          <ion-list-header>
+            UNIDAD
+          </ion-list-header>
+          <ion-item>
+            <ion-label floating>Registro Municipal</ion-label>
+            <ion-input type="number" [(ngModel)]="registroMunicipal"></ion-input>
+          </ion-item>
+          <ion-item>
+            <button ion-button icon-left (click)="escanear()">
+              <ion-icon name="qr-scanner"></ion-icon>
+              Escanear QR
+            </button>
+          </ion-item>
+          <ion-item>
+            <button *ngIf="verificando" ion-button icon-left clear small color="primary">
+              <ion-icon name="clock"></ion-icon>
+              <div>Por favor espere...</div>
+            </button>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full (click)="confirmar()">Confirmar</button>
+      </ion-col>
+    </ion-row>
+  </div>
