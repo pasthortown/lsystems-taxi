@@ -1,5 +1,4 @@
 
-import { PopoverComponent } from './../components/popover/popover';
 import { UnidadPage } from './../pages/unidad/unidad';
 import { AccountPage } from './../pages/account/account';
 import { RatingsPage } from './../pages/ratings/ratings';
@@ -37,9 +36,7 @@ import { CallNumber } from '@ionic-native/call-number';
     EarningsPage,
     RatingsPage,
     AccountPage,
-    UnidadPage,
-
-    PopoverComponent
+    UnidadPage
   ],
   imports: [
     BrowserModule,
@@ -59,8 +56,7 @@ import { CallNumber } from '@ionic-native/call-number';
     EarningsPage,
     RatingsPage,
     AccountPage,
-    UnidadPage,
-    PopoverComponent
+    UnidadPage
   ],
   providers: [
     StatusBar,
