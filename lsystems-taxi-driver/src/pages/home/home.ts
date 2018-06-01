@@ -90,6 +90,7 @@ export class HomePage implements OnInit {
       this.escucharSolicitudes();
       this.viajeEnCurso = r.json().viaje;
       this.pasajero = r.json().pasajero;
+      this.getRoute();
     }, error => {
 
     });
@@ -244,6 +245,9 @@ export class HomePage implements OnInit {
     if(this.solicitudEnPantalla){
       return;
     }
+    if(this.viajeIniciado){
+      return;
+    }
     this.http.get(this.webServiceURL + 'viaje/leer_viaje_solicitud_asignado_unidad?id='+this.unidad.id)
     .subscribe(r1 => {
       if(JSON.stringify(r1.json())=='[0]'){
@@ -310,6 +314,34 @@ export class HomePage implements OnInit {
       this.solicitudEnPantalla = false;
       this.updateMiEstado();
     }, error => {
+
+    });
+    this.getRoute();
+  }
+
+  getRoute() {
+    let DestinoUsuario = new google.maps.LatLng(JSON.parse(this.viajeEnCurso.latHasta) as number,JSON.parse(this.viajeEnCurso.lngHasta) as number);
+    let InicioUsuario = new google.maps.LatLng(JSON.parse(this.viajeEnCurso.latDesde) as number,JSON.parse(this.viajeEnCurso.lngDesde) as number);
+    this.geolocation.getCurrentPosition().then((resp) => {
+      let PosicionActual = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+      let directionsDisplay = new google.maps.DirectionsRenderer();
+      directionsDisplay.setMap(this.map);
+      let directionsService = new google.maps.DirectionsService();
+      let request: google.maps.DirectionsRequest = {
+        origin: PosicionActual,
+        destination: DestinoUsuario,
+        travelMode: 'DRIVING',
+        waypoints: [
+          {
+            location: InicioUsuario,
+            stopover: true
+        }],
+        provideRouteAlternatives: true
+      };
+      directionsService.route(request, function(result, status) {
+        directionsDisplay.setDirections(result);
+      })
+    }).catch((error) => {
 
     });
   }
