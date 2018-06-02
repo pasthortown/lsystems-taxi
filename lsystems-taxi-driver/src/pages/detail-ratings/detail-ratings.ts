@@ -27,6 +27,10 @@ export class DetailRatingsPage implements OnInit {
 
   }
 
+  ionViewWillEnter() {
+    this.refresh();
+  }
+
   ngOnInit() {
     this.usuario = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
     this.refresh();

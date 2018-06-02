@@ -18,6 +18,10 @@ export class AcceptanceRatePage implements OnInit{
   constructor(public navCtrl: NavController, public navParams: NavParams, private view: ViewController, public http: Http) {
   }
 
+  ionViewWillEnter() {
+    this.refresh();
+  }
+
   ngOnInit() {
     this.usuario = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
     this.refresh();

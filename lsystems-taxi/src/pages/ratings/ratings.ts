@@ -1,9 +1,11 @@
+import { FotografiaPersona } from './../../app/entidades/CRUD/FotografiaPersona';
 import { Unidad } from './../../app/entidades/CRUD/Unidad';
 import { Persona } from './../../app/entidades/CRUD/Persona';
 import { environment } from './../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Http } from '@angular/http';
+import { CallNumber } from '@ionic-native/call-number';
 
 @IonicPage()
 @Component({
@@ -14,11 +16,14 @@ export class RatingsPage implements OnInit{
   calificacion: string;
   usuario: Persona;
   unidad: Unidad;
+  conductor: Persona;
+  fotografia = null;
+  fotoPersona: FotografiaPersona;
 
   webServiceURL = environment.apiUrl;
-  rate:number = 2.5;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modal: ModalController, public http: Http) {
-  this.rate=2.5
+
+  constructor(private callNumber: CallNumber, public navCtrl: NavController, public navParams: NavParams, private modal: ModalController, public http: Http) {
+
   }
 
   openModal(modalName){
@@ -26,22 +31,66 @@ export class RatingsPage implements OnInit{
     myModal.present();
   }
 
-  ionViewDidLoad() {
-
+  ionViewWillEnter() {
+    this.refresh();
   }
 
   ngOnInit() {
     this.usuario = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
-    this.unidad = JSON.parse(sessionStorage.getItem('unidad')) as Unidad;
+    this.conductor = new Persona();
+    this.unidad = new Unidad();
     this.refresh();
   }
 
   refresh() {
-    this.getRating();
+    this.conductor.id = 1;
+    this.unidad.id = 1;
+    this.getConductorInfo();
+    this.getUnidadInfo();
+  }
+
+  getConductorInfo() {
+    this.http.get(this.webServiceURL + 'persona/leer?id='+this.conductor.id)
+    .subscribe(r => {
+      if(JSON.stringify(r.json())=='[0]'){
+        return;
+      }
+      this.conductor = r.json()[0] as Persona;
+      this.getRating();
+      this.getFotografia();
+    }, error => {
+
+    });
+  }
+
+  getFotografia() {
+    this.http.get(this.webServiceURL + '/fotografiapersona/leer_filtrado?columna=idPersona&tipo_filtro=coincide&filtro='+this.conductor.id.toString())
+    .subscribe(respuesta => {
+      if(JSON.stringify(respuesta.json())=='[0]'){
+        this.fotografia = 'assets/imgs/user.png';
+        return;
+      }
+      this.fotoPersona = respuesta.json()[0] as FotografiaPersona;
+      this.fotografia = 'data:' + this.fotoPersona.tipoArchivo + ';base64,' + this.fotoPersona.adjunto;
+    }, error => {
+
+    });
+  }
+
+  getUnidadInfo() {
+    this.http.get(this.webServiceURL + 'unidad/leer?id='+this.unidad.id)
+    .subscribe(r => {
+      if(JSON.stringify(r.json())=='[0]'){
+        return;
+      }
+      this.unidad = r.json()[0] as Unidad;
+    }, error => {
+
+    });
   }
 
   getRating() {
-    this.http.get(this.webServiceURL + 'expresion/leer_estrellas_conductor?id='+this.usuario.id)
+    this.http.get(this.webServiceURL + 'expresion/leer_estrellas_conductor?id='+this.conductor.id)
     .subscribe(r => {
       if(JSON.stringify(r.json())=='[0]'){
         this.calificacion = '5';
@@ -57,5 +106,9 @@ export class RatingsPage implements OnInit{
     }, error => {
 
     });
+  }
+
+  llamar(telefono: string){
+    this.callNumber.callNumber(telefono, true)
   }
 }

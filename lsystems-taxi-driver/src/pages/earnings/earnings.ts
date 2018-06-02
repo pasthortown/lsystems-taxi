@@ -31,6 +31,10 @@ export class EarningsPage implements OnInit{
 
   }
 
+  ionViewWillEnter() {
+    this.refresh();
+  }
+
   ngOnInit() {
     this.usuario = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
     this.unidad = JSON.parse(sessionStorage.getItem('unidad')) as Unidad;

@@ -28,6 +28,10 @@ export class RejectRatePage implements OnInit{
     this.getRejectRate();
   }
 
+  ionViewWillEnter() {
+    this.refresh();
+  }
+
   getRejectRate() {
     this.http.get(this.webServiceURL + 'viaje/leer_estadisticas_tasa_aceptacion_conductor?id='+this.usuario.id)
     .subscribe(r => {

@@ -93,7 +93,7 @@ export class PerfilComponent implements OnInit {
 
     cancelar(): void {
         this.toastr.warning('Los cambios fueron descartados', 'Actualización');
-        this.ngOnInit();
+        this.refresh();
     }
 
     update(): void {

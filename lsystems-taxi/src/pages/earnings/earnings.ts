@@ -23,6 +23,10 @@ export class EarningsPage implements OnInit{
 
   }
 
+  ionViewWillEnter() {
+    this.refresh();
+  }
+
   itemSelected(Item){}
 
   ionViewDidLoad() {

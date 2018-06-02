@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="dark">
-    <ion-title>Tu conductor es</ion-title>
+    <ion-title>Asignado a</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
@@ -33,16 +33,40 @@
     <p text-wrap>Total de reconocimientos:</p>
     <p style="color:indigo">17</p>
   </ion-item>-->
-  <ion-item>
+  <ion-item-sliding>
+    <ion-item>
       <ion-avatar item-start>
-        <ion-icon  name="md-chatbubbles" justify-content-center></ion-icon>
+        <img src="{{fotografia}}">
       </ion-avatar>
-      <h3><b>Contacta con el conductor </b></h3>
-      <p text-wrap class="datos">Nombre: Fulano Rodriguez</p>
-      <p text-wrap class="datos">No. Reg. Municipal: 987654321</p>
-      <p text-wrap class="datos">No. Unidad: 0089</p>
-      <p text-wrap class="datos">Placa Unidad: PCO-0987</p>
-      <p text-wrap class="datos">No. teléfono: 0987654321</p>
+      <h3><b>Conductor</b></h3>
+      <p text-wrap class="datos">Nombre: {{conductor.apellidos}} {{conductor.nombres}}</p>
+      <p text-wrap class="datos">Teléfono Principal: {{conductor.telefono1}}</p>
+      <p text-wrap class="datos">Teléfono Secundario: {{conductor.telefono2}}</p>
+    </ion-item>
+    <ion-item-options side="left">
+      <button ion-button color="primary" (click)="llamar(conductor.telefono1)">
+        <ion-icon name="call"></ion-icon>
+        Telf. 1
+      </button>
+      <button ion-button color="secondary" (click)="llamar(conductor.telefono2)">
+        <ion-icon name="call"></ion-icon>
+        Telf. 2
+      </button>
+    </ion-item-options>
+  </ion-item-sliding>
+
+
+
+
+
+  <ion-item>
+    <ion-avatar item-start>
+      <ion-icon  name="car" justify-content-center></ion-icon>
+    </ion-avatar>
+      <h3><b>Unidad</b></h3>
+      <p text-wrap class="datos">Registro Municipal: {{unidad.registroMunicipal}}</p>
+      <p text-wrap class="datos">Número: {{unidad.numero}}</p>
+      <p text-wrap class="datos">Placa: {{unidad.placa}}</p>
   </ion-item>
 </ion-list>
 </ion-content>
