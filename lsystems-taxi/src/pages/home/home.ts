@@ -52,6 +52,9 @@ export class HomePage implements OnInit {
 
     openModal(modalName){
       const myModal = this.modal.create(modalName);
+      myModal.onDidDismiss(modalData => {
+        console.log(modalData);
+      });
       myModal.present();
     }
 
