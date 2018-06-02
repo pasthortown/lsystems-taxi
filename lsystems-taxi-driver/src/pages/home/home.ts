@@ -363,10 +363,12 @@ export class HomePage implements OnInit {
 
   negarse(){
     this.mostrarMotivo = true;
+    this.activado = false;
+    this.activar();
   }
 
   confirmarRechazo(id: number) {
-    this.http.get(this.webServiceURL + 'viaje/rechazarViaje?idUnidad='+this.unidad.id+'&idMotivoEstado='+this.idMotivoEstado)
+    this.http.get(this.webServiceURL + 'viaje/rechazarViaje?idConductor='+this.usuario.id+'&idViaje='+ this.solicitudViaje.id +'&idUnidad='+this.unidad.id+'&idMotivoEstado='+id.toString())
     .subscribe(r1 => {
       this.solicitudEnPantalla = false;
       this.marcadoresViaje.forEach(element => {

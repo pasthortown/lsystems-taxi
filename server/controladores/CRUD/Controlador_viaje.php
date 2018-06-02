@@ -339,9 +339,66 @@ class Controlador_viaje extends Controlador_Base
       $idUsuario = $args["idUsuario"];
       $idEstadoViaje = 1;
       $costoCalculado = $args["costoCalculado"];
-      $sql = "INSERT INTO Viaje (latDesde,lngDesde,latHasta,lngHasta,idUsuario,idEstadoViaje,costoCalculado) VALUES (?,?,?,?,?,?,?);";
       $parametros = array($latDesde, $lngDesde, $latHasta, $lngHasta, $idUsuario, $idEstadoViaje, $costoCalculado);
+      $sql = "INSERT INTO Viaje (latDesde,lngDesde,latHasta,lngHasta,idUsuario,idEstadoViaje,costoCalculado) VALUES (?,?,?,?,?,?,?,?);";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return true;
+   }
+
+   function comprobarSolicitudViaje($args) {
+      $id = $args["id"];
+      $sql = "SELECT Viaje.id, Viaje.latDesde, Viaje.lngDesde, Viaje.latHasta, Viaje.lngHasta, Conductor.id as idConductor, Conductor.nombres, Conductor.apellidos, Conductor.telefono1, Conductor.telefono2 FROM Viaje INNER JOIN Persona as Conductor ON Conductor.id = Viaje.idConductor WHERE idEstadoViaje = 1 AND idUsuario = ?;";
+      $parametros = array($id);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return $respuesta;
+   }
+
+   function rechazarViaje($args) {
+      $idUnidad = $args["idUnidad"];
+      $idConductor = $args["idConductor"];
+      $idMotivoEstado = $args["idMotivoEstado"];
+      $idViaje = $args["idViaje"];
+      $parametros = array($idUnidad, $idConductor, $idMotivoEstado, $idViaje);
+      $sql = "UPDATE Viaje SET idUnidad = ?,idConductor = ?,idEstadoViaje = 5,idMotivoEstado = ? WHERE id = ?;";
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      $parametros = array($idViaje);
+      $sql = "SELECT * FROM Viaje WHERE id = ?;";
+      $parametros = array();
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      $latDesde = $respuesta[0]["latDesde"];
+      $lngDesde = $respuesta[0]["lngDesde"];
+      $latHasta = $respuesta[0]["latHasta"];
+      $lngHasta = $respuesta[0]["lngHasta"];
+      $idUsuario = $respuesta[0]["idUsuario"];
+      $idEstadoViaje = 1;
+      $costoCalculado = $respuesta[0]["costoCalculado"];
+      $parametros = array($latDesde, $lngDesde, $latHasta, $lngHasta, $idUsuario, $idEstadoViaje, $costoCalculado);
+      $sql = "INSERT INTO Viaje (latDesde,lngDesde,latHasta,lngHasta,idUsuario,idEstadoViaje,costoCalculado) VALUES (?,?,?,?,?,?,?);";
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return true;
+   }
+
+   function viajesPendientes() {
+      $sql = "SELECT Viaje.id FROM Viaje WHERE idUnidad = null;";
+      $parametros = array();
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      if(is_null($respuesta[0])||$respuesta[0]==0){
+            return "No existen viajes pendientes";
+      }
+      $idViaje = $respuesta[0]["id"];
+      $sql = "SELECT Unidad.id FROM Unidad WHERE idEstadoUnidad = 1;";
+      $parametros = array();
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      if(is_null($respuesta[0])||$respuesta[0]==0){
+            return "No existen unidades disponibles";
+      }
+      $idUnidad = $respuesta[0]["id"];
+      $sql = "UPDATE Unidad SET idEstadoUnidad = 4 WHERE id = ?;";
+      $parametros = array($idUnidad);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      $sql = "UPDATE Viaje SET idUnidad = ? WHERE id = ?;";
+      $parametros = array($idUnidad, $idViaje);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return "Viaje asignado, esperando respuesta";
    }
 }
