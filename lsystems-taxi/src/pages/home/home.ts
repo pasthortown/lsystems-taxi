@@ -213,6 +213,8 @@ export class HomePage implements OnInit {
     let destino = this.marcadoresViaje[0] as google.maps.Marker;
     if(destino.getPosition().toJSON().lat == 0 && destino.getPosition().toJSON().lng == 0){
       this.showToast('Seleccione un destino', 3000);
+      return;
     }
+    this.showToast('Por favor espere, estamos ubicando una unidad para servirle.', 3000);
   }
 }
