@@ -18,4 +18,5 @@ export class Viaje {
    Usuario: string;
    HoraInicio: string;
    HoraFin: string;
+   UnidadPlaca: string;
 }

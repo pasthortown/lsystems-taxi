@@ -260,7 +260,7 @@ class Controlador_viaje extends Controlador_Base
       $hoy = $args["hoy"];
       $hoyNoSQLTime = strtotime($hoy);
       $hoySQLTime = date("Y-m-d", $hoyNoSQLTime);
-      $sql = "SELECT Viaje.*, CONCAT(Persona.apellidos,' ', Persona.nombres) as 'Usuario', TIME(Viaje.fechaInicio) as 'HoraInicio', TIME(Viaje.fechaFin) as 'HoraFin' FROM Viaje INNER JOIN Persona ON Viaje.idUsuario = Persona.id WHERE Viaje.idUsuario = ? AND DATE(fechaInicio) = ? ORDER BY fechaInicio DESC;";
+      $sql = "SELECT Viaje.*, Unidad.placa as 'UnidadPlaca', CONCAT(Persona.apellidos,' ', Persona.nombres) as 'Usuario', TIME(Viaje.fechaInicio) as 'HoraInicio', TIME(Viaje.fechaFin) as 'HoraFin' FROM Viaje INNER JOIN Persona ON Viaje.idUsuario = Persona.id INNER JOIN Unidad ON Viaje.idUnidad = Unidad.id WHERE Viaje.idUsuario = ? AND DATE(fechaInicio) = ? ORDER BY fechaInicio DESC;";
       $parametros = array($id, $hoySQLTime);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
