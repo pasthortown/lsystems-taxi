@@ -32,6 +32,7 @@ import { CallNumber } from '@ionic-native/call-number';
     RegisterPage,
     EarningsPage,
     RatingsPage,
+
     AccountPage
   ],
   imports: [
@@ -51,6 +52,7 @@ import { CallNumber } from '@ionic-native/call-number';
     RegisterPage,
     EarningsPage,
     RatingsPage,
+
     AccountPage
   ],
   providers: [

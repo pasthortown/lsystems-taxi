@@ -5,7 +5,7 @@ import { Posicion } from './../../app/entidades/CRUD/Posicion';
 import { environment } from './../../../environments/environment';
 import { Unidad } from './../../app/entidades/CRUD/Unidad';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { NavController, ToastController} from 'ionic-angular';
+import { IonicPage, NavController, ToastController, ModalController} from 'ionic-angular';
 import { } from '@types/googlemaps';
 import { Http } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -45,8 +45,14 @@ export class HomePage implements OnInit {
     public navCtrl: NavController,
     public http: Http,
     private geolocation: Geolocation,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public modal: ModalController) {
 
+    }
+
+    openModal(modalName){
+      const myModal = this.modal.create(modalName);
+      myModal.present();
     }
 
   ngOnInit() {
