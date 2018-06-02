@@ -29,12 +29,12 @@
     <ion-item *ngFor="let item of viajesHoy">
       <ion-avatar item-start>
         <img src="assets/imgs/Taxi_Standard.png">
-        <div text-center Style="font-size:1rem">{{unidad.placa}}</div>
+        <div text-center Style="font-size:1rem">{{item.UnidadPlaca}}</div>
       </ion-avatar>
       <h2><b>Pasajero:</b> {{item.Usuario}}</h2>
       <h3><b>Hora de inicio:</b> {{item.HoraInicio}}</h3>
       <h3><b>Hora de Fin:</b> {{item.HoraFin}}</h3>
-      <p><b>Dinero Cobrado:</b> {{item.costoReal}} USD</p>
+      <p><b>Dinero Pagado:</b> {{item.costoReal}} USD</p>
     </ion-item>
   </ion-list>
 </ion-content>
