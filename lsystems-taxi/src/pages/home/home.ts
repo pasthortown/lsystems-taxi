@@ -18,25 +18,16 @@ import { AlertController } from 'ionic-angular';
 export class HomePage implements OnInit {
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
-  poly: google.maps.Polyline;
-  taxi: string;
-  seleccionadaUnidad: boolean;
   unidad: Unidad;
-  activado: boolean;
-  posicion: Posicion;
+  activado: Boolean;
   webServiceURL = environment.apiUrl;
   subscription = null;
-  marcadoresVisibles = [];
   usuario: Persona;
-  solicitudEnPantalla: Boolean;
-  solicitudViaje;
   marcadoresViaje = [];
-  mostrarMotivo: boolean;
-  motivos: MotivoEstado[]
-  idMotivoEstado: number;
   viajeEnCurso: Viaje;
-  pasajero: Persona;
   viajeIniciado: boolean;
+  marcadorUsuario: google.maps.Marker;
+  marcadorTaxi: google.maps.Marker;
 
   constructor(
     public toastCtrl: ToastController,
@@ -57,22 +48,18 @@ export class HomePage implements OnInit {
     }
 
   ngOnInit() {
-    this.seleccionadaUnidad = false;
-    this.mostrarMotivo = false;
-    this.taxi = 'assets/imgs/Taxi_No_Disponible.png';
-    this.posicion = new Posicion();
     this.refresh();
+    this.getMiPosicion();
   }
 
   ionViewWillEnter() {
-    this.refresh();
+    this.getMiPosicion();
   }
 
   refresh() {
     this.usuario = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
     this.unidad = new Unidad();
     this.startGoogleMap();
-    this.getMiPosicion();
   }
 
   getMiPosicion() {
@@ -86,17 +73,33 @@ export class HomePage implements OnInit {
     this.geolocation.getCurrentPosition().then((resp) => {
       let PosicionActual = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
       this.map.setCenter(PosicionActual);
-      let marcadorUsuario = new google.maps.Marker({
+      this.marcadorUsuario = new google.maps.Marker({
         position: PosicionActual,
         map: this.map,
         draggable: false,
         icon: usuarioIcono,
         title: this.usuario.nombres + ' ' + this.usuario.apellidos
       });
-      this.marcadoresVisibles.push(marcadorUsuario);
+      this.actualizarMiPosicion();
     }).catch((error) => {
 
     });
+  }
+
+  actualizarMiPosicion() {
+    let options = {
+      enableHighAccuracy: true,
+      timeout: 15000
+    };
+    this.subscription = this.geolocation.watchPosition(options)
+    .subscribe(position => {
+      let posicion = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      this.marcadorUsuario.setPosition(posicion);
+    });
+  }
+
+  ionViewWillLeave() {
+    this.subscription.unsubscribe();
   }
 
   verificarSiEnUso() {
@@ -105,11 +108,7 @@ export class HomePage implements OnInit {
       if(JSON.stringify(r.json())=='[0]'){
         return;
       }
-      this.activado = true;
-      this.viajeIniciado = true;
-      this.viajeEnCurso = r.json().viaje;
-      this.pasajero = r.json().pasajero;
-      this.getRoute();
+
     }, error => {
 
     });
@@ -129,6 +128,7 @@ export class HomePage implements OnInit {
   }
 
   getPosicionTaxi(){
+    /*
     this.http.post(this.webServiceURL + 'posicion/actualizar',JSON.stringify(this.posicion))
     .subscribe(r1 => {
       this.http.get(this.webServiceURL + 'unidad/leer?id='+this.unidad.id.toString())
@@ -139,7 +139,7 @@ export class HomePage implements OnInit {
       });
     }, error => {
 
-    });
+    });*/
   }
 
   getRoute() {
@@ -208,10 +208,11 @@ export class HomePage implements OnInit {
 
   pedirUnidad() {
     let destino = this.marcadoresViaje[0] as google.maps.Marker;
+    console.log(destino.getPosition().toJSON());
     if(destino.getPosition().toJSON().lat == 0 && destino.getPosition().toJSON().lng == 0){
       this.showToast('Seleccione un destino', 3000);
       return;
     }
-    this.showToast('Por favor espere, estamos ubicando una unidad para servirle.', 3000);
+    this.showToast('Por favor espere, estamos ubicando una unidad para atender su solicitud.', 3000);
   }
 }
