@@ -10,7 +10,6 @@ import { } from '@types/googlemaps';
 import { Http } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
 import { AlertController } from 'ionic-angular';
-import { CallNumber } from '@ionic-native/call-number';
 
 @Component({
   selector: 'page-home',
@@ -40,7 +39,6 @@ export class HomePage implements OnInit {
   viajeIniciado: boolean;
 
   constructor(
-    private callNumber: CallNumber,
     public toastCtrl: ToastController,
     public navCtrl: NavController,
     public http: Http,
@@ -195,7 +193,6 @@ export class HomePage implements OnInit {
     });
     this.marcadoresViaje.push(marcadorFin);
     this.map.addListener('click', function(event) {
-      let location = event.latLng;
       marcadorFin.setPosition(event.latLng);
     });
   }
