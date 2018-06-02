@@ -330,4 +330,18 @@ class Controlador_viaje extends Controlador_Base
       $pasajero = $respuesta[0];
       return array("viaje"=>$viaje, "pasajero"=>$pasajero);
    }
+
+   function nuevaSolicitudViaje($args) {
+      $latDesde = $args["latDesde"];
+      $lngDesde = $args["lngDesde"];
+      $latHasta = $args["latHasta"];
+      $lngHasta = $args["lngHasta"];
+      $idUsuario = $args["idUsuario"];
+      $idEstadoViaje = 1;
+      $costoCalculado = $args["costoCalculado"];
+      $sql = "INSERT INTO Viaje (latDesde,lngDesde,latHasta,lngHasta,idUsuario,idEstadoViaje,costoCalculado) VALUES (?,?,?,?,?,?,?);";
+      $parametros = array($latDesde, $lngDesde, $latHasta, $lngHasta, $idUsuario, $idEstadoViaje, $costoCalculado);
+      $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
+      return true;
+   }
 }
