@@ -1,7 +1,5 @@
 import { Viaje } from './../../app/entidades/CRUD/Viaje';
-import { MotivoEstado } from './../../app/entidades/CRUD/MotivoEstado';
 import { Persona } from './../../app/entidades/CRUD/Persona';
-import { Posicion } from './../../app/entidades/CRUD/Posicion';
 import { environment } from './../../../environments/environment';
 import { Unidad } from './../../app/entidades/CRUD/Unidad';
 import { Component, ViewChild, OnInit } from '@angular/core';
