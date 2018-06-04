@@ -37,19 +37,18 @@ export class HomePage implements OnInit {
     public alertCtrl: AlertController,
     public modal: ModalController) {
 
-    }
+  }
 
-    openModal(modalName){
-      const myModal = this.modal.create(modalName);
-      myModal.onDidDismiss(modalData => {
-        console.log(modalData);
-      });
-      myModal.present();
-    }
+  openModal(modalName){
+    const myModal = this.modal.create(modalName);
+    myModal.onDidDismiss(modalData => {
+      console.log(modalData);
+    });
+    myModal.present();
+  }
 
   ngOnInit() {
     this.refresh();
-    this.getMiPosicion();
   }
 
   ionViewWillEnter() {
@@ -59,27 +58,15 @@ export class HomePage implements OnInit {
   refresh() {
     this.usuario = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
     this.unidad = new Unidad();
+    this.unidad.id = 1;
     this.startGoogleMap();
   }
 
   getMiPosicion() {
-    let usuarioIcono = {
-      url: 'assets/imgs/userpin.png',
-      size: new google.maps.Size(30, 30),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(30, 30),
-      scaledSize: new google.maps.Size(30, 30)
-    }
     this.geolocation.getCurrentPosition().then((resp) => {
       let PosicionActual = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
       this.map.setCenter(PosicionActual);
-      this.marcadorUsuario = new google.maps.Marker({
-        position: PosicionActual,
-        map: this.map,
-        draggable: false,
-        icon: usuarioIcono,
-        title: this.usuario.nombres + ' ' + this.usuario.apellidos
-      });
+      this.marcadorUsuario.setPosition(PosicionActual);
       this.actualizarMiPosicion();
     }).catch((error) => {
 
@@ -103,7 +90,7 @@ export class HomePage implements OnInit {
   }
 
   verificarSiEnUso() {
-    this.http.get(this.webServiceURL + 'viaje/verificarSiEnUso?idUnidad='+this.unidad.id+'&idConductor='+this.usuario.id)
+    this.http.get(this.webServiceURL + 'viaje/verificarSiEnUsoUsuario?idUsuario='+this.usuario.id)
     .subscribe(r => {
       if(JSON.stringify(r.json())=='[0]'){
         return;
@@ -124,22 +111,25 @@ export class HomePage implements OnInit {
   }
 
   escuchando() {
+    this.checkEstadoSolicitud();
     this.getPosicionTaxi();
   }
 
-  getPosicionTaxi(){
-    /*
-    this.http.post(this.webServiceURL + 'posicion/actualizar',JSON.stringify(this.posicion))
-    .subscribe(r1 => {
-      this.http.get(this.webServiceURL + 'unidad/leer?id='+this.unidad.id.toString())
-      .subscribe(r2 => {
-        this.unidad = r2.json()[0] as Unidad;
-      }, error => {
+  checkEstadoSolicitud() {
+    this.getRoute();
+  }
 
-      });
+  getPosicionTaxi(){
+    if(this.unidad.id==0){
+      return;
+    }
+    this.http.get(this.webServiceURL + 'posicion/leer_filtrado?columna=idUnidad&tipo_filtro=coincide&filtro='+this.unidad.id.toString())
+    .subscribe(r1 => {
+      const posicion = new google.maps.LatLng(r1.json()[0].latitud as number, r1.json()[0].longitud as number);
+      this.marcadorTaxi.setPosition(posicion);
     }, error => {
 
-    });*/
+    });
   }
 
   getRoute() {
@@ -191,6 +181,34 @@ export class HomePage implements OnInit {
       draggable: true,
       title: 'Destino'
     });
+    let taxiIcono = {
+      url: 'assets/imgs/taxipin.png',
+      size: new google.maps.Size(30, 30),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(30, 30),
+      scaledSize: new google.maps.Size(30, 30)
+    }
+    let usuarioIcono = {
+      url: 'assets/imgs/userpin.png',
+      size: new google.maps.Size(30, 30),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(30, 30),
+      scaledSize: new google.maps.Size(30, 30)
+    }
+    this.marcadorTaxi = new google.maps.Marker({
+      position: new google.maps.LatLng(0,0),
+      map: mapa,
+      icon: taxiIcono,
+      draggable: false,
+      title: 'Unidad'
+    });
+    this.marcadorUsuario = new google.maps.Marker({
+      position: new google.maps.LatLng(0,0),
+      map: mapa,
+      icon: usuarioIcono,
+      draggable: false,
+      title: 'Usuario'
+    });
     this.marcadoresViaje.push(marcadorFin);
     this.map.addListener('click', function(event) {
       marcadorFin.setPosition(event.latLng);
@@ -208,11 +226,11 @@ export class HomePage implements OnInit {
 
   pedirUnidad() {
     let destino = this.marcadoresViaje[0] as google.maps.Marker;
-    console.log(destino.getPosition().toJSON());
     if(destino.getPosition().toJSON().lat == 0 && destino.getPosition().toJSON().lng == 0){
       this.showToast('Seleccione un destino', 3000);
       return;
     }
     this.showToast('Por favor espere, estamos ubicando una unidad para atender su solicitud.', 3000);
+    this.escucharRespuestas();
   }
 }
