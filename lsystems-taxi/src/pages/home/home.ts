@@ -28,6 +28,7 @@ export class HomePage implements OnInit {
   viajeIniciado: boolean;
   marcadorUsuario: google.maps.Marker;
   marcadorTaxi: google.maps.Marker;
+  conductor: Persona;
 
   constructor(
     public toastCtrl: ToastController,
@@ -48,6 +49,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
+    this.viajeIniciado = false;
     this.refresh();
   }
 
@@ -111,11 +113,42 @@ export class HomePage implements OnInit {
   }
 
   escuchando() {
-    this.checkEstadoSolicitud();
-    this.getPosicionTaxi();
+    if(this.viajeIniciado){
+      this.getPosicionTaxi();
+    }else{
+      this.comprobarSolicitudViaje();
+    }
   }
 
-  checkEstadoSolicitud() {
+  comprobarSolicitudViaje() {
+    if(this.viajeIniciado){
+      return;
+    }
+    this.http.get(this.webServiceURL + 'viaje/comprobarSolicitudViaje?id='+this.usuario.id.toString())
+    .subscribe(r1 => {
+      if(JSON.stringify(r1.json())=='[0]'){
+        return;
+      }
+      this.viajeEnCurso.idConductor=r1.json()[0].idConductor;
+      this.viajeEnCurso.latDesde=r1.json()[0].latDesde;
+      this.viajeEnCurso.lngDesde=r1.json()[0].lngDesde;
+      this.viajeEnCurso.latHasta=r1.json()[0].latHasta;
+      this.viajeEnCurso.lngHasta=r1.json()[0].lngHasta;
+      this.conductor = new Persona();
+      this.conductor.nombres = r1.json()[0].nombres;
+      this.conductor.apellidos = r1.json()[0].apellidos;
+      this.conductor.telefono1 = r1.json()[0].telefono1;
+      this.conductor.telefono2 = r1.json()[0].telefono2;
+      this.unidad = new Unidad();
+      this.unidad.id = r1.json()[0].idUnidad;
+      this.unidad.placa = r1.json()[0].placa;
+      this.unidad.numero = r1.json()[0].numero;
+      this.unidad.registroMunicipal = r1.json()[0].registroMunicipal;
+      this.viajeIniciado = true;
+    }, error => {
+
+    });
+
     this.getRoute();
   }
 
@@ -230,7 +263,18 @@ export class HomePage implements OnInit {
       this.showToast('Seleccione un destino', 3000);
       return;
     }
-    this.showToast('Por favor espere, estamos ubicando una unidad para atender su solicitud.', 3000);
-    this.escucharRespuestas();
+    const data = {latDesde: this.marcadorUsuario.getPosition().toJSON().lat,
+                  lngDesde: this.marcadorUsuario.getPosition().toJSON().lng,
+                  latHasta: destino.getPosition().toJSON().lat,
+                  lngHasta: destino.getPosition().toJSON().lng,
+                  idUsuario: this.usuario.id
+                }
+    this.http.post(this.webServiceURL + 'viaje/nuevaSolicitudViaje',JSON.stringify(data))
+    .subscribe(r1 => {
+      this.showToast('Por favor espere, estamos ubicando una unidad para atender su solicitud.', 3000);
+      this.escucharRespuestas();
+    }, error => {
+
+    });
   }
 }

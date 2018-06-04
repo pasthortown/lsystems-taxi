@@ -347,7 +347,7 @@ class Controlador_viaje extends Controlador_Base
 
    function comprobarSolicitudViaje($args) {
       $id = $args["id"];
-      $sql = "SELECT Viaje.id, Viaje.latDesde, Viaje.lngDesde, Viaje.latHasta, Viaje.lngHasta, Conductor.id as idConductor, Conductor.nombres, Conductor.apellidos, Conductor.telefono1, Conductor.telefono2 FROM Viaje INNER JOIN Persona as Conductor ON Conductor.id = Viaje.idConductor WHERE idEstadoViaje = 1 AND idUsuario = ?;";
+      $sql = "SELECT Viaje.id, Viaje.latDesde, Viaje.lngDesde, Viaje.latHasta, Viaje.lngHasta, Viaje.idUnidad, Unidad.placa, Unidad.numero, Unidad.registroMunicipal, Conductor.id as idConductor, Conductor.nombres, Conductor.apellidos, Conductor.telefono1, Conductor.telefono2 FROM Viaje INNER JOIN Persona as Conductor ON Conductor.id = Viaje.idConductor INNER JOIN Unidad ON Viaje.idUnidad = Unidad.id WHERE idEstadoViaje = 1 AND idUsuario = ?;";
       $parametros = array($id);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
