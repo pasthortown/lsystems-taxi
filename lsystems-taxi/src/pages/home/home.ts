@@ -145,11 +145,10 @@ export class HomePage implements OnInit {
       this.unidad.numero = r1.json()[0].numero;
       this.unidad.registroMunicipal = r1.json()[0].registroMunicipal;
       this.viajeIniciado = true;
+      this.getRoute();
     }, error => {
 
     });
-
-    this.getRoute();
   }
 
   getPosicionTaxi(){
