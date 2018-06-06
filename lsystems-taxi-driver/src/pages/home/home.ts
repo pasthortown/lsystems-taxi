@@ -243,7 +243,12 @@ export class HomePage implements OnInit {
     this.map.setCenter(location);
   }
 
+  checkViajesNoAsignados() {
+
+  }
+
   escuchando() {
+    this.checkViajesNoAsignados();
     this.setUltimaPosicion();
     this.buscandoSolicitudes();
   }
