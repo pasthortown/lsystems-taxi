@@ -27,6 +27,10 @@ export class PerfilComponent implements OnInit {
             this.toastr.setRootViewContainerRef(vcr);
     }
 
+    refresh() {
+
+    }
+
     ngOnInit() {
         const logedResult = JSON.parse(sessionStorage.getItem('logedResult')) as LoginResult;
         this.personaLogeada = logedResult.persona;
