@@ -244,7 +244,12 @@ export class HomePage implements OnInit {
   }
 
   checkViajesNoAsignados() {
+    this.http.get(this.webServiceURL + 'viaje/viajesPendientes')
+    .subscribe(r1 => {
 
+    }, error => {
+
+    });
   }
 
   escuchando() {
