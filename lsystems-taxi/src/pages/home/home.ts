@@ -41,6 +41,9 @@ export class HomePage implements OnInit {
   openModal(modalName){
     const myModal = this.modal.create(modalName);
     myModal.onDidDismiss(modalData => {
+      if(modalData==null){
+        return;
+      }
       let PosicionDestino = new google.maps.LatLng(modalData.latitude, modalData.longitude);
       this.marcadorDestino.setPosition(PosicionDestino);
       this.map.setCenter(PosicionDestino);
