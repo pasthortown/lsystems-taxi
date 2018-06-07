@@ -1,6 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\artes",
+    "\\lsystems-taxi",
+    "\\server",
+    "\\server\\controladores",
+    "\\server\\controladores\\CRUD"
   ],
+  "SelectedNode": "\\server\\controladores\\CRUD\\Controlador_adjunto.php",
   "PreviewInSolutionExplorer": false
 }
