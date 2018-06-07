@@ -4,7 +4,7 @@
         <div class="col col-sm-6">
             <div class="card mb-3">
                 <div class="card-header">
-                    Bar Chart
+                    Viajes realizados en la última semana
                 </div>
                 <div class="card-body">
                     <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
@@ -18,7 +18,7 @@
         <div class="col col-sm-6">
             <div class="card mb-3">
                 <div class="card-header">
-                    Doughnut Chart
+                    Calificaciones de los condictores
                 </div>
                 <div class="card-body">
                     <canvas baseChart height="180px" [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
@@ -31,7 +31,7 @@
         <div class="col col-sm-6">
             <div class="card mb-3">
                 <div class="card-header">
-                    Radar Chart
+                    Comentarios de los Usuarios
                 </div>
                 <div class="card-body">
                     <canvas baseChart height="150px" [datasets]="radarChartData" [labels]="radarChartLabels" [chartType]="radarChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
@@ -42,7 +42,7 @@
         <div class="col col-sm-6">
             <div class="card mb-3">
                 <div class="card-header">
-                    Pie Chart
+                    Calificaciones de los usuarios
                 </div>
                 <div class="card-body">
                     <canvas baseChart height="150px" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
@@ -51,6 +51,7 @@
             </div>
         </div>
     </div>
+    <!--
     <div class="row">
         <div class="col col-sm-6">
             <div class="card mb-3">
@@ -75,4 +76,5 @@
             </div>
         </div>
     </div>
+    -->
 </div>
