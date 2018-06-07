@@ -21,11 +21,11 @@ export class HomePage implements OnInit {
   webServiceURL = environment.apiUrl;
   subscription = null;
   usuario: Persona;
-  marcadoresViaje = [];
   viajeEnCurso: Viaje;
   viajeIniciado: boolean;
   marcadorUsuario: google.maps.Marker;
   marcadorTaxi: google.maps.Marker;
+  marcadorDestino: google.maps.Marker;
   conductor: Persona;
 
   constructor(
@@ -41,7 +41,9 @@ export class HomePage implements OnInit {
   openModal(modalName){
     const myModal = this.modal.create(modalName);
     myModal.onDidDismiss(modalData => {
-      console.log(modalData);
+      let PosicionDestino = new google.maps.LatLng(modalData.latitude, modalData.longitude);
+      this.marcadorDestino.setPosition(PosicionDestino);
+      this.map.setCenter(PosicionDestino);
     });
     myModal.present();
   }
@@ -163,10 +165,6 @@ export class HomePage implements OnInit {
   }
 
   getRoute() {
-    this.marcadoresViaje.forEach(element => {
-      element.setMap(null);
-    });
-    this.marcadoresViaje = [];
     let DestinoUsuario = new google.maps.LatLng(JSON.parse(this.viajeEnCurso.latHasta) as number,JSON.parse(this.viajeEnCurso.lngHasta) as number);
     let InicioUsuario = new google.maps.LatLng(JSON.parse(this.viajeEnCurso.latDesde) as number,JSON.parse(this.viajeEnCurso.lngDesde) as number);
     this.geolocation.getCurrentPosition().then((resp) => {
@@ -205,7 +203,7 @@ export class HomePage implements OnInit {
     };
     this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
     let mapa = this.map;
-    let marcadorFin = new google.maps.Marker({
+    this.marcadorDestino = new google.maps.Marker({
       position: new google.maps.LatLng(0,0),
       map: mapa,
       draggable: true,
@@ -239,9 +237,8 @@ export class HomePage implements OnInit {
       draggable: false,
       title: 'Usuario'
     });
-    this.marcadoresViaje.push(marcadorFin);
     this.map.addListener('click', function(event) {
-      marcadorFin.setPosition(event.latLng);
+      this.marcadorDestino.setPosition(event.latLng);
     });
   }
 
@@ -255,7 +252,7 @@ export class HomePage implements OnInit {
   }
 
   pedirUnidad() {
-    let destino = this.marcadoresViaje[0] as google.maps.Marker;
+    let destino = this.marcadorDestino;
     if(destino.getPosition().toJSON().lat == 0 && destino.getPosition().toJSON().lng == 0){
       this.showToast('Seleccione un destino', 3000);
       return;

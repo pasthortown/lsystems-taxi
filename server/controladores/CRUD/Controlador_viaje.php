@@ -338,9 +338,8 @@ class Controlador_viaje extends Controlador_Base
       $lngHasta = $args["lngHasta"];
       $idUsuario = $args["idUsuario"];
       $idEstadoViaje = 1;
-      $costoCalculado = $args["costoCalculado"];
-      $parametros = array($latDesde, $lngDesde, $latHasta, $lngHasta, $idUsuario, $idEstadoViaje, $costoCalculado);
-      $sql = "INSERT INTO Viaje (latDesde,lngDesde,latHasta,lngHasta,idUsuario,idEstadoViaje,costoCalculado) VALUES (?,?,?,?,?,?,?,?);";
+      $parametros = array($latDesde, $lngDesde, $latHasta, $lngHasta, $idUsuario, $idEstadoViaje);
+      $sql = "INSERT INTO Viaje (latDesde,lngDesde,latHasta,lngHasta,idUsuario,idEstadoViaje) VALUES (?,?,?,?,?,?);";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return true;
    }
@@ -379,7 +378,7 @@ class Controlador_viaje extends Controlador_Base
    }
 
    function viajesPendientes() {
-      $sql = "SELECT Viaje.id FROM Viaje WHERE idUnidad = null;";
+      $sql = "SELECT Viaje.id FROM Viaje WHERE idUnidad is null;";
       $parametros = array();
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])||$respuesta[0]==0){
