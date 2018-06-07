@@ -7,6 +7,7 @@ import { routerTransition } from '../../router.animations';
     styleUrls: ['./charts.component.scss'],
     animations: [routerTransition()]
 })
+
 export class ChartsComponent implements OnInit {
     // bar chart
     public barChartOptions: any = {
