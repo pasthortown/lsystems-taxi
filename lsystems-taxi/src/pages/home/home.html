@@ -1,12 +1,20 @@
 <ion-content>
 <div #gmap id="gmap" col-12></div>
-  <ion-fab right top>
+  <ion-fab right top *ngIf="!viajeIniciado">
     <button ion-fab color="light" (clic)="getMiPosicion()">
       <ion-icon name="map"></ion-icon>
     </button>
     <ion-fab-list side="left">
       <button ion-fab (click)="openModal('SearchPage')"><ion-icon name="globe"></ion-icon></button>
       <button ion-fab (click)="pedirUnidad()"><ion-icon name="locate"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+  <ion-fab left bottom>
+    <button ion-fab color="light" (clic)="getMiPosicion()">
+      <ion-icon name="map"></ion-icon>
+    </button>
+    <ion-fab-list side="right">
+      <button ion-fab (click)="openModal('SearchPage')"><ion-icon name="car"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
 </ion-content>

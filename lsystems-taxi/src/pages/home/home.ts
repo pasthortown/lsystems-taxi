@@ -21,11 +21,11 @@ export class HomePage implements OnInit {
   webServiceURL = environment.apiUrl;
   subscription = null;
   usuario: Persona;
-  marcadoresViaje = [];
   viajeEnCurso: Viaje;
   viajeIniciado: boolean;
   marcadorUsuario: google.maps.Marker;
   marcadorTaxi: google.maps.Marker;
+  marcadorDestino: google.maps.Marker;
   conductor: Persona;
 
   constructor(
@@ -41,7 +41,12 @@ export class HomePage implements OnInit {
   openModal(modalName){
     const myModal = this.modal.create(modalName);
     myModal.onDidDismiss(modalData => {
-      console.log(modalData);
+      if(modalData==null){
+        return;
+      }
+      let PosicionDestino = new google.maps.LatLng(modalData.latitude, modalData.longitude);
+      this.marcadorDestino.setPosition(PosicionDestino);
+      this.map.setCenter(PosicionDestino);
     });
     myModal.present();
   }
@@ -59,6 +64,7 @@ export class HomePage implements OnInit {
     this.usuario = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
     this.unidad = new Unidad();
     this.unidad.id = 1;
+    this.viajeEnCurso = new Viaje();
     this.startGoogleMap();
   }
 
@@ -90,12 +96,33 @@ export class HomePage implements OnInit {
   }
 
   verificarSiEnUso() {
-    this.http.get(this.webServiceURL + 'viaje/verificarSiEnUsoUsuario?idUsuario='+this.usuario.id)
-    .subscribe(r => {
-      if(JSON.stringify(r.json())=='[0]'){
+    if(this.viajeIniciado){
+      return;
+    }
+    this.http.get(this.webServiceURL + 'viaje/comprobarSolicitudViaje?id='+this.usuario.id.toString())
+    .subscribe(r1 => {
+      if(JSON.stringify(r1.json())=='[0]'){
         return;
       }
-
+      this.viajeEnCurso.idConductor=r1.json()[0].idConductor;
+      this.viajeEnCurso.latDesde=r1.json()[0].latDesde;
+      this.viajeEnCurso.lngDesde=r1.json()[0].lngDesde;
+      this.viajeEnCurso.latHasta=r1.json()[0].latHasta;
+      this.viajeEnCurso.lngHasta=r1.json()[0].lngHasta;
+      this.conductor = new Persona();
+      this.conductor.nombres = r1.json()[0].nombres;
+      this.conductor.apellidos = r1.json()[0].apellidos;
+      this.conductor.telefono1 = r1.json()[0].telefono1;
+      this.conductor.telefono2 = r1.json()[0].telefono2;
+      this.unidad = new Unidad();
+      this.unidad.id = r1.json()[0].idUnidad;
+      this.unidad.placa = r1.json()[0].placa;
+      this.unidad.numero = r1.json()[0].numero;
+      this.unidad.registroMunicipal = r1.json()[0].registroMunicipal;
+      this.viajeIniciado = true;
+      this.getRoute();
+      this.showToast('La unidad asignada está en camino.', 3000);
+      this.escuchando();
     }, error => {
 
     });
@@ -144,6 +171,7 @@ export class HomePage implements OnInit {
       this.unidad.registroMunicipal = r1.json()[0].registroMunicipal;
       this.viajeIniciado = true;
       this.getRoute();
+      this.showToast('La unidad asignada está en camino.', 3000);
     }, error => {
 
     });
@@ -163,38 +191,24 @@ export class HomePage implements OnInit {
   }
 
   getRoute() {
-    this.marcadoresViaje.forEach(element => {
-      element.setMap(null);
-    });
-    this.marcadoresViaje = [];
     let DestinoUsuario = new google.maps.LatLng(JSON.parse(this.viajeEnCurso.latHasta) as number,JSON.parse(this.viajeEnCurso.lngHasta) as number);
     let InicioUsuario = new google.maps.LatLng(JSON.parse(this.viajeEnCurso.latDesde) as number,JSON.parse(this.viajeEnCurso.lngDesde) as number);
-    this.geolocation.getCurrentPosition().then((resp) => {
-      let PosicionActual = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-      let directionsDisplay = new google.maps.DirectionsRenderer();
-      directionsDisplay.setMap(this.map);
-      let directionsService = new google.maps.DirectionsService();
-      let request: google.maps.DirectionsRequest = {
-        origin: PosicionActual,
-        destination: DestinoUsuario,
-        travelMode: google.maps.TravelMode.DRIVING,
-        waypoints: [
-          {
-            location: InicioUsuario,
-            stopover: true
-        }],
-        provideRouteAlternatives: true,
-        drivingOptions: {
-          departureTime: new Date(),
-          trafficModel: google.maps.TrafficModel.PESSIMISTIC
-        },
-      };
-      directionsService.route(request, function(result, status) {
-        directionsDisplay.setDirections(result);
-      })
-    }).catch((error) => {
-
-    });
+    let directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay.setMap(this.map);
+    let directionsService = new google.maps.DirectionsService();
+    let request: google.maps.DirectionsRequest = {
+      origin: InicioUsuario,
+      destination: DestinoUsuario,
+      travelMode: google.maps.TravelMode.DRIVING,
+      provideRouteAlternatives: true,
+      drivingOptions: {
+        departureTime: new Date(),
+        trafficModel: google.maps.TrafficModel.PESSIMISTIC
+      },
+    };
+    directionsService.route(request, function(result, status) {
+      directionsDisplay.setDirections(result);
+    })
   }
 
   startGoogleMap() {
@@ -205,7 +219,7 @@ export class HomePage implements OnInit {
     };
     this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
     let mapa = this.map;
-    let marcadorFin = new google.maps.Marker({
+    this.marcadorDestino = new google.maps.Marker({
       position: new google.maps.LatLng(0,0),
       map: mapa,
       draggable: true,
@@ -239,10 +253,10 @@ export class HomePage implements OnInit {
       draggable: false,
       title: 'Usuario'
     });
-    this.marcadoresViaje.push(marcadorFin);
     this.map.addListener('click', function(event) {
-      marcadorFin.setPosition(event.latLng);
+      this.marcadorDestino.setPosition(event.latLng);
     });
+    this.verificarSiEnUso();
   }
 
   showToast(mensaje: string, time: number):void {
@@ -255,7 +269,7 @@ export class HomePage implements OnInit {
   }
 
   pedirUnidad() {
-    let destino = this.marcadoresViaje[0] as google.maps.Marker;
+    let destino = this.marcadorDestino;
     if(destino.getPosition().toJSON().lat == 0 && destino.getPosition().toJSON().lng == 0){
       this.showToast('Seleccione un destino', 3000);
       return;

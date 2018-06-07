@@ -10,10 +10,10 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-searchbar (ionInput)="getItems($event)" placeholder="Buscar..."></ion-searchbar>
+    <ion-searchbar (ionInput)="getItems($event)" placeholder="Buscar..." [(ngModel)]="busqueda"></ion-searchbar>
     <ion-list>
-      <ion-item *ngFor="let item of items" (click)="useItem(item)">
-        {{ item }}
+      <ion-item *ngFor="let item of autocompleteItems" (click)="useItem(item)">
+        {{ item.description }}
       </ion-item>
     </ion-list>
 </ion-content>

@@ -338,16 +338,15 @@ class Controlador_viaje extends Controlador_Base
       $lngHasta = $args["lngHasta"];
       $idUsuario = $args["idUsuario"];
       $idEstadoViaje = 1;
-      $costoCalculado = $args["costoCalculado"];
-      $parametros = array($latDesde, $lngDesde, $latHasta, $lngHasta, $idUsuario, $idEstadoViaje, $costoCalculado);
-      $sql = "INSERT INTO Viaje (latDesde,lngDesde,latHasta,lngHasta,idUsuario,idEstadoViaje,costoCalculado) VALUES (?,?,?,?,?,?,?,?);";
+      $parametros = array($latDesde, $lngDesde, $latHasta, $lngHasta, $idUsuario, $idEstadoViaje);
+      $sql = "INSERT INTO Viaje (latDesde,lngDesde,latHasta,lngHasta,idUsuario,idEstadoViaje) VALUES (?,?,?,?,?,?);";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return true;
    }
 
    function comprobarSolicitudViaje($args) {
       $id = $args["id"];
-      $sql = "SELECT Viaje.id, Viaje.latDesde, Viaje.lngDesde, Viaje.latHasta, Viaje.lngHasta, Viaje.idUnidad, Unidad.placa, Unidad.numero, Unidad.registroMunicipal, Conductor.id as idConductor, Conductor.nombres, Conductor.apellidos, Conductor.telefono1, Conductor.telefono2 FROM Viaje INNER JOIN Persona as Conductor ON Conductor.id = Viaje.idConductor INNER JOIN Unidad ON Viaje.idUnidad = Unidad.id WHERE idEstadoViaje = 1 AND idUsuario = ?;";
+      $sql = "SELECT Viaje.id, Viaje.latDesde, Viaje.lngDesde, Viaje.latHasta, Viaje.lngHasta, Viaje.idUnidad, Unidad.placa, Unidad.numero, Unidad.registroMunicipal, Conductor.id as idConductor, Conductor.nombres, Conductor.apellidos, Conductor.telefono1, Conductor.telefono2 FROM Viaje INNER JOIN Persona as Conductor ON Conductor.id = Viaje.idConductor INNER JOIN Unidad ON Viaje.idUnidad = Unidad.id WHERE idEstadoViaje = 2 AND idUsuario = ?;";
       $parametros = array($id);
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
@@ -379,7 +378,7 @@ class Controlador_viaje extends Controlador_Base
    }
 
    function viajesPendientes() {
-      $sql = "SELECT Viaje.id FROM Viaje WHERE idUnidad = null;";
+      $sql = "SELECT Viaje.id FROM Viaje WHERE idUnidad is null;";
       $parametros = array();
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       if(is_null($respuesta[0])||$respuesta[0]==0){
