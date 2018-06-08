@@ -10,13 +10,13 @@ export class TutorialPage {
 
   slides = [
     {
-      title: "Welcome to the Docs!",
-      description: "The <b>Ionic Component Documentation</b> showcases a number of useful components that are included out of the box with Ionic.",
+      title: "Inicia el día!",
+      description: "En la pantalla principal activa el modo disponible y el sistema te asignará un pasajero que requiera tus servicios. Puedes pasar a modo no disponible si requieres un descanso",
       image: "assets/img/ica-slidebox-img-1.png",
     },
     {
-      title: "What is Ionic?",
-      description: "<b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies like HTML, CSS, and JavaScript.",
+      title: "Recibiendo un pasajero",
+      description: "Cuando se te ha asignado atender un viaje recibirás una notificación en la pantalla principal con los datos de contacto y la ruta de tu pasajero.",
       image: "assets/img/ica-slidebox-img-2.png",
     },
     {
