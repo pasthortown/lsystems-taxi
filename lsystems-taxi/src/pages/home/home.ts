@@ -71,7 +71,12 @@ export class HomePage implements OnInit {
   cerrarModoViaje(){
     const myModal = this.modal.create('EvaluatePage',{viaje: this.viajeEnCurso});
     myModal.onDidDismiss(modalData => {
-
+      this.viajeIniciado = false;
+      this.unidad = new Unidad();
+      this.viajeEnCurso = new Viaje();
+      this.subscription.unsubscribe();
+      this.getMiPosicion();
+      this.activado = false;
     });
     myModal.present();
   }
@@ -79,7 +84,6 @@ export class HomePage implements OnInit {
   refresh() {
     this.usuario = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
     this.unidad = new Unidad();
-    this.unidad.id = 1;
     this.viajeEnCurso = new Viaje();
     this.startGoogleMap();
   }

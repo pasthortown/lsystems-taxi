@@ -29,8 +29,6 @@ export class RatingsPage implements OnInit{
   getInfo(){
     this.unidad = this.params.get('unidad') as Unidad;
     this.conductor = this.params.get('conductor') as Persona;
-    console.log(this.unidad);
-    console.log(this.conductor);
     if(this.conductor==null || this.unidad==null){
       this.closeModal();
       return;
