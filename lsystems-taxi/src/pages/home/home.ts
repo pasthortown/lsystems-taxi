@@ -69,8 +69,9 @@ export class HomePage implements OnInit {
   }
 
   cerrarModoViaje(){
-    const myModal = this.modal.create('EvaluatePage',{viaje: this.viajeEnCurso});
+    const myModal = this.modal.create('EvaluatePage',{viaje: this.viajeEnCurso, usuario: this.usuario});
     myModal.onDidDismiss(modalData => {
+      this.startGoogleMap();
       this.viajeIniciado = false;
       this.unidad = new Unidad();
       this.viajeEnCurso = new Viaje();
@@ -124,6 +125,7 @@ export class HomePage implements OnInit {
       if(JSON.stringify(r1.json())=='[0]'){
         return;
       }
+      this.viajeEnCurso.id = r1.json()[0].id;
       this.viajeEnCurso.idConductor=r1.json()[0].idConductor;
       this.viajeEnCurso.latDesde=r1.json()[0].latDesde;
       this.viajeEnCurso.lngDesde=r1.json()[0].lngDesde;
