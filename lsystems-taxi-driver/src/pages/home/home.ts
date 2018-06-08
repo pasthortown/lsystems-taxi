@@ -92,11 +92,13 @@ export class HomePage implements OnInit {
       this.viajeIniciado = true;
       this.iniciarGPS();
       this.escucharSolicitudes();
-      this.viajeEnCurso = r.json().viaje;
+      this.viajeEnCurso = r.json().viaje as Viaje;
       this.pasajero = r.json().pasajero;
       this.getRoute();
       if(new Date(this.viajeEnCurso.fechaInicio).getFullYear() == new Date().getFullYear() && new Date(this.viajeEnCurso.fechaInicio).getMonth() == new Date().getMonth() && new Date(this.viajeEnCurso.fechaInicio).getDate() == new Date().getDate()) {
         this.pasajeroRecogido = true;
+      }else{
+        this.pasajeroRecogido = false;
       }
     }, error => {
 
