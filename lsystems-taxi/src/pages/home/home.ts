@@ -68,6 +68,10 @@ export class HomePage implements OnInit {
     this.getMiPosicion();
   }
 
+  pagar(){
+
+  }
+
   refresh() {
     this.usuario = JSON.parse(sessionStorage.getItem('logedResult')) as Persona;
     this.unidad = new Unidad();
