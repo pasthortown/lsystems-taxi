@@ -29,10 +29,12 @@
       starIconName="star"
       nullable="false">
     </rating>
-    <ion-select [(ngModel)]="expresion.idMotivoCalificacionUnidad">
-      <ion-option value="0">Seleccione...</ion-option>
-      <ion-option *ngFor="let motivo of motivosCalificacionUnidad" value="{{motivo.id}}">{{motivo.descripcion}}</ion-option>
-    </ion-select>
+    <ion-item>
+      <ion-select [(ngModel)]="expresion.idMotivoCalificacionUnidad">
+        <ion-option value="0">Seleccione...</ion-option>
+        <ion-option *ngFor="let motivo of motivosCalificacionUnidad" value="{{motivo.id}}">{{motivo.descripcion}}</ion-option>
+      </ion-select>
+    </ion-item>
   </div>
   <div col-12 style="border-style: none none solid none;"></div>
   <div col-12>
@@ -45,10 +47,12 @@
       starIconName="star"
       nullable="false">
     </rating>
-    <ion-select [(ngModel)]="expresion.idMotivoCalificacionConductor">
-      <ion-option value="0">Seleccione...</ion-option>
-      <ion-option *ngFor="let motivo of motivosCalificacionConductor" value="{{motivo.id}}">{{motivo.descripcion}}</ion-option>
-    </ion-select>
+    <ion-item>
+      <ion-select [(ngModel)]="expresion.idMotivoCalificacionConductor">
+        <ion-option value="0">Seleccione...</ion-option>
+        <ion-option *ngFor="let motivo of motivosCalificacionConductor" value="{{motivo.id}}">{{motivo.descripcion}}</ion-option>
+      </ion-select>
+    </ion-item>
   </div>
   <div col-12 style="border-style: none none solid none;"></div>
   <div col-12>
@@ -61,10 +65,12 @@
       starIconName="star"
       nullable="false">
     </rating>
-    <ion-select [(ngModel)]="expresion.idMotivoCalificacionEstiloConduccion">
-      <ion-option value="0">Seleccione...</ion-option>
-      <ion-option *ngFor="let motivo of motivosCalificacionEstiloConduccion" value="{{motivo.id}}">{{motivo.descripcion}}</ion-option>
-    </ion-select>
+    <ion-item>
+      <ion-select [(ngModel)]="expresion.idMotivoCalificacionEstiloConduccion">
+        <ion-option value="0">Seleccione...</ion-option>
+        <ion-option *ngFor="let motivo of motivosCalificacionEstiloConduccion" value="{{motivo.id}}">{{motivo.descripcion}}</ion-option>
+      </ion-select>
+    </ion-item>
   </div>
   <div col-12 style="border-style: none none solid none;"></div>
   <ion-row col-12>

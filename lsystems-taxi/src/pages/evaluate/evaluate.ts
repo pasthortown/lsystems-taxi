@@ -37,6 +37,9 @@ export class EvaluatePage implements OnInit {
   refresh(){
     this.viaje = this.params.get('viaje') as Viaje;
     this.expresion = new Expresion();
+    this.expresion.idCalificacionConductor=0;
+    this.expresion.idCalificacionUnidad=0;
+    this.expresion.idCalificacionEstiloConduccion=0;
     this.adjunto = new Adjunto();
     this.expresion.idViaje = this.viaje.id;
   }
