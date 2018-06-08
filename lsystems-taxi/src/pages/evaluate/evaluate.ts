@@ -1,3 +1,4 @@
+import { Persona } from './../../app/entidades/CRUD/Persona';
 import { environment } from './../../../environments/environment';
 import { MotivoCalificacionEstiloConduccion } from './../../app/entidades/CRUD/MotivoCalificacionEstiloConduccion';
 import { MotivoCalificacionConductor } from './../../app/entidades/CRUD/MotivoCalificacionConductor';
@@ -25,6 +26,7 @@ export class EvaluatePage implements OnInit {
   motivosCalificacionEstiloConduccion: MotivoCalificacionEstiloConduccion[];
   adjunto: Adjunto;
   webServiceURL = environment.apiUrl;
+  usuario: Persona;
 
   constructor(public toastCtrl: ToastController, public camera: Camera, public http: Http, public navCtrl: NavController, private params: NavParams, public view: ViewController, public navParams: NavParams) {
   }
@@ -35,10 +37,12 @@ export class EvaluatePage implements OnInit {
 
   refresh(){
     this.viaje = this.params.get('viaje') as Viaje;
+    this.usuario = this.params.get('usuario') as Persona;
     this.expresion = new Expresion();
-    this.expresion.idCalificacionConductor=0;
-    this.expresion.idCalificacionUnidad=0;
-    this.expresion.idCalificacionEstiloConduccion=0;
+    this.expresion.idMotivoCalificacionConductor=0;
+    this.expresion.idMotivoCalificacionUnidad=0;
+    this.expresion.idMotivoCalificacionEstiloConduccion=0;
+    this.expresion.idUsuario = this.usuario.id;
     this.adjunto = new Adjunto();
     this.expresion.idViaje = this.viaje.id;
   }
@@ -144,15 +148,15 @@ export class EvaluatePage implements OnInit {
 
   enviar(){
     if(this.adjunto.nombreArchivo!=null || this.adjunto.nombreArchivo!=''){
-      this.http.post(this.webServiceURL + '/adjunto/crear',JSON.stringify(this.adjunto))
+      this.http.post(this.webServiceURL + 'adjunto/crear',JSON.stringify(this.adjunto))
       .subscribe(respuesta => {
         if(respuesta){
           let data = {columna: 'nombreArchivo', tipo_filtro: 'coincide', filtro: this.adjunto.nombreArchivo};
-          this.http.get(this.webServiceURL + '/adjunto/leer_filtrado',JSON.stringify(data))
+          this.http.post(this.webServiceURL + 'adjunto/leer_filtrado',JSON.stringify(data))
           .subscribe(respuesta => {
             this.adjunto = respuesta.json()[0] as Adjunto;
             this.expresion.idAdjunto = this.adjunto.id;
-            this.http.post(this.webServiceURL + '/expresion/crear',JSON.stringify(this.expresion))
+            this.http.post(this.webServiceURL + 'expresion/crear',JSON.stringify(this.expresion))
             .subscribe(respuesta => {
               this.showToast('Gracias por tu evaluación.', 3000);
               this.closeModal();

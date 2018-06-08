@@ -14,8 +14,8 @@
   <ion-item>
     <ion-label floating>Comentarios y Sugerencias</ion-label>
     <ion-input type="text" [(ngModel)]="expresion.contenido"></ion-input>
-    <button ion-button icon-only color="primary" small item-end>
-      <ion-icon name="attach" (click)="getPicture()"></ion-icon>
+    <button ion-button icon-only color="primary" small item-end (click)="getPicture()">
+      <ion-icon name="attach"></ion-icon>
     </button>
   </ion-item>
   <div col-12 style="border-style: none none solid none;"></div>
@@ -30,7 +30,8 @@
       nullable="false">
     </rating>
     <ion-item>
-      <ion-select [(ngModel)]="expresion.idMotivoCalificacionUnidad">
+      <ion-label>Unidad</ion-label>
+      <ion-select col-12 [(ngModel)]="expresion.idMotivoCalificacionUnidad">
         <ion-option value="0">Seleccione...</ion-option>
         <ion-option *ngFor="let motivo of motivosCalificacionUnidad" value="{{motivo.id}}">{{motivo.descripcion}}</ion-option>
       </ion-select>
@@ -48,7 +49,8 @@
       nullable="false">
     </rating>
     <ion-item>
-      <ion-select [(ngModel)]="expresion.idMotivoCalificacionConductor">
+      <ion-label>Conductor</ion-label>
+      <ion-select col-12 [(ngModel)]="expresion.idMotivoCalificacionConductor">
         <ion-option value="0">Seleccione...</ion-option>
         <ion-option *ngFor="let motivo of motivosCalificacionConductor" value="{{motivo.id}}">{{motivo.descripcion}}</ion-option>
       </ion-select>
@@ -66,7 +68,8 @@
       nullable="false">
     </rating>
     <ion-item>
-      <ion-select [(ngModel)]="expresion.idMotivoCalificacionEstiloConduccion">
+      <ion-label>Estilo de Conducción</ion-label>
+      <ion-select col-12 [(ngModel)]="expresion.idMotivoCalificacionEstiloConduccion">
         <ion-option value="0">Seleccione...</ion-option>
         <ion-option *ngFor="let motivo of motivosCalificacionEstiloConduccion" value="{{motivo.id}}">{{motivo.descripcion}}</ion-option>
       </ion-select>
