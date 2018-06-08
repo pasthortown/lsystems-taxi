@@ -69,7 +69,7 @@ export class HomePage implements OnInit {
   }
 
   cerrarModoViaje(){
-
+    //aqui brother
   }
 
   refresh() {
