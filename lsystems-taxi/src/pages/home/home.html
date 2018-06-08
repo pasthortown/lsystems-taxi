@@ -9,12 +9,13 @@
       <button ion-fab (click)="pedirUnidad()"><ion-icon name="locate"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
-  <ion-fab left bottom>
+  <ion-fab left bottom *ngIf="viajeIniciado">
     <button ion-fab color="light">
       <ion-icon name="information-circle"></ion-icon>
     </button>
-    <ion-fab-list side="right" *ngIf="viajeIniciado">
+    <ion-fab-list side="right">
       <button ion-fab (click)="openModalUnidad('RatingsPage')"><ion-icon name="car"></ion-icon></button>
+      <button ion-fab (click)="cerrarModoViaje()"><ion-icon name="checkmark-circle"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
 </ion-content>
