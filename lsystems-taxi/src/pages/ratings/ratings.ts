@@ -38,6 +38,7 @@ export class RatingsPage implements OnInit{
     this.getConductorInfo();
     this.getUnidadInfo();
   }
+
   openModal(modalName){
     const myModal = this.modal.create(modalName);
     myModal.present();

@@ -1,0 +1,60 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Tu opinión tiene poder</ion-title>
+    <div col-12 text-center>
+      <small>Ayúdanos a ser mejores</small>
+    </div>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()">cerrar</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label floating>Comentarios y Sugerencias</ion-label>
+    <ion-input type="text" [(ngModel)]="expresion.contenido"></ion-input>
+    <button ion-button icon-only color="primary" small item-end>
+      <ion-icon name="attach"></ion-icon>
+    </button>
+  </ion-item>
+  <div col-12>
+    <ion-label>Calificación de la Unidad</ion-label>
+    <rating [(ngModel)]="expresion.idCalificacionUnidad"
+      readOnly="false"
+      max="5"
+      emptyStarIconName="star-outline"
+      halfStarIconName="star-half"
+      starIconName="star"
+      nullable="false">
+    </rating>
+  </div>
+  <div col-12>
+    <ion-label>Calificación del Conductor</ion-label>
+    <rating [(ngModel)]="expresion.idCalificacionConductor"
+      readOnly="false"
+      max="5"
+      emptyStarIconName="star-outline"
+      halfStarIconName="star-half"
+      starIconName="star"
+      nullable="false">
+    </rating>
+  </div>
+  <div col-12>
+    <ion-label>Calificación del estilo de Conducción</ion-label>
+    <rating [(ngModel)]="expresion.idCalificacionEstiloConduccion"
+      readOnly="false"
+      max="5"
+      emptyStarIconName="star-outline"
+      halfStarIconName="star-half"
+      starIconName="star"
+      nullable="false">
+    </rating>
+  </div>
+  <ion-row col-12>
+      <button ion-button full color="dark">Enviar</button>
+  </ion-row>
+</ion-content>

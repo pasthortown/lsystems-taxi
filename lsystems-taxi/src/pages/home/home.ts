@@ -69,7 +69,11 @@ export class HomePage implements OnInit {
   }
 
   cerrarModoViaje(){
-    //aqui brother
+    const myModal = this.modal.create('EvaluatePage',{viaje: this.viajeEnCurso});
+    myModal.onDidDismiss(modalData => {
+
+    });
+    myModal.present();
   }
 
   refresh() {
