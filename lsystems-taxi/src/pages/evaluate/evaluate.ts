@@ -11,7 +11,6 @@ import { Http } from '@angular/http';
 import { ToastController } from 'ionic-angular';
 import { Adjunto } from '../../app/entidades/CRUD/Adjunto';
 
-
 @IonicPage()
 @Component({
   selector: 'page-evaluate',
