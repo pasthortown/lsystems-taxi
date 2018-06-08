@@ -10,11 +10,11 @@
     </ion-fab-list>
   </ion-fab>
   <ion-fab left bottom>
-    <button ion-fab color="light" (clic)="getMiPosicion()">
-      <ion-icon name="map"></ion-icon>
+    <button ion-fab color="light">
+      <ion-icon name="information-circle"></ion-icon>
     </button>
-    <ion-fab-list side="right">
-      <button ion-fab (click)="openModal('SearchPage')"><ion-icon name="car"></ion-icon></button>
+    <ion-fab-list side="right" *ngIf="viajeIniciado">
+      <button ion-fab (click)="openModalUnidad('RatingsPage')"><ion-icon name="car"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
 </ion-content>

@@ -1,5 +1,4 @@
 import { AccountPage } from './../pages/account/account';
-import { RatingsPage } from './../pages/ratings/ratings';
 import { EarningsPage } from './../pages/earnings/earnings';
 import { RegisterPage } from './../pages/register/register';
 import { LoginPage } from './../pages/login/login';
@@ -31,8 +30,6 @@ import { CallNumber } from '@ionic-native/call-number';
     LoginPage,
     RegisterPage,
     EarningsPage,
-    RatingsPage,
-
     AccountPage
   ],
   imports: [
@@ -51,8 +48,6 @@ import { CallNumber } from '@ionic-native/call-number';
     LoginPage,
     RegisterPage,
     EarningsPage,
-    RatingsPage,
-
     AccountPage
   ],
   providers: [

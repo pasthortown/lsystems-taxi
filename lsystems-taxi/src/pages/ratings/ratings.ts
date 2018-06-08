@@ -3,7 +3,7 @@ import { Unidad } from './../../app/entidades/CRUD/Unidad';
 import { Persona } from './../../app/entidades/CRUD/Persona';
 import { environment } from './../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { CallNumber } from '@ionic-native/call-number';
 
@@ -22,10 +22,22 @@ export class RatingsPage implements OnInit{
 
   webServiceURL = environment.apiUrl;
 
-  constructor(private callNumber: CallNumber, public navCtrl: NavController, public navParams: NavParams, private modal: ModalController, public http: Http) {
-
+  constructor(private callNumber: CallNumber, private params: NavParams, public navCtrl: NavController, public view: ViewController, public navParams: NavParams, private modal: ModalController, public http: Http) {
+    this.getInfo();
   }
 
+  getInfo(){
+    this.unidad = this.params.get('unidad') as Unidad;
+    this.conductor = this.params.get('conductor') as Persona;
+    console.log(this.unidad);
+    console.log(this.conductor);
+    if(this.conductor==null || this.unidad==null){
+      this.closeModal();
+      return;
+    }
+    this.getConductorInfo();
+    this.getUnidadInfo();
+  }
   openModal(modalName){
     const myModal = this.modal.create(modalName);
     myModal.present();
@@ -43,10 +55,11 @@ export class RatingsPage implements OnInit{
   }
 
   refresh() {
-    this.conductor.id = 1;
-    this.unidad.id = 1;
-    this.getConductorInfo();
-    this.getUnidadInfo();
+
+  }
+
+  closeModal(){
+    this.view.dismiss();
   }
 
   getConductorInfo() {

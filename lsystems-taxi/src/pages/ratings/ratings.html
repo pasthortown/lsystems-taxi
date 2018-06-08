@@ -1,6 +1,9 @@
 <ion-header>
   <ion-navbar color="dark">
-    <ion-title>Asignado a</ion-title>
+    <ion-title>Datos de Servicio</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()">cerrar</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content>
@@ -25,14 +28,6 @@
 </div>
 <div style="height: 2%; background:#383838"></div>
 <ion-list>
-  <!--<ion-item >
-    <ion-avatar item-start justify-content-center>
-      <ion-icon name="ios-heart"></ion-icon>
-    </ion-avatar>
-    <h3><b>Reconocimientos de los pasajeros </b></h3>
-    <p text-wrap>Total de reconocimientos:</p>
-    <p style="color:indigo">17</p>
-  </ion-item>-->
   <ion-item-sliding>
     <ion-item>
       <ion-avatar item-start>

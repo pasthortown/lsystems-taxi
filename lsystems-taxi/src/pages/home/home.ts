@@ -51,6 +51,14 @@ export class HomePage implements OnInit {
     myModal.present();
   }
 
+  openModalUnidad(modalName){
+    const myModal = this.modal.create(modalName,{unidad: this.unidad, conductor: this.conductor});
+    myModal.onDidDismiss(modalData => {
+
+    });
+    myModal.present();
+  }
+
   ngOnInit() {
     this.viajeIniciado = false;
     this.refresh();
@@ -110,6 +118,7 @@ export class HomePage implements OnInit {
       this.viajeEnCurso.latHasta=r1.json()[0].latHasta;
       this.viajeEnCurso.lngHasta=r1.json()[0].lngHasta;
       this.conductor = new Persona();
+      this.conductor.id = r1.json()[0].idConductor;
       this.conductor.nombres = r1.json()[0].nombres;
       this.conductor.apellidos = r1.json()[0].apellidos;
       this.conductor.telefono1 = r1.json()[0].telefono1;
