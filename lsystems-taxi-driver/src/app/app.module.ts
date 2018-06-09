@@ -1,3 +1,4 @@
+import { TutorialPage } from './../pages/tutorial/tutorial';
 
 import { UnidadPage } from './../pages/unidad/unidad';
 import { AccountPage } from './../pages/account/account';
@@ -37,7 +38,8 @@ import { WebIntent } from '@ionic-native/web-intent';
     EarningsPage,
     RatingsPage,
     AccountPage,
-    UnidadPage
+    UnidadPage,
+    TutorialPage
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,8 @@ import { WebIntent } from '@ionic-native/web-intent';
     EarningsPage,
     RatingsPage,
     AccountPage,
-    UnidadPage
+    UnidadPage,
+    TutorialPage
   ],
   providers: [
     StatusBar,

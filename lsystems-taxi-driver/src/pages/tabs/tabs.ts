@@ -1,3 +1,4 @@
+import { TutorialPage } from './../tutorial/tutorial';
 import { Persona } from './../../app/entidades/CRUD/Persona';
 import { ToastController } from 'ionic-angular';
 
@@ -12,11 +13,12 @@ import { AccountPage } from '../account/account';
   templateUrl: 'tabs.html'
 })
 export class TabsPage implements OnInit{
-  tab4Root = AccountPage;
+
   tab1Root = HomePage;
   tab2Root = EarningsPage;
   tab3Root = RatingsPage;
-
+  tab4Root = AccountPage;
+  tab5Root = TutorialPage;
 
   constructor(public toastCtrl: ToastController) {
 
