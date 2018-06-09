@@ -10,19 +10,29 @@ export class TutorialPage {
 
   slides = [
     {
-      title: "Welcome to the Docs!",
-      description: "The <b>Ionic Component Documentation</b> showcases a number of useful components that are included out of the box with Ionic.",
-      image: "assets/img/ica-slidebox-img-1.png",
+      title: "Inicia el día!",
+      description: "En la pantalla principal activa el modo disponible y el sistema te asignará un pasajero que requiera tus servicios. Puedes pasar a modo no disponible si requieres un descanso",
+      image: "assets/imgs/ready_to_go.png",
     },
     {
-      title: "What is Ionic?",
-      description: "<b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies like HTML, CSS, and JavaScript.",
-      image: "assets/img/ica-slidebox-img-2.png",
+      title: "Recibiendo un pasajero",
+      description: "Cuando se te ha asignado atender un viaje recibirás una notificación en la pantalla principal con los datos de contacto y la ruta de tu pasajero.",
+      image: "assets/imgs/Passenger_assigned.png",
     },
     {
-      title: "What is Ionic Cloud?",
-      description: "The <b>Ionic Cloud</b> is a cloud platform for managing and scaling Ionic apps with integrated services like push notifications, native builds, user auth, and live updating.",
-      image: "assets/img/ica-slidebox-img-3.png",
+      title: "Contacta con tu pasajero",
+      description: "Si necesitas comunicarte con el cliente, podrás hacer uso de las opciones del viaje para contactarlo.",
+      image: "assets/imgs/User_contact.png",
+    },
+    {
+      title: "Dirígete a tu destino",
+      description: "Cuando llegues donde tu cliente, confirma que ha subido a la unidad y automáticamente pasaras a modo “En camino a destino solicitado”.",
+      image: "assets/imgs/Passenger_aborded.png",
+    },
+    {
+      title: "Termina tu viaje",
+      description: "Una vez alcanzado el punto de destino, utiliza las opciones de viaje para registrar el valor cobrado y finalizar el viaje. Ahora estarás listo para tu próximo viaje.",
+      image: "assets/imgs/Mission_completed.png",
     }
   ];
 
