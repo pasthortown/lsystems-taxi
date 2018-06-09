@@ -1,3 +1,4 @@
+import { TutorialPage } from './../pages/tutorial/tutorial';
 import { AccountPage } from './../pages/account/account';
 import { EarningsPage } from './../pages/earnings/earnings';
 import { RegisterPage } from './../pages/register/register';
@@ -30,7 +31,8 @@ import { CallNumber } from '@ionic-native/call-number';
     LoginPage,
     RegisterPage,
     EarningsPage,
-    AccountPage
+    AccountPage,
+    TutorialPage
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ import { CallNumber } from '@ionic-native/call-number';
     LoginPage,
     RegisterPage,
     EarningsPage,
-    AccountPage
+    AccountPage,
+    TutorialPage
   ],
   providers: [
     StatusBar,
