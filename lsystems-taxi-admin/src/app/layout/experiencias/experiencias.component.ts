@@ -1,3 +1,9 @@
+import { MotivoCalificacionEstiloConduccionService } from './../CRUD/motivocalificacionestiloconduccion/motivocalificacionestiloconduccion.service';
+import { MotivoCalificacionConductorService } from './../CRUD/motivocalificacionconductor/motivocalificacionconductor.service';
+import { MotivoCalificacionUnidadService } from './../CRUD/motivocalificacionunidad/motivocalificacionunidad.service';
+import { MotivoCalificacionConductor } from './../../entidades/CRUD/MotivoCalificacionConductor';
+import { MotivoCalificacionEstiloConduccion } from './../../entidades/CRUD/MotivoCalificacionEstiloConduccion';
+import { MotivoCalificacionUnidad } from './../../entidades/CRUD/MotivoCalificacionUnidad';
 import { AdjuntoService } from './../CRUD/adjunto/adjunto.service';
 import { PersonaService } from './../CRUD/persona/persona.service';
 import { Adjunto } from './../../entidades/CRUD/Adjunto';
@@ -17,15 +23,18 @@ import { saveAs } from "file-saver/FileSaver";
     styleUrls: ['./experiencias.component.scss']
 })
 export class ExperienciasComponent implements OnInit {
-    experiencias:Expresion[];
+    experiencias: Expresion[];
     busy: Promise<any>;
     experienciaSeleccionada: Expresion;
     remitente: Persona;
     unidad: Unidad;
     adjunto: Adjunto;
     adjuntoPresente: boolean;
+    CalificacionUnidad: MotivoCalificacionUnidad;
+    CalificacionConductor: MotivoCalificacionConductor;
+    CalificacionEstiloConduccion: MotivoCalificacionEstiloConduccion;
 
-    constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private modalService: NgbModal, private experienciaService: ExpresionService, private unidadService: UnidadService, private personaService: PersonaService, private adjuntoService: AdjuntoService) {
+    constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private modalService: NgbModal, private experienciaService: ExpresionService, private unidadService: UnidadService, private personaService: PersonaService, private adjuntoService: AdjuntoService, private calificacionUnidadService: MotivoCalificacionUnidadService, private calificacionEstiloConduccionService: MotivoCalificacionEstiloConduccionService, private calificacionConductorService: MotivoCalificacionConductorService) {
         this.toastr.setRootViewContainerRef(vcr);
     }
 
@@ -41,6 +50,33 @@ export class ExperienciasComponent implements OnInit {
         this.experienciaSeleccionada = new Expresion();
         this.adjuntoPresente = false;
         this.getExperiencias();
+    }
+
+    getCalificacionConductor(id) {
+        this.busy = this.calificacionConductorService.get(id)
+        .then(respuesta => {
+            this.CalificacionConductor = respuesta;
+        })
+        .catch(error => {
+        });
+    }
+
+    getCalificacionUnidad(id) {
+        this.busy = this.calificacionUnidadService.get(id)
+        .then(respuesta => {
+            this.CalificacionUnidad = respuesta;
+        })
+        .catch(error => {
+        });
+    }
+
+    getCalificacionEstiloConduccion(id) {
+        this.busy = this.calificacionEstiloConduccionService.get(id)
+        .then(respuesta => {
+            this.CalificacionEstiloConduccion = respuesta;
+        })
+        .catch(error => {
+        });
     }
 
     getExperiencias() {
@@ -61,6 +97,9 @@ export class ExperienciasComponent implements OnInit {
         this.experienciaSeleccionada = expresion;
         this.getRemitente();
         this.getUnidad();
+        this.getCalificacionConductor(this.experienciaSeleccionada.idMotivoCalificacionConductor);
+        this.getCalificacionEstiloConduccion(this.experienciaSeleccionada.idMotivoCalificacionEstiloConduccion);
+        this.getCalificacionUnidad(this.experienciaSeleccionada.idMotivoCalificacionUnidad);
         if (this.experienciaSeleccionada.idAdjunto == null || this.experienciaSeleccionada.idAdjunto == 0) {
             this.adjuntoPresente = false;
         }else {
