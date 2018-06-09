@@ -46,10 +46,10 @@ class Controlador_motivocalificacionconductor extends Controlador_Base
    {
       $id = $args["id"];
       if ($id==""){
-         $sql = "SELECT * FROM MotivoCalificacionConductor;";
+         $sql = "SELECT * FROM MotivoCalificacionConductor ORDER BY id ASC;";
       }else{
       $parametros = array($id);
-         $sql = "SELECT * FROM MotivoCalificacionConductor WHERE id = ?;";
+         $sql = "SELECT * FROM MotivoCalificacionConductor WHERE id = ? ORDER BY id ASC;";
       }
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
@@ -60,7 +60,7 @@ class Controlador_motivocalificacionconductor extends Controlador_Base
       $pagina = $args["pagina"];
       $registrosPorPagina = $args["registros_por_pagina"];
       $desde = (($pagina-1)*$registrosPorPagina);
-      $sql ="SELECT * FROM MotivoCalificacionConductor LIMIT $desde,$registrosPorPagina;";
+      $sql ="SELECT * FROM MotivoCalificacionConductor ORDER BY id ASC LIMIT $desde,$registrosPorPagina;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
@@ -68,7 +68,7 @@ class Controlador_motivocalificacionconductor extends Controlador_Base
    function numero_paginas($args)
    {
       $registrosPorPagina = $args["registros_por_pagina"];
-      $sql ="SELECT IF(ceil(count(*)/$registrosPorPagina)>0,ceil(count(*)/$registrosPorPagina),1) as 'paginas' FROM MotivoCalificacionConductor;";
+      $sql ="SELECT IF(ceil(count(*)/$registrosPorPagina)>0,ceil(count(*)/$registrosPorPagina),1) as 'paginas' FROM MotivoCalificacionConductor ORDER BY id ASC;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta[0];
    }
@@ -81,16 +81,16 @@ class Controlador_motivocalificacionconductor extends Controlador_Base
       switch ($tipoFiltro){
          case "coincide":
             $parametros = array($filtro);
-            $sql = "SELECT * FROM MotivoCalificacionConductor WHERE $nombreColumna = ?;";
+            $sql = "SELECT * FROM MotivoCalificacionConductor WHERE $nombreColumna = ? ORDER BY id ASC;";
             break;
          case "inicia":
-            $sql = "SELECT * FROM MotivoCalificacionConductor WHERE $nombreColumna LIKE '$filtro%';";
+            $sql = "SELECT * FROM MotivoCalificacionConductor WHERE $nombreColumna LIKE '$filtro%' ORDER BY id ASC;";
             break;
          case "termina":
-            $sql = "SELECT * FROM MotivoCalificacionConductor WHERE $nombreColumna LIKE '%$filtro';";
+            $sql = "SELECT * FROM MotivoCalificacionConductor WHERE $nombreColumna LIKE '%$filtro' ORDER BY id ASC;";
             break;
          default:
-            $sql = "SELECT * FROM MotivoCalificacionConductor WHERE $nombreColumna LIKE '%$filtro%';";
+            $sql = "SELECT * FROM MotivoCalificacionConductor WHERE $nombreColumna LIKE '%$filtro%' ORDER BY id ASC;";
             break;
       }
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);

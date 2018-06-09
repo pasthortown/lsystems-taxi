@@ -46,10 +46,10 @@ class Controlador_motivocalificacionunidad extends Controlador_Base
    {
       $id = $args["id"];
       if ($id==""){
-         $sql = "SELECT * FROM MotivoCalificacionUnidad;";
+         $sql = "SELECT * FROM MotivoCalificacionUnidad ORDER BY id ASC;";
       }else{
       $parametros = array($id);
-         $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE id = ?;";
+         $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE id = ? ORDER BY id ASC;";
       }
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
@@ -60,7 +60,7 @@ class Controlador_motivocalificacionunidad extends Controlador_Base
       $pagina = $args["pagina"];
       $registrosPorPagina = $args["registros_por_pagina"];
       $desde = (($pagina-1)*$registrosPorPagina);
-      $sql ="SELECT * FROM MotivoCalificacionUnidad LIMIT $desde,$registrosPorPagina;";
+      $sql ="SELECT * FROM MotivoCalificacionUnidad ORDER BY id ASC LIMIT $desde,$registrosPorPagina;";
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
       return $respuesta;
    }
@@ -81,16 +81,16 @@ class Controlador_motivocalificacionunidad extends Controlador_Base
       switch ($tipoFiltro){
          case "coincide":
             $parametros = array($filtro);
-            $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE $nombreColumna = ?;";
+            $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE $nombreColumna = ? ORDER BY id ASC;";
             break;
          case "inicia":
-            $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE $nombreColumna LIKE '$filtro%';";
+            $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE $nombreColumna LIKE '$filtro%' ORDER BY id ASC;";
             break;
          case "termina":
-            $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE $nombreColumna LIKE '%$filtro';";
+            $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE $nombreColumna LIKE '%$filtro' ORDER BY id ASC;";
             break;
          default:
-            $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE $nombreColumna LIKE '%$filtro%';";
+            $sql = "SELECT * FROM MotivoCalificacionUnidad WHERE $nombreColumna LIKE '%$filtro%' ORDER BY id ASC;";
             break;
       }
       $respuesta = $this->conexion->ejecutarConsulta($sql,$parametros);
