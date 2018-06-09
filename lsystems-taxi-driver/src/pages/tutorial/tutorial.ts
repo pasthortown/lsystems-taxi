@@ -22,7 +22,7 @@ export class TutorialPage {
     {
       title: "Contacta con tu pasajero",
       description: "Si necesitas comunicarte con el cliente, podrás hacer uso de las opciones del viaje para contactarlo.",
-      image: "assets/imgs/User_contact.png",
+      image: "assets/imgs/Contact_user.png",
     },
     {
       title: "Dirígete a tu destino",
