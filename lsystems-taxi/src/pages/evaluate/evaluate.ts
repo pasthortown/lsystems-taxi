@@ -45,6 +45,7 @@ export class EvaluatePage implements OnInit {
     this.expresion.idUsuario = this.usuario.id;
     this.adjunto = new Adjunto();
     this.expresion.idViaje = this.viaje.id;
+    this.expresion.respuesta = '';
   }
 
   getMotivos() {

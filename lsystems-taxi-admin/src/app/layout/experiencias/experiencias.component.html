@@ -83,13 +83,32 @@
             <div class="col-12">
                 <strong>Correo Electrónico:</strong>&nbsp;{{remitente.correoElectronico}}
             </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-12"><h5><strong>Calificación:</strong></h5></div>
             <div class="col-12">
-                <strong>Calificación:</strong>&nbsp;
-                <span *ngIf="experienciaSeleccionada.idCalificacion==1" class="badge badge-danger">Servicio Malo</span>
-                <span *ngIf="experienciaSeleccionada.idCalificacion==2" class="badge badge-warning">Servicio Deficiente</span>
-                <span *ngIf="experienciaSeleccionada.idCalificacion==3" class="badge badge-secondary">Servicio Regular</span>
-                <span *ngIf="experienciaSeleccionada.idCalificacion==4" class="badge badge-info">Buen Servicio</span>
-                <span *ngIf="experienciaSeleccionada.idCalificacion==5" class="badge badge-success">Excelente Servicio</span>
+                <strong>Calificación de Unidad:</strong>&nbsp;
+                <span *ngIf="experienciaSeleccionada.idCalificacionUnidad==1" class="badge badge-danger">{{CalificacionUnidad.descripcion}}</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacionUnidad==2" class="badge badge-warning">{{CalificacionUnidad.descripcion}}</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacionUnidad==3" class="badge badge-secondary">{{CalificacionUnidad.descripcion}}</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacionUnidad==4" class="badge badge-info">{{CalificacionUnidad.descripcion}}</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacionUnidad==5" class="badge badge-success">{{CalificacionUnidad.descripcion}}</span>
+            </div>
+            <div class="col-12">
+                <strong>Calificación de Conductor:</strong>&nbsp;
+                <span *ngIf="experienciaSeleccionada.idCalificacionConductor==1" class="badge badge-danger">{{CalificacionConductor.descripcion}}</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacionConductor==2" class="badge badge-warning">{{CalificacionConductor.descripcion}}</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacionConductor==3" class="badge badge-secondary">{{CalificacionConductor.descripcion}}</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacionConductor==4" class="badge badge-info">{{CalificacionConductor.descripcion}}</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacionConductor==5" class="badge badge-success">{{CalificacionConductor.descripcion}}</span>
+            </div>
+            <div class="col-12">
+                <strong>Calificación de Estilo de Conducción:</strong>&nbsp;
+                <span *ngIf="experienciaSeleccionada.idCalificacionEstiloConduccion==1" class="badge badge-danger">{{CalificacionEstiloConduccion.descripcion}}</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacionEstiloConduccion==2" class="badge badge-warning">{{CalificacionEstiloConduccion.descripcion}}</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacionEstiloConduccion==3" class="badge badge-secondary">{{CalificacionEstiloConduccion.descripcion}}</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacionEstiloConduccion==4" class="badge badge-info">{{CalificacionEstiloConduccion.descripcion}}</span>
+                <span *ngIf="experienciaSeleccionada.idCalificacionEstiloConduccion==5" class="badge badge-success">{{CalificacionEstiloConduccion.descripcion}}</span>
             </div>
         </div>
         <div class="form-group row">
