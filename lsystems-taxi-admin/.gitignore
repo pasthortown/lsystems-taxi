@@ -7,7 +7,7 @@
 # dependencies
 /node_modules
 package-lock.json
-
+/dist
 # IDEs and editors
 /.idea
 .project
