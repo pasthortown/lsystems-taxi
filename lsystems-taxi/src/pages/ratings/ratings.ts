@@ -111,9 +111,11 @@ export class RatingsPage implements OnInit{
       let cuenta = 0;
       let suma = 0;
       r.json().forEach(element => {
-        suma += element.Cuenta;
-        cuenta++;
+        suma += (element.idCalificacionConductor)*element.Cuenta;
+        cuenta += element.Cuenta*1;
       });
+      console.log(suma);
+      console.log(cuenta);
       this.calificacion = (suma/cuenta).toFixed(1);
     }, error => {
 
