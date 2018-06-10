@@ -5,7 +5,6 @@ import { ToastController } from 'ionic-angular';
 import { Component, OnInit } from '@angular/core';
 
 import { HomePage } from '../home/home';
-import { RatingsPage } from './../ratings/ratings';
 import { EarningsPage } from './../earnings/earnings';
 import { AccountPage } from '../account/account';
 
