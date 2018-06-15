@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 import { ExperienciasRoutingModule } from './experiencias-routing.module';
 import { ExperienciasComponent } from './experiencias.component';
@@ -18,6 +19,7 @@ import { ExperienciasComponent } from './experiencias.component';
         CommonModule,
         FormsModule,
         NgbModule,
+        CKEditorModule,
         ExperienciasRoutingModule],
     declarations: [ExperienciasComponent],
     providers: [ExpresionService, PersonaService, UnidadService, AdjuntoService, MotivoCalificacionEstiloConduccionService, MotivoCalificacionConductorService, MotivoCalificacionUnidadService]

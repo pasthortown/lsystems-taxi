@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-bs-component',
@@ -6,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./bs-component.component.scss']
 })
 export class BsComponentComponent implements OnInit {
-    constructor() {}
+    constructor(public router: Router) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.router.navigate(['/dashboard']);
+    }
 }
