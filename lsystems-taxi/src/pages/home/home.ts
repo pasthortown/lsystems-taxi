@@ -248,6 +248,7 @@ export class HomePage implements OnInit {
       draggable: true,
       title: 'Destino'
     });
+
     let taxiIcono = {
       url: 'assets/imgs/taxipin.png',
       size: new google.maps.Size(30, 30),

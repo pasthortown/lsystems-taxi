@@ -572,7 +572,7 @@ export class HomePage implements OnInit {
     this.webIntent.startActivity(options)
     .then(r1 => {
     }, error => {
-      alert(JSON.stringify(error));
+      console.log(error);
     });
   }
 }
